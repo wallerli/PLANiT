@@ -22,7 +22,7 @@ public class Task {
 
     public Task(String title, Size size, Priority priority) {
         if (title.length() == 0 || title.length() > MAX_TASK_TITLE_LENGTH)
-            throw new IllegalArgumentException("Illegal title length");
+            throw new IllegalArgumentException("Task title length not in range: " + 1 + "-" + MAX_TASK_TITLE_LENGTH);
         this.title = title;
         this.uuid = UUID.randomUUID();
         this.size = size;
@@ -35,7 +35,7 @@ public class Task {
 
     public void setTitle(String title) {
         if (title.length() == 0 || title.length() > MAX_TASK_TITLE_LENGTH)
-            throw new IllegalArgumentException("Illegal title length");
+            throw new IllegalArgumentException("Task title length not in range: " + 1 + "-" + MAX_TASK_TITLE_LENGTH);
         this.title = title;
     }
 
@@ -43,11 +43,11 @@ public class Task {
         return uuid;
     }
 
-    public boolean getComplete() {
+    public boolean getCompleteStatus() {
         return complete;
     }
 
-    public void setComplete(boolean complete) {
+    public void setCompleteStatus(boolean complete) {
         this.complete = complete;
     }
 
@@ -96,9 +96,8 @@ public class Task {
     }
 
     public void setText(String text) {
-        if (title.length() == 0 || title.length() > MAX_TASK_TEXT_LENGTH)
-            throw new IllegalArgumentException("Illegal text length");
+        if (text.length() == 0 || text.length() > MAX_TASK_TEXT_LENGTH)
+            throw new IllegalArgumentException("Task text length not in range: " + 1 + "-" + MAX_TASK_TEXT_LENGTH);
         this.text = text;
     }
 }
-

@@ -18,7 +18,7 @@ public class Project {
 
     public Project(String title) {
         if (title.length() == 0 || title.length() > MAX_PROJECT_TITLE_LENGTH)
-            throw new IllegalArgumentException("Illegal title length");
+            throw new IllegalArgumentException("Project title length not in range: " + 1 + "-" + MAX_PROJECT_TITLE_LENGTH);
         this.title = title;
         this.uuid = UUID.randomUUID();
     }
@@ -29,7 +29,7 @@ public class Project {
 
     public void setTitle(String title) {
         if (title.length() == 0 || title.length() > MAX_PROJECT_TITLE_LENGTH)
-            throw new IllegalArgumentException("Illegal title length");
+            throw new IllegalArgumentException("Project title length not in range: " + 1 + "-" + MAX_PROJECT_TITLE_LENGTH);
         this.title = title;
     }
 
@@ -74,8 +74,8 @@ public class Project {
     }
 
     public void setText(String text) {
-        if (title.length() == 0 || title.length() > MAX_PROJECT_TEXT_LENGTH)
-            throw new IllegalArgumentException("Illegal text length");
+        if (text.length() == 0 || text.length() > MAX_PROJECT_TEXT_LENGTH)
+            throw new IllegalArgumentException("Project text length not in range: " + 1 + "-" + MAX_PROJECT_TEXT_LENGTH);
         this.text = text;
     }
 

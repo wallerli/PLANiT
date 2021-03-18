@@ -11,7 +11,7 @@ public class Tag {
 
     public Tag(String name, String hexColor) {
         if (name.length() == 0 || name.length() > MAX_TAG_NAME_LENGTH)
-            throw new IllegalArgumentException("Illegal display string length");
+            throw new IllegalArgumentException("Tag name length not in range: " + 1 + "-" + MAX_TAG_NAME_LENGTH);
         this.name = name;
         this.hexColor = hexColor;
         this.uuid = UUID.randomUUID();
@@ -19,19 +19,19 @@ public class Tag {
 
     public Tag(String name) {
         if (name.length() == 0 || name.length() > MAX_TAG_NAME_LENGTH)
-            throw new IllegalArgumentException("Illegal display string length");
+            throw new IllegalArgumentException("Tag name length not in range: " + 1 + "-" + MAX_TAG_NAME_LENGTH);
         this.name = name;
         this.hexColor = ACCENT_COLOR;
         this.uuid = UUID.randomUUID();
     }
 
-    public String getDisplayString() {
+    public String getName() {
         return name;
     }
 
-    public void setDisplayString(String name) {
+    public void setName(String name) {
         if (name.length() == 0 || name.length() > MAX_TAG_NAME_LENGTH)
-            throw new IllegalArgumentException("Illegal display string length");
+            throw new IllegalArgumentException("Tag name length not in range: " + 1 + "-" + MAX_TAG_NAME_LENGTH);
         this.name = name;
     }
 
