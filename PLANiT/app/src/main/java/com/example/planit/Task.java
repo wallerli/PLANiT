@@ -1,26 +1,26 @@
 package com.example.planit;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-enum Size { TINY, SMALL, MEDIUM, LARGE, HUGE };
-enum Priority { LOW, MODERATE, HIGH, CRITICAL };
+enum Size { TINY, SMALL, MEDIUM, LARGE, HUGE }
+
+enum Priority { LOW, MODERATE, HIGH, CRITICAL }
 
 public class Task {
     final static int MAX_TASK_TITLE_LENGTH = 50;
     final static int MAX_TASK_TEXT_LENGTH = 500;
     private String title;
-    private UUID uuid;
+    private final UUID uuid;
     private boolean complete = false;
     private Size size;
     private Priority priority;
-    private List<UUID> tagUUIDs = Collections.emptyList();
-    private List<UUID> blockerUUIDs = Collections.emptyList();
+    private final List<UUID> tagUUIDs = Collections.emptyList();
+    private final List<UUID> blockerUUIDs = Collections.emptyList();
     private String text = "";
 
-    public Task(String title, Size size, Priority priority) throws IllegalArgumentException {
+    public Task(String title, Size size, Priority priority) {
         if (title.length() == 0 || title.length() > MAX_TASK_TITLE_LENGTH)
             throw new IllegalArgumentException("Illegal title length");
         this.title = title;
@@ -39,7 +39,7 @@ public class Task {
         this.title = title;
     }
 
-    public UUID getUuid() {
+    public UUID getUUID() {
         return uuid;
     }
 

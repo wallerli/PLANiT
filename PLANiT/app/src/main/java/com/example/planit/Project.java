@@ -9,14 +9,14 @@ public class Project {
     final static int MAX_PROJECT_TITLE_LENGTH = 50;
     final static int MAX_PROJECT_TEXT_LENGTH = 500;
     private String title;
-    private UUID uuid;
+    private final UUID uuid;
     private Date dueDate;
-    private List<UUID> tagUUIDs = Collections.emptyList();
-    private List<UUID> taskUUIDs = Collections.emptyList();
+    private final List<UUID> tagUUIDs = Collections.emptyList();
+    private final List<UUID> taskUUIDs = Collections.emptyList();
     private String text = "";
-    private float completeness = .0f;
+    private final float completeness = .0f;
 
-    public Project(String title) throws IllegalArgumentException {
+    public Project(String title) {
         if (title.length() == 0 || title.length() > MAX_PROJECT_TITLE_LENGTH)
             throw new IllegalArgumentException("Illegal title length");
         this.title = title;
@@ -33,7 +33,7 @@ public class Project {
         this.title = title;
     }
 
-    public UUID getUuid() {
+    public UUID getUUID() {
         return uuid;
     }
 
@@ -81,5 +81,9 @@ public class Project {
 
     public float getCompleteness() {
         return completeness;
+    }
+
+    public void updateCompleteness() {
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 }
