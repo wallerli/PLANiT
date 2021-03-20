@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.UUID;
 
 public class Project {
-    final static int MAX_PROJECT_TITLE_LENGTH = 50;
-    final static int MAX_PROJECT_TEXT_LENGTH = 500;
+    //final static int MAX_PROJECT_TITLE_LENGTH = 50;
+    //final static int MAX_PROJECT_TEXT_LENGTH = 500;
+    Globals global = Globals.getInstance();
     private String title;
     private final UUID uuid;
     private Date dueDate;
@@ -17,8 +18,8 @@ public class Project {
     private final float completeness = .0f;
 
     public Project(String title) {
-        if (title.length() == 0 || title.length() > MAX_PROJECT_TITLE_LENGTH)
-            throw new IllegalArgumentException("Project title length not in range: " + 1 + "-" + MAX_PROJECT_TITLE_LENGTH);
+        if (title.length() == 0 || title.length() > global.MAX_TITLE_LENGTH)
+            throw new IllegalArgumentException("Project title length not in range: " + 1 + "-" + global.MAX_TITLE_LENGTH);
         this.title = title;
         this.uuid = UUID.randomUUID();
     }
@@ -28,8 +29,8 @@ public class Project {
     }
 
     public void setTitle(String title) {
-        if (title.length() == 0 || title.length() > MAX_PROJECT_TITLE_LENGTH)
-            throw new IllegalArgumentException("Project title length not in range: " + 1 + "-" + MAX_PROJECT_TITLE_LENGTH);
+        if (title.length() == 0 || title.length() > global.MAX_TITLE_LENGTH)
+            throw new IllegalArgumentException("Project title length not in range: " + 1 + "-" + global.MAX_TITLE_LENGTH);
         this.title = title;
     }
 
@@ -74,8 +75,8 @@ public class Project {
     }
 
     public void setText(String text) {
-        if (text.length() == 0 || text.length() > MAX_PROJECT_TEXT_LENGTH)
-            throw new IllegalArgumentException("Project text length not in range: " + 1 + "-" + MAX_PROJECT_TEXT_LENGTH);
+        if (text.length() == 0 || text.length() > global.MAX_TEXT_LENGTH)
+            throw new IllegalArgumentException("Project text length not in range: " + 1 + "-" + global.MAX_TEXT_LENGTH);
         this.text = text;
     }
 
