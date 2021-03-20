@@ -96,7 +96,7 @@ public class Task {
 
     public void setText(String text) {
         if (text.length() == 0 || text.length() > global.MAX_TEXT_LENGTH)
-            throw new IllegalArgumentException("Task text length not in range: " + 1 + "-" + globa.MAX_TEXT_LENGTH);
+            throw new IllegalArgumentException("Task text length not in range: " + 1 + "-" + global.MAX_TEXT_LENGTH);
         this.text = text;
     }
 }
