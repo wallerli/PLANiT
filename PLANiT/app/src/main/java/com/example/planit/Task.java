@@ -9,8 +9,6 @@ enum Size { TINY, SMALL, MEDIUM, LARGE, HUGE }
 enum Priority { LOW, MODERATE, HIGH, CRITICAL }
 
 public class Task {
-    //final static int MAX_TASK_TITLE_LENGTH = 50;
-    //final static int MAX_TASK_TEXT_LENGTH = 500;
     Globals global = Globals.getInstance();
     private String title;
     private final UUID uuid;

@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class Project {
-    //final static int MAX_PROJECT_TITLE_LENGTH = 50;
-    //final static int MAX_PROJECT_TEXT_LENGTH = 500;
     Globals global = Globals.getInstance();
     private String title;
     private final UUID uuid;

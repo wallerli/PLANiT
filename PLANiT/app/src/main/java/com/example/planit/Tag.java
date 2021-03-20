@@ -3,7 +3,6 @@ package com.example.planit;
 import java.util.UUID;
 
 public class Tag {
-    //final static int MAX_TAG_NAME_LENGTH = 20;
     Globals global = Globals.getInstance();
     final static String ACCENT_COLOR = "#555";
     private String name;
