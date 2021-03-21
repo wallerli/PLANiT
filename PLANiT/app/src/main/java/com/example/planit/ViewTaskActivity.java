@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class ViewTaskActivity extends AppCompatActivity {
 
-    Project project;
+    Task task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
