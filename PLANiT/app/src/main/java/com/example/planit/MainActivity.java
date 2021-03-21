@@ -17,7 +17,7 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     public static String VIEW_PROJECT_ID = "com.example.planit.VIEW_PROJECT_ID";
-//    public static String VIEW_TASK_ID = "com.example.planit.VIEW_TASK_ID";
+    public static String VIEW_TASK_ID = "com.example.planit.VIEW_TASK_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
     public void openAProject(View view) {
         Intent intent = new Intent(this, ViewProjectActivity.class);
         intent.putExtra(VIEW_PROJECT_ID, "07db67c4-89d9-11eb-8dcd-0242ac130003");
+        startActivity(intent);
+    }
+
+    public void openATask(View view) {
+        Intent intent = new Intent(this, ViewTaskActivity.class);
+        intent.putExtra(VIEW_TASK_ID, "d0ed4eb2-89e2-11eb-8dcd-0242ac130003");
         startActivity(intent);
     }
 }
