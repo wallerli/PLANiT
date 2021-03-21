@@ -1,7 +1,11 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="section_header_font_size">42dp</dimen>
-    <dimen name="view_description_font_size">48dp</dimen>
-    <dimen name="view_subtitle_font_size">32dp</dimen>
-    <dimen name="view_title_font_size">72dp</dimen>
+    <dimen name="title_margin">16dp</dimen>
+    <dimen name="subtitle_margin">12dp</dimen>
+    <dimen name="description_margin">24dp</dimen>
+
+    <dimen name="section_header_font_size">42sp</dimen>
+    <dimen name="view_description_font_size">48sp</dimen>
+    <dimen name="view_subtitle_font_size">32sp</dimen>
+    <dimen name="view_title_font_size">72sp</dimen>
 </resources>

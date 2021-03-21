@@ -7,13 +7,42 @@
     tools:context=".ViewTaskActivity">
 
     <TextView
-        android:id="@+id/text_task_id"
+        android:id="@+id/taskTitleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/a_task"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/title_margin"
+        android:text="taskTitle"
+        android:textSize="@dimen/view_title_font_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/taskProjectTitleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/subtitle_margin"
+        android:text="projectTitle"
+        android:textSize="@dimen/view_subtitle_font_size"
+        app:layout_constraintStart_toStartOf="@+id/taskTitleView"
+        app:layout_constraintTop_toBottomOf="@+id/taskTitleView" />
+
+    <TextView
+        android:id="@+id/taskDescriptionView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/description_margin"
+        android:text="taskDescription"
+        android:textSize="@dimen/view_description_font_size"
+        app:layout_constraintStart_toStartOf="@+id/taskProjectTitleView"
+        app:layout_constraintTop_toBottomOf="@+id/taskProjectTitleView" />
+
+    <TextView
+        android:id="@+id/taskBlockedByView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/description_margin"
+        android:text="@string/blocked_by"
+        android:textSize="@dimen/view_description_font_size"
+        app:layout_constraintStart_toStartOf="@+id/taskDescriptionView"
+        app:layout_constraintTop_toBottomOf="@+id/taskDescriptionView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
