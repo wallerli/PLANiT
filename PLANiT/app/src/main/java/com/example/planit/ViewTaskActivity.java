@@ -19,8 +19,5 @@ public class ViewTaskActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         UUID task_id = UUID.fromString(intent.getStringExtra(MainActivity.VIEW_TASK_ID));
-
-        TextView textView = findViewById(R.id.text_task_id);
-        textView.setText(task_id.toString());
     }
 }
