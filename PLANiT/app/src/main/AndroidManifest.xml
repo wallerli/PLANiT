@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PLANiT">
         <activity android:name=".EditProjectActivity"></activity>
-        <activity android:name=".ViewTaskActivity" />
+        <activity android:name=".ViewTaskActivity"></activity>
         <activity android:name=".ViewProjectActivity" />
         <activity
             android:name=".MainActivity"
