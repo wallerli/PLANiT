@@ -3,26 +3,17 @@ package com.example.planit;
 import java.util.UUID;
 
 public class Tag {
-    Globals global = Globals.getInstance();
-    final static String ACCENT_COLOR = "#555";
     private String name;
-    private String hexColor;
-    private final UUID uuid;
+    private int hexColor = R.attr.colorAccent;
+    private final UUID uuid = UUID.randomUUID();
 
-    public Tag(String name, String hexColor) {
-        if (name.length() == 0 || name.length() > global.MAX_TAG_NAME_LENGTH)
-            throw new IllegalArgumentException("Tag name length not in range: " + 1 + "-" + global.MAX_TAG_NAME_LENGTH);
-        this.name = name;
+    public Tag(String name, int hexColor) {
+        this.setName(name);
         this.hexColor = hexColor;
-        this.uuid = UUID.randomUUID();
     }
 
     public Tag(String name) {
-        if (name.length() == 0 || name.length() > global.MAX_TAG_NAME_LENGTH)
-            throw new IllegalArgumentException("Tag name length not in range: " + 1 + "-" + global.MAX_TAG_NAME_LENGTH);
-        this.name = name;
-        this.hexColor = ACCENT_COLOR;
-        this.uuid = UUID.randomUUID();
+        this.setName(name);
     }
 
     public String getName() {
@@ -30,16 +21,16 @@ public class Tag {
     }
 
     public void setName(String name) {
-        if (name.length() == 0 || name.length() > global.MAX_TAG_NAME_LENGTH)
-            throw new IllegalArgumentException("Tag name length not in range: " + 1 + "-" + global.MAX_TAG_NAME_LENGTH);
+        if (name.length() == 0 || name.length() > R.dimen.max_tag_length)
+            throw new IllegalArgumentException("Tag name length not in range: " + 1 + "-" + R.dimen.max_tag_length);
         this.name = name;
     }
 
-    public String getHexColor() {
+    public int getHexColor() {
         return hexColor;
     }
 
-    public void setHexColor(String hexColor) {
+    public void setHexColor(int hexColor) {
         this.hexColor = hexColor;
     }
 
