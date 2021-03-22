@@ -6,16 +6,18 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.PLANiT.AppBarOverlay">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/view_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
             app:title="@string/view_activity_title"
-            app:menu="@menu/view_activity_toolbar"
+            app:menu="@menu/menu_toolbar_view"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            app:popupTheme="@style/Theme.PLANiT.PopupOverlay"
             />
 
     </com.google.android.material.appbar.AppBarLayout>
