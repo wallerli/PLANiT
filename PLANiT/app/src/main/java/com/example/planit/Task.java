@@ -86,6 +86,28 @@ public class Task {
         return this.blockers.remove(uuid);
     }
 
+    /**
+     * @param uuid the uuid of new blocker
+     * @return true if the new blocker is not blocked by current task
+     */
+    public boolean verifyBlocker(UUID uuid) {
+        Globals globals = Globals.getInstance();
+        return globals.getTask(uuid).allBlockers().contains(this.uuid);
+    }
+
+    /**
+     * @return recursively all blockers of the current task
+     */
+    public Set<UUID> allBlockers() {
+        Set<UUID> allBlockers = Collections.emptySet();
+        Globals globals = Globals.getInstance();
+        for (UUID blocker : this.blockers) {
+            allBlockers.add(blocker);
+            allBlockers.addAll(globals.getTask(blocker).allBlockers());
+        }
+        return allBlockers;
+    }
+
     public String getText() {
         return text;
     }
