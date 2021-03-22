@@ -11,4 +11,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="a_project">A Project</string>
     <string name="a_task">A Task</string>
+    <string name="blocked_by">Blocked by</string>
+    <string name="tasks">Tasks</string>
 </resources>
