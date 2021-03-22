@@ -88,11 +88,17 @@ public class Task {
 
     /**
      * @param uuid the uuid of new blocker
-     * @return true if the new blocker is not blocked by current task
+     * @return 0 if new blocker is legitimate;
+     *          1 if new blocker is the same as current task;
+     *          2 if new blocker is blocked by current task
      */
-    public boolean verifyBlocker(UUID uuid) {
+    public int verifyBlocker(UUID uuid) {
         Globals globals = Globals.getInstance();
-        return globals.getTask(uuid).allBlockers().contains(this.uuid);
+        if (uuid.equals(this.uuid))
+            return 1;
+        if (globals.getTask(uuid).allBlockers().contains(this.uuid))
+            return 2;
+        return 0;
     }
 
     /**
