@@ -19,8 +19,5 @@ public class ViewProjectActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         UUID project_id = UUID.fromString(intent.getStringExtra(MainActivity.VIEW_PROJECT_ID));
-
-        TextView textView = findViewById(R.id.text_project_id);
-        textView.setText(project_id.toString());
     }
 }

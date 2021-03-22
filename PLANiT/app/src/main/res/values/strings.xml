@@ -15,4 +15,6 @@
     <string name="edit_activity_title">Edit</string>
     <string name="edit">Edit</string>
     <string name="done">Done</string>
+    <string name="blocked_by">Blocked by</string>
+    <string name="tasks">Tasks</string>
 </resources>
