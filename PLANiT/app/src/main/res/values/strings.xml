@@ -12,4 +12,5 @@
     <string name="a_project">A Project</string>
     <string name="a_task">A Task</string>
     <string name="blocked_by">Blocked by</string>
+    <string name="tasks">Tasks</string>
 </resources>

@@ -7,7 +7,7 @@
     tools:context=".ViewTaskActivity">
 
     <TextView
-        android:id="@+id/taskTitleView"
+        android:id="@+id/taskTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/title_margin"
@@ -17,32 +17,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/taskProjectTitleView"
+        android:id="@+id/taskProjectTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/subtitle_margin"
         android:text="projectTitle"
         android:textSize="@dimen/view_subtitle_font_size"
-        app:layout_constraintStart_toStartOf="@+id/taskTitleView"
-        app:layout_constraintTop_toBottomOf="@+id/taskTitleView" />
+        app:layout_constraintStart_toStartOf="@+id/taskTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/taskTitleTextView" />
 
     <TextView
-        android:id="@+id/taskDescriptionView"
+        android:id="@+id/taskDescriptionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/description_margin"
         android:text="taskDescription"
         android:textSize="@dimen/view_description_font_size"
-        app:layout_constraintStart_toStartOf="@+id/taskProjectTitleView"
-        app:layout_constraintTop_toBottomOf="@+id/taskProjectTitleView" />
+        app:layout_constraintStart_toStartOf="@+id/taskProjectTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/taskProjectTitleTextView" />
 
     <TextView
-        android:id="@+id/taskBlockedByView"
+        android:id="@+id/taskBlockedByTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/description_margin"
         android:text="@string/blocked_by"
         android:textSize="@dimen/view_description_font_size"
-        app:layout_constraintStart_toStartOf="@+id/taskDescriptionView"
-        app:layout_constraintTop_toBottomOf="@+id/taskDescriptionView" />
+        app:layout_constraintStart_toStartOf="@+id/taskDescriptionTextView"
+        app:layout_constraintTop_toBottomOf="@+id/taskDescriptionTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,12 +7,42 @@
     tools:context=".ViewProjectActivity">
 
     <TextView
-        android:id="@+id/text_project_id"
+        android:id="@+id/projectTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/a_project"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/title_margin"
+        android:text="projectTitle"
+        android:textSize="@dimen/view_title_font_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/projectDueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/subtitle_margin"
+        android:text="projectDue"
+        android:textSize="@dimen/view_subtitle_font_size"
+        app:layout_constraintStart_toStartOf="@+id/projectTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/projectTitleTextView" />
+
+    <TextView
+        android:id="@+id/projectDescriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/description_margin"
+        android:text="projectDescription"
+        android:textSize="@dimen/view_description_font_size"
+        app:layout_constraintStart_toStartOf="@+id/projectDueTextView"
+        app:layout_constraintTop_toBottomOf="@+id/projectDueTextView" />
+
+    <TextView
+        android:id="@+id/projectTasksTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/description_margin"
+        android:text="@string/tasks"
+        android:textSize="@dimen/view_description_font_size"
+        app:layout_constraintStart_toStartOf="@+id/projectDescriptionTextView"
+        app:layout_constraintTop_toBottomOf="@+id/projectDescriptionTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
