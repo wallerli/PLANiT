@@ -2,15 +2,15 @@ package com.example.planit;
 
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class Project {
     private String title;
     private final UUID uuid = UUID.randomUUID();
     private Date dueDate;
-    private final List<UUID> tagUUIDs = Collections.emptyList();
-    private final List<UUID> taskUUIDs = Collections.emptyList();
+    private final Set<UUID> tags = Collections.emptySet();
+    private final Set<UUID> tasks = Collections.emptySet();
     private String text = "";
     private final float completeness = .0f;
 
@@ -40,28 +40,32 @@ public class Project {
         this.dueDate = dueDate;
     }
 
-    public boolean addTagUUID(UUID uuid) {
-        return this.tagUUIDs.add(uuid);
+    public boolean addTag(UUID uuid) {
+        return this.tags.add(uuid);
     }
 
-    public int searchTagUUID(UUID uuid) {
-        return this.tagUUIDs.indexOf(uuid);
+    public boolean containsTag(UUID uuid) {
+        return this.tags.contains(uuid);
     }
 
-    public boolean removeTagUUID(UUID uuid) {
-        return this.tagUUIDs.remove(uuid);
+    public boolean removeTag(UUID uuid) {
+        return this.tags.remove(uuid);
     }
 
-    public boolean addTaskUUID(UUID uuid) {
-        return this.taskUUIDs.add(uuid);
+    public boolean addTask(UUID uuid) {
+        return this.tasks.add(uuid);
     }
 
-    public int searchTaskUUID(UUID uuid) {
-        return this.taskUUIDs.indexOf(uuid);
+    public boolean containsTask(UUID uuid) {
+        return this.tasks.contains(uuid);
     }
 
-    public boolean removeTaskUUID(UUID uuid) {
-        return this.taskUUIDs.remove(uuid);
+    public Set<UUID> getTasks() {
+        return this.tasks;
+    }
+
+    public boolean removeTask(UUID uuid) {
+        return this.tasks.remove(uuid);
     }
 
     public String getText() {

@@ -35,27 +35,40 @@ public class Globals{
         return tasks.put(task.getUUID(), task);
     }
 
-    public Project deleteProject(UUID projectUuid) {
-        return projects.remove(projectUuid);
+    public Project getProject(UUID projectUUID) {
+        return projects.get(projectUUID);
     }
 
-    public Tag deleteTag(UUID tagUuid) {
-        return tags.remove(tagUuid);
+    public Tag getTag(UUID tagUUID) {
+        return tags.remove(tagUUID);
     }
 
-    public Task deleteTask(UUID taskUuid) {
-        return tasks.remove(taskUuid);
+    public Task getTask(UUID taskUUID) {
+        return tasks.get(taskUUID);
     }
 
-    public Project getProject(UUID projectUuid) {
-        return projects.get(projectUuid);
+    public Project removeProject(UUID projectUUID) {
+        for (UUID taskUUID : this.getProject(projectUUID).getTasks()) {
+            this.removeTask(taskUUID);
+        }
+        return projects.remove(projectUUID);
     }
 
-    public Tag getTag(UUID tagUuid) {
-        return tags.remove(tagUuid);
+    public Tag removeTag(UUID tagUUID) {
+        for (Project project : projects.values()) {
+            project.removeTag(tagUUID);
+        }
+        for (Task task : tasks.values()) {
+            task.removeTag(tagUUID);
+        }
+        return tags.remove(tagUUID);
     }
 
-    public Task getTask(UUID taskUuid) {
-        return tasks.get(taskUuid);
+    public Task removeTask(UUID taskUUID) {
+        // This for loop is needed if we will allow blockers between projects.
+        for (Task task : tasks.values()) {
+            task.removeBlocker(taskUUID);
+        }
+        return tasks.remove(taskUUID);
     }
 }

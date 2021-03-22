@@ -1,7 +1,7 @@
 package com.example.planit;
 
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 enum Size { TINY, SMALL, MEDIUM, LARGE, HUGE }
@@ -14,8 +14,8 @@ public class Task {
     private boolean complete = false;
     private Size size;
     private Priority priority;
-    private final List<UUID> tagUUIDs = Collections.emptyList();
-    private final List<UUID> blockerUUIDs = Collections.emptyList();
+    private final Set<UUID> tags = Collections.emptySet();
+    private final Set<UUID> blockers = Collections.emptySet();
     private String text = "";
 
     public Task(String title, Size size, Priority priority) {
@@ -62,28 +62,28 @@ public class Task {
         this.priority = priority;
     }
 
-    public boolean addTagUUID(UUID uuid) {
-        return this.tagUUIDs.add(uuid);
+    public boolean addTag(UUID uuid) {
+        return this.tags.add(uuid);
     }
 
-    public int searchTagUUID(UUID uuid) {
-        return this.tagUUIDs.indexOf(uuid);
+    public boolean containsTag(UUID uuid) {
+        return this.tags.contains(uuid);
     }
 
-    public boolean removeTagUUID(UUID uuid) {
-        return this.tagUUIDs.remove(uuid);
+    public boolean removeTag(UUID uuid) {
+        return this.tags.remove(uuid);
     }
 
-    public boolean addBlockerUUID(UUID uuid) {
-        return this.blockerUUIDs.add(uuid);
+    public boolean addBlocker(UUID uuid) {
+        return this.blockers.add(uuid);
     }
 
-    public int searchBlockerUUID(UUID uuid) {
-        return this.blockerUUIDs.indexOf(uuid);
+    public boolean containsBlocker(UUID uuid) {
+        return this.blockers.contains(uuid);
     }
 
-    public boolean removeBlockerUUID(UUID uuid) {
-        return this.blockerUUIDs.remove(uuid);
+    public boolean removeBlocker(UUID uuid) {
+        return this.blockers.remove(uuid);
     }
 
     public String getText() {
