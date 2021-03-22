@@ -13,4 +13,6 @@
     <string name="a_task">A Task</string>
     <string name="project_title">Project Title *</string>
     <string name="pick_time">Pick Time</string>
+    <string name="blocked_by">Blocked by</string>
+    <string name="tasks">Tasks</string>
 </resources>
