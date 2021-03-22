@@ -4,8 +4,8 @@
     <dimen name="subtitle_margin">12dp</dimen>
     <dimen name="description_margin">24dp</dimen>
 
-    <dimen name="section_header_font_size">42sp</dimen>
-    <dimen name="view_description_font_size">48sp</dimen>
-    <dimen name="view_subtitle_font_size">32sp</dimen>
-    <dimen name="view_title_font_size">72sp</dimen>
+    <dimen name="section_header_font_size">16sp</dimen>
+    <dimen name="view_description_font_size">18sp</dimen>
+    <dimen name="view_subtitle_font_size">12sp</dimen>
+    <dimen name="view_title_font_size">26sp</dimen>
 </resources>
