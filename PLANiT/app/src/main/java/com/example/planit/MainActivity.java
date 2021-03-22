@@ -69,4 +69,9 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(VIEW_TASK_ID, "d0ed4eb2-89e2-11eb-8dcd-0242ac130003");
         startActivity(intent);
     }
+    public void openEditProject(View view){
+        Intent intent = new Intent(this, EditProjectActivity.class);
+        //intent.putExtra(); pass array of contact in the future
+        startActivity(intent);
+    }
 }
