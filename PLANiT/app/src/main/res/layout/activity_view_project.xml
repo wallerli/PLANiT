@@ -67,6 +67,14 @@
                 android:layout_marginRight="@dimen/title_margin"
                 android:text="@string/tasks"
                 android:textSize="@dimen/view_description_font_size" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tasksRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/projectTasksTextView"
+                android:layout_marginEnd="@dimen/title_margin"
+                android:layout_marginStart="@dimen/title_margin" />
         </RelativeLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
