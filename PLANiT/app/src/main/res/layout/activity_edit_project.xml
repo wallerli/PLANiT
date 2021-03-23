@@ -120,7 +120,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/chips"
-                android:text="@string/description_text"/>
+                android:text="@string/description_text"
+                android:labelFor="@id/edit_description"/>
 
             <EditText
                 android:id="@+id/edit_description"

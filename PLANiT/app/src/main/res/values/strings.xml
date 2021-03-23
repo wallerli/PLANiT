@@ -29,4 +29,16 @@
     <string name="done">Done</string>
     <string name="select_due_date_button_text">Select Due Date</string>
     <string name="no_due_date_selected_text">No due date selected</string>
+    <string name="task_title">Task Title *</string>
+    <string name="size_label_text">Size of Task</string>
+    <string name="tiny_text">Tiny</string>
+    <string name="small_text">Small</string>
+    <string name="medium_text">Medium</string>
+    <string name="large_text">Large</string>
+    <string name="huge_text">Huge</string>
+    <string name="low_text">Low</string>
+    <string name="moderate_text">Moderate</string>
+    <string name="high_text">High</string>
+    <string name="critical_text">Critical</string>
+    <string name="project_associated_label">Project *</string>
 </resources>
