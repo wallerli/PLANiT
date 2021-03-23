@@ -1,5 +1,7 @@
 package com.example.planit;
 
+import android.graphics.Color;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -12,9 +14,10 @@ public class Globals{
     private final Map<UUID, Task> tasks = new HashMap<UUID, Task>();
 
     private Globals() {
-        projects.put(null, new Project("New Project"));
-        tags.put(null, new Tag("New Tag"));
-        tasks.put(null, new Task("New Task", Size.MEDIUM, Priority.MODERATE));
+//        projects.put(null, new Project("New Project"));
+//        tags.put(null, new Tag("New Tag"));
+//        tasks.put(null, new Task("New Task", Size.MEDIUM, Priority.MODERATE));
+        setupDummyObjects();
     }
 
     public static Globals getInstance() {
@@ -70,5 +73,104 @@ public class Globals{
             task.removeBlocker(taskUUID);
         }
         return tasks.remove(taskUUID);
+    }
+
+    /**
+     * Title and Text are generated from https://www.blindtextgenerator.com/lorem-ipsum
+     */
+    public void setupDummyObjects() {
+        this.tags.clear();
+        this.projects.clear();
+        this.tasks.clear();
+        Tag tag1 = new Tag("Reading", Color.rgb(255, 0, 0));
+        Tag tag2 = new Tag("Do first", Color.rgb(0, 255, 0));
+        Tag tag3 = new Tag("Team work");
+        addTag(tag1);
+        addTag(tag2);
+        addTag(tag3);
+
+        Project project1 = new Project("Sed ut perspiciatis");
+        project1.addTag(tag1.getUUID());
+        project1.addTag(tag3.getUUID());
+        project1.setText("" +
+                        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.\n" +
+                        "\n" +
+                        "Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante."
+                        );
+        Task task1 = new Task("Et harum quidem", Size.MEDIUM, Priority.HIGH);
+        task1.addTag(tag1.getUUID());
+        task1.setText("" +
+                        "Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.\n" +
+                        "\n" +
+                        "Nulla consequat massa quis enim.\n" +
+                        "\n" +
+                        "Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.\n" +
+                        "\n" +
+                        "In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.\n" +
+                        "\n" +
+                        "Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus." +
+                        "");
+        Task task2 = new Task("Itaque earum rerum hic", Size.LARGE, Priority.CRITICAL);
+        task2.addTag(tag2.getUUID());
+        task2.setText("" +
+                        "Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Maecenas malesuada.\n" +
+                        "\n" +
+                        "Praesent congue erat at massa. Sed cursus turpis vitae tortor. Donec posuere vulputate arcu.\n" +
+                        "\n" +
+                        "Phasellus accumsan cursus velit.\n" +
+                        "\n" +
+                        "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed aliquam, nisi quis porttitor congue, elit erat euismod orci, ac placerat dolor lectus quis orci.\n" +
+                        "\n" +
+                        "Phasellus consectetuer vestibulum elit. Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc.\n" +
+                        "\n" +
+                        "Vestibulum fringilla pede sit amet augue. In turpis. Pellentesque posuere. Praesent turpis.\n" +
+                        "\n" +
+                        "Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Donec elit libero, sodales nec, volutpat a, suscipit non, turpis.\n" +
+                        "\n" +
+                        "Nullam sagittis. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc.\n" +
+                        "\n" +
+                        "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce id purus. Ut varius tincidunt libero. Phasellus dolor. Maecenas vestibulum mollis" +
+                        "");
+        task2.addBlocker(task1.getUUID());
+        Task task3 = new Task("At vero eos et accusamus", Size.LARGE, Priority.CRITICAL);
+        task3.addTag(tag1.getUUID());
+        task3.setText("" +
+                        "Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.\n" +
+                        "\n" +
+                        "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.\n" +
+                        "\n" +
+                        "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat." +
+                        "");
+        task3.setCompleteStatus(true);
+        project1.addTask(task1.getUUID());
+        project1.addTask(task2.getUUID());
+        project1.addTask(task3.getUUID());
+        addProject(project1);
+        addTask(task1);
+        addTask(task2);
+        addTask(task3);
+
+        Project project2 = new Project("Quis autem vel eum iure");
+        project2.setText("" +
+                        "Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.\n" +
+                        "\n" +
+                        "Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien."
+                        );
+        Task task4 = new Task("Sed ut perspiciatis unde omnis", Size.SMALL, Priority.MODERATE);
+        task4.addTag(tag2.getUUID());
+        task4.setText("" +
+                        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.\n" +
+                        "\n" +
+                        "Aenean commodo ligula eget dolor. Aenean massa.\n" +
+                        "\n" +
+                        "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n" +
+                        "\n" +
+                        "Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.\n" +
+                        "\n" +
+                        "Nulla consequat massa quis enim." +
+                        "");
+        project2.addTask(task4.getUUID());
+        addProject(project2);
+        addTask(task4);
     }
 }
