@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/favorite"
+        android:icon="@drawable/ic_baseline_create_24"
+        android:title="@string/edit"
+        android:contentDescription="@string/edit"
+        app:showAsAction="ifRoom" />
+</menu>
