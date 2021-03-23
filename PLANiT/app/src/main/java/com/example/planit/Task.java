@@ -115,6 +115,13 @@ public class Task {
         return allBlockers;
     }
 
+    /**
+     * @return recursively all blockers of the current task
+     */
+    public Set<UUID> getBlockers() {
+        return blockers;
+    }
+
     public String getText() {
         return text;
     }
