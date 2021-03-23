@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static String VIEW_PROJECT_ID = "com.example.planit.VIEW_PROJECT_ID";
     public static String VIEW_TASK_ID = "com.example.planit.VIEW_TASK_ID";
+    Globals globals = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        globals = Globals.getInstance();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -60,13 +62,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void openAProject(View view) {
         Intent intent = new Intent(this, ViewProjectActivity.class);
-        intent.putExtra(VIEW_PROJECT_ID, "07db67c4-89d9-11eb-8dcd-0242ac130003");
+        intent.putExtra(VIEW_PROJECT_ID, globals.getProject());
         startActivity(intent);
     }
 
     public void openATask(View view) {
         Intent intent = new Intent(this, ViewTaskActivity.class);
-        intent.putExtra(VIEW_TASK_ID, "d0ed4eb2-89e2-11eb-8dcd-0242ac130003");
+        intent.putExtra(VIEW_TASK_ID, globals.getTask());
         startActivity(intent);
     }
     public void openEditProject(View view){

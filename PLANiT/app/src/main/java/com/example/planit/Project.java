@@ -2,6 +2,8 @@ package com.example.planit;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -9,8 +11,8 @@ public class Project {
     private String title;
     private final UUID uuid = UUID.randomUUID();
     private Date dueDate;
-    private final Set<UUID> tags = Collections.emptySet();
-    private final Set<UUID> tasks = Collections.emptySet();
+    private final Set<UUID> tags = new HashSet<>();
+    private final Set<UUID> tasks = new HashSet<>();
     private String text = "";
     private final float completeness = .0f;
 
