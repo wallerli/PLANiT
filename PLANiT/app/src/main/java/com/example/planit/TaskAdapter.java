@@ -23,14 +23,14 @@ public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskVie
 
     @NonNull
     @Override
-    public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public com.example.planit.TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
         View view = inflater.inflate(R.layout.layout_tasks, null);
-        return new TaskViewHolder(view);
+        return new com.example.planit.TaskViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull com.example.planit.TaskViewHolder holder, int position) {
         Task task = Globals.getInstance().getTask(tasks.get(position));
         Project parentProject = Globals.getInstance().getParentProject(task.getUUID());
         holder.title.setText(task.getTitle());
