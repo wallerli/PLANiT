@@ -2,24 +2,20 @@ package com.example.planit;
 
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class Project {
-    Globals global = Globals.getInstance();
     private String title;
-    private final UUID uuid;
+    private final UUID uuid = UUID.randomUUID();
     private Date dueDate;
-    private final List<UUID> tagUUIDs = Collections.emptyList();
-    private final List<UUID> taskUUIDs = Collections.emptyList();
+    private final Set<UUID> tags = Collections.emptySet();
+    private final Set<UUID> tasks = Collections.emptySet();
     private String text = "";
     private final float completeness = .0f;
 
     public Project(String title) {
-        if (title.length() == 0 || title.length() > global.MAX_TITLE_LENGTH)
-            throw new IllegalArgumentException("Project title length not in range: " + 1 + "-" + global.MAX_TITLE_LENGTH);
-        this.title = title;
-        this.uuid = UUID.randomUUID();
+        this.setTitle(title);
     }
 
     public String getTitle() {
@@ -27,8 +23,8 @@ public class Project {
     }
 
     public void setTitle(String title) {
-        if (title.length() == 0 || title.length() > global.MAX_TITLE_LENGTH)
-            throw new IllegalArgumentException("Project title length not in range: " + 1 + "-" + global.MAX_TITLE_LENGTH);
+        if (title.length() == 0 || title.length() > R.dimen.max_title_length)
+            throw new IllegalArgumentException("Project title length not in range: " + 1 + "-" + R.dimen.max_title_length);
         this.title = title;
     }
 
@@ -44,28 +40,32 @@ public class Project {
         this.dueDate = dueDate;
     }
 
-    public boolean addTagUUID(UUID uuid) {
-        return this.tagUUIDs.add(uuid);
+    public boolean addTag(UUID uuid) {
+        return this.tags.add(uuid);
     }
 
-    public int searchTagUUID(UUID uuid) {
-        return this.tagUUIDs.indexOf(uuid);
+    public boolean containsTag(UUID uuid) {
+        return this.tags.contains(uuid);
     }
 
-    public boolean removeTagUUID(UUID uuid) {
-        return this.tagUUIDs.remove(uuid);
+    public boolean removeTag(UUID uuid) {
+        return this.tags.remove(uuid);
     }
 
-    public boolean addTaskUUID(UUID uuid) {
-        return this.taskUUIDs.add(uuid);
+    public boolean addTask(UUID uuid) {
+        return this.tasks.add(uuid);
     }
 
-    public int searchTaskUUID(UUID uuid) {
-        return this.taskUUIDs.indexOf(uuid);
+    public boolean containsTask(UUID uuid) {
+        return this.tasks.contains(uuid);
     }
 
-    public boolean removeTaskUUID(UUID uuid) {
-        return this.taskUUIDs.remove(uuid);
+    public Set<UUID> getTasks() {
+        return this.tasks;
+    }
+
+    public boolean removeTask(UUID uuid) {
+        return this.tasks.remove(uuid);
     }
 
     public String getText() {
@@ -73,8 +73,8 @@ public class Project {
     }
 
     public void setText(String text) {
-        if (text.length() == 0 || text.length() > global.MAX_TEXT_LENGTH)
-            throw new IllegalArgumentException("Project text length not in range: " + 1 + "-" + global.MAX_TEXT_LENGTH);
+        if (text.length() == 0 || text.length() > R.dimen.max_text_length)
+            throw new IllegalArgumentException("Project text length not in range: " + 1 + "-" + R.dimen.max_text_length);
         this.text = text;
     }
 
