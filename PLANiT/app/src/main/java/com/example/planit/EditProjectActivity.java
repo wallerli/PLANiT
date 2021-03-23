@@ -1,6 +1,7 @@
 package com.example.planit;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.Activity;
@@ -12,8 +13,10 @@ import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.google.android.material.chip.Chip;
@@ -22,11 +25,23 @@ import com.google.android.material.chip.ChipGroup;
 import java.util.Calendar;
 
 public class EditProjectActivity extends AppCompatActivity {
+    TextView textView;
+    Button button;
+    int day, month, year, hour, minute;
+    int myday, myMonth, myYear, myHour, myMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_project);
+        Toolbar toolbar = findViewById(R.id.edit_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.menu_toolbar_edit);
+
+        toolbar.setNavigationOnClickListener(view -> finish());
+
+        textView = findViewById(R.id.due_date_value);
+        button = findViewById(R.id.btnPick);
 
         /**
         Spinner spinner = (Spinner) findViewById(R.id.contacts_spinner);
@@ -38,9 +53,6 @@ public class EditProjectActivity extends AppCompatActivity {
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
          */
-
-
-
     }
 
     public void showTimePickerDialog(View v) {
@@ -67,8 +79,6 @@ public class EditProjectActivity extends AppCompatActivity {
             return new TimePickerDialog(getActivity(), this, hour, minute,
                     DateFormat.is24HourFormat(getActivity()));
         }
-
-
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             // Do something with the time chosen by the user

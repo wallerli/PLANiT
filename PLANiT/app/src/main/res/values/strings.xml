@@ -27,4 +27,6 @@
     <string name="edit_activity_title">Edit</string>
     <string name="edit">Edit</string>
     <string name="done">Done</string>
+    <string name="select_due_date_button_text">Select Due Date</string>
+    <string name="no_due_date_selected_text">No due date selected</string>
 </resources>
