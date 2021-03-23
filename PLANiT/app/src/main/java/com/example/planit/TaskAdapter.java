@@ -32,10 +32,8 @@ public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskVie
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         Task task = Globals.getInstance().getTask(tasks.get(position));
-        Project parentProject = Globals.getInstance().getParentProject(task.getUUID());
         holder.title.setText(task.getTitle());
         holder.description.setText(task.getText());
-        holder.projectTitle.setText(parentProject.getTitle());
     }
 
     @Override
