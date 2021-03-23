@@ -105,7 +105,7 @@ public class Globals{
         addTag(tag2);
         addTag(tag3);
 
-        Project project1 = new Project("ProjectOneTitle lus ut perspiciatis");
+        Project project1 = new Project("ProjectOneTitle lusut perspiciatis");
         project1.addTag(tag1.getUUID());
         project1.addTag(tag3.getUUID());
         project1.setText("" +
@@ -152,7 +152,7 @@ public class Globals{
                         "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce id purus. Ut varius tincidunt libero. Phasellus dolor. Maecenas vestibulum mollis" +
                         "");
         task2.addBlocker(task1.getUUID());
-        Task task3 = new Task("TaskThreeTitle t vero eos et accusamus", Size.LARGE, Priority.CRITICAL);
+        Task task3 = new Task("TaskThreeTitle vero eos et accusamus", Size.LARGE, Priority.CRITICAL);
         task3.addTag(tag1.getUUID());
         task3.setText("" +
                         "TaskThreeDescription am libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.\n" +
@@ -172,7 +172,7 @@ public class Globals{
 
 
 
-        Project project2 = new Project("ProjectTwoTitle uis autem vel eum iure");
+        Project project2 = new Project("ProjectTwoTitle uisautem vel eum iure");
         project2.setText("" +
                         "ProjectTwoDescription hasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.\n" +
                         "\n" +
@@ -182,7 +182,7 @@ public class Globals{
             project2.setDueDate(df.parse("03/23/2021 05:12"));
         } catch (ParseException ignored) {}
 
-        Task task4 = new Task("TaskFourTitle ed ut perspiciatis unde omnis", Size.SMALL, Priority.MODERATE);
+        Task task4 = new Task("TaskFourTitle perspiciatis unde omnis", Size.SMALL, Priority.MODERATE);
         task4.addTag(tag2.getUUID());
         task4.setText("" +
                         "TaskFourDescription orem ipsum dolor sit amet, consectetuer adipiscing elit.\n" +

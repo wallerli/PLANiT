@@ -35,7 +35,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         Intent intent = getIntent();
         UUID task_id = UUID.fromString(intent.getStringExtra(MainActivity.VIEW_TASK_ID));
         task = Globals.getInstance().getTask(task_id);
-        if (task.getBlockers() != null) blockers.addAll(task.getBlockers());
+        blockers.addAll(task.getBlockers());
 
         title = findViewById(R.id.taskTitleTextView);
         projectTitle = findViewById(R.id.taskProjectTitleTextView);

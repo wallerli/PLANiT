@@ -34,7 +34,7 @@ public class ViewProjectActivity extends AppCompatActivity {
         Intent intent = getIntent();
         UUID project_id = UUID.fromString(intent.getStringExtra(MainActivity.VIEW_PROJECT_ID));
         project = Globals.getInstance().getProject(project_id);
-        if (project.getTasks() != null) tasks.addAll(project.getTasks());
+        tasks.addAll(project.getTasks());
 
         title = findViewById(R.id.projectTitleTextView);
         due = findViewById(R.id.projectDueTextView);
