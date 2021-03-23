@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ProjectViewHolder extends RecyclerView.ViewHolder {
 
-    TextView title, due, description;
+    TextView title, due, completeness;
 
     public ProjectViewHolder(@NonNull View itemView) {
         super(itemView);
 
         title = itemView.findViewById(R.id.projectTitleTextView);
         due = itemView.findViewById(R.id.projectDueTextView);
-        description = itemView.findViewById(R.id.projectDescriptionTextView);
+//        completeness = itemView.findViewById(R.id.projectCompletenessTextView);
     }
 }
