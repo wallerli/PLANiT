@@ -53,6 +53,7 @@ public class ViewProjectActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         TaskAdapter adapter = new TaskAdapter(this, tasks);
         recyclerView.setAdapter(adapter);
+        recyclerView.setNestedScrollingEnabled(false);
     }
 
     @Override
