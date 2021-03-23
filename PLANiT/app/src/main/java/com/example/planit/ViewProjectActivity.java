@@ -34,7 +34,7 @@ public class ViewProjectActivity extends AppCompatActivity {
         text = findViewById(R.id.projectDescriptionTextView);
 
         title.setText(project.getTitle());
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.getDefault());
         due.setText(df.format(project.getDueDate()));
         text.setText(project.getText());
     }
