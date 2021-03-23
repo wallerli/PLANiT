@@ -2,6 +2,7 @@ package com.example.planit;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 public class Globals{
@@ -52,6 +53,14 @@ public class Globals{
             this.removeTask(taskUUID);
         }
         return projects.remove(projectUUID);
+    }
+
+    public Project getParentProject(UUID taskUUID) {
+        for (Map.Entry<UUID, Project> e : projects.entrySet()) {
+            if (e.getValue().containsTask(taskUUID))
+                return e.getValue();
+        }
+        throw new NoSuchElementException("No project contains the task");
     }
 
     public Tag removeTag(UUID tagUUID) {
