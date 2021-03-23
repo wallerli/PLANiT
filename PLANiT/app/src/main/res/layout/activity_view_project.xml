@@ -14,8 +14,6 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="@dimen/title_margin"
-        android:layout_marginRight="@dimen/title_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +23,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/title_margin"
+            android:layout_marginRight="@dimen/title_margin">
 
             <TextView
                 android:id="@+id/projectTitleTextView"
@@ -67,9 +67,7 @@
                 android:id="@+id/tasksRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/projectTasksTextView"
-                android:layout_marginEnd="@dimen/title_margin"
-                android:layout_marginStart="@dimen/title_margin" />
+                android:layout_below="@id/projectTasksTextView" />
         </RelativeLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
