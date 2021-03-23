@@ -12,6 +12,13 @@
     <string name="a_project">A Project</string>
     <string name="a_task">A Task</string>
     <string name="project_title">Project Title *</string>
+    <string name="due_date">Due Date</string>
+    <string name="time_display_info">Your Time Display Here</string>
+    <string name="date_display_info">Your Date Display Here</string>
+    <string name="pick_date">Pick Date</string>
+    <string name="contact_text">Contact</string>
+    <string name="tag_text">Tags</string>
+    <string name="description_text">Description</string>
     <string name="pick_time">Pick Time</string>
     <string name="blocked_by">Blocked by</string>
     <string name="tasks">Tasks</string>
