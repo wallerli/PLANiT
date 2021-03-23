@@ -18,7 +18,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="@dimen/title_margin"
-                android:text="Blocker Task Title"
                 android:textSize="@dimen/recycler_title_font_size" />
 
             <TextView
@@ -29,7 +28,6 @@
                 android:layout_marginTop="@dimen/subtitle_margin"
                 android:layout_marginBottom="@dimen/title_margin"
                 android:maxLines="3"
-                android:text="djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvbdjfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb"
                 android:textSize="@dimen/recycler_description_font_size" />
 
         </RelativeLayout>
