@@ -11,8 +11,8 @@ public class Project {
     private String title;
     private final UUID uuid = UUID.randomUUID();
     private Date dueDate;
-    private Set<UUID> tags = new HashSet<>();
-    private Set<UUID> tasks = new HashSet<>();
+    private final Set<UUID> tags = new HashSet<>();
+    private final Set<UUID> tasks = new HashSet<>();
     private String text = "";
     private final float completeness = .0f;
 
