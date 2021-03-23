@@ -2,7 +2,10 @@ package com.example.planit;
 
 import android.graphics.Color;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -97,6 +100,11 @@ public class Globals{
                         "\n" +
                         "Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante."
                         );
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.getDefault());
+        try {
+            project1.setDueDate(df.parse("2022/3/23"));
+        } catch (ParseException ignored) {}
+
         Task task1 = new Task("Et harum quidem", Size.MEDIUM, Priority.HIGH);
         task1.addTag(tag1.getUUID());
         task1.setText("" +
@@ -150,12 +158,18 @@ public class Globals{
         addTask(task2);
         addTask(task3);
 
+
+
         Project project2 = new Project("Quis autem vel eum iure");
         project2.setText("" +
                         "Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.\n" +
                         "\n" +
                         "Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien."
                         );
+        try {
+            project2.setDueDate(df.parse("2021/3/23 5:12"));
+        } catch (ParseException ignored) {}
+
         Task task4 = new Task("Sed ut perspiciatis unde omnis", Size.SMALL, Priority.MODERATE);
         task4.addTag(tag2.getUUID());
         task4.setText("" +
@@ -172,5 +186,19 @@ public class Globals{
         project2.addTask(task4.getUUID());
         addProject(project2);
         addTask(task4);
+    }
+
+    /**
+     * @return the first project UUID
+     */
+    public UUID getProject() {
+        return projects.keySet().iterator().next();
+    }
+
+    /**
+     * @return the first task UUID
+     */
+    public UUID getTask() {
+        return tasks.keySet().iterator().next();
     }
 }
