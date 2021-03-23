@@ -1,6 +1,7 @@
 package com.example.planit;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,8 +15,8 @@ public class Task {
     private boolean complete = false;
     private Size size;
     private Priority priority;
-    private final Set<UUID> tags = Collections.emptySet();
-    private final Set<UUID> blockers = Collections.emptySet();
+    private final Set<UUID> tags = new HashSet<>();
+    private final Set<UUID> blockers = new HashSet<>();
     private String text = "";
 
     public Task(String title, Size size, Priority priority) {
