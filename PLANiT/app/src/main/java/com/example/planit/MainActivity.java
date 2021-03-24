@@ -30,11 +30,15 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
-            if (fab.isExpanded())
-                fab.setRotation(0);
-            else
-                fab.setRotation(135f);
             fab.setExpanded(!fab.isExpanded());
+            if (fab.isExpanded()) {
+                fab.animate().setDuration(300).rotation(45f);
+                fab.setRotation(45f);
+            }
+            else {
+                fab.animate().setDuration(300).rotation(-45f);
+                fab.setRotation(0);
+            }
         });
     }
 

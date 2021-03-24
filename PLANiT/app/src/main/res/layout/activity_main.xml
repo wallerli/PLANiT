@@ -35,16 +35,15 @@
             app:layout_behavior="com.google.android.material.transformation.FabTransformationScrimBehavior"
             android:orientation="vertical"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:paddingBottom="@dimen/expansion_menu_padding"
-            android:layout_marginRight="@dimen/fab_margin"
-            android:layout_marginEnd="@dimen/fab_margin">
+            android:layout_width="wrap_content">
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/fab_create_project"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_marginBottom="@dimen/fab_margin"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_marginEnd="@dimen/fab_margin"
                 android:text="@string/create_project"
                 android:onClick="openEditProject"
                 app:icon="@drawable/ic_baseline_add_24" />
@@ -54,10 +53,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_marginBottom="@dimen/fab_margin"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_marginEnd="@dimen/fab_margin"
                 android:text="@string/create_task"
                 android:onClick="openEditTask"
                 app:icon="@drawable/ic_baseline_add_24" />
-
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
