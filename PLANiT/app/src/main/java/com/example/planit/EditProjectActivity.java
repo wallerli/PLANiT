@@ -43,7 +43,7 @@ public class EditProjectActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(view -> finish());
 
         textView = findViewById(R.id.due_date_value);
-        button = findViewById(R.id.btnPick);
+//        button = findViewById(R.id.btnPick);
 
         /**
         Spinner spinner = (Spinner) findViewById(R.id.contacts_spinner);
