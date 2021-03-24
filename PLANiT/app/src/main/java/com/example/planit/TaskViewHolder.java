@@ -8,13 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TaskViewHolder extends RecyclerView.ViewHolder {
 
-    TextView title, projectTitle, description;
+    TextView title, description;
 
     public TaskViewHolder(@NonNull View itemView) {
         super(itemView);
 
         title = itemView.findViewById(R.id.taskTitleTextView);
-        projectTitle = itemView.findViewById(R.id.taskProjectTitleTextView);
         description = itemView.findViewById(R.id.taskDescriptionTextView);
     }
 }
