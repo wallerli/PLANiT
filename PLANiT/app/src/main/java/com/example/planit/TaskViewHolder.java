@@ -23,7 +23,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         title = itemView.findViewById(R.id.taskTitleTextView);
         description = itemView.findViewById(R.id.taskDescriptionTextView);
 
-        itemView.setOnClickListener(v -> {
+        itemView.findViewById(R.id.taskClickBox).setOnClickListener(v -> {
             Context context = v.getContext();
             Intent intent = new Intent(context, ViewTaskActivity.class);
             intent.putExtra(VIEW_TASK_ID, taskUUID.toString());
