@@ -1,10 +1,11 @@
 package com.example.planit;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     public static String VIEW_PROJECT_ID = "com.example.planit.VIEW_PROJECT_ID";
     public static String VIEW_TASK_ID = "com.example.planit.VIEW_TASK_ID";
     Globals globals = null;
+    FloatingActionButton fab = null;
+    boolean fab_expanded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +31,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         globals = Globals.getInstance();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+        fab = findViewById(R.id.fab);
+        fab.animate().setDuration(200);
+
+        fab.setOnClickListener(view -> {
+            fab_expanded = !fab_expanded;
+            rotateFab();
+            fab.setExpanded(fab_expanded);
         });
     }
 
@@ -76,11 +79,28 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EditProjectActivity.class);
         //intent.putExtra(); pass array of contact in the future
         startActivity(intent);
+        fab_expanded = false;
+        rotateFab();
+        fab.setExpanded(fab_expanded);
     }
 
     public void openEditTask(View view){
         Intent intent = new Intent(this, EditTaskActivity.class);
         //intent.putExtra(); pass array of contact in the future
         startActivity(intent);
+        fab_expanded = false;
+        rotateFab();
+        fab.setExpanded(fab_expanded);
+    }
+
+    private void rotateFab() {
+        fab.animate().setDuration(300)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                    }
+                })
+                .rotation(fab_expanded ? 45f : 0f);
     }
 }
