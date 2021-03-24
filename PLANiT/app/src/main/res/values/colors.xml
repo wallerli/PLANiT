@@ -5,6 +5,11 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+    <color name="brown_300">#FFa1887f</color>
+    <color name="brown_500">#FF795548</color>
+    <color name="brown_700">#FF5d4037</color>
+    <color name="orange_300">#FFffb74d</color>
+    <color name="orange_700">#FFf57c00</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
