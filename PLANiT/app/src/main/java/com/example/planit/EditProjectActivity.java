@@ -112,7 +112,7 @@ public class EditProjectActivity extends AppCompatActivity {
                         .build();
         timePicker.show(getSupportFragmentManager(), timePicker.toString());
         timePicker.addOnPositiveButtonClickListener(t -> {
-            strTime = timePicker.getHour()+":"+timePicker.getMinute();
+            strTime = String.format(Locale.getDefault(), "%02d:%02d", timePicker.getHour(), timePicker.getMinute());
             dueTime.setText(strTime);
             updateDate();
         });
@@ -137,7 +137,7 @@ public class EditProjectActivity extends AppCompatActivity {
         try {
             date = dateTimeFormat.parse(strDate+" "+strTime);
         } catch (ParseException ignored) {}
-        
+
         // TODO: REMOVE THIS LATER
         title.setHint(dateTimeFormat.format(date));
     }
