@@ -71,8 +71,15 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(VIEW_TASK_ID, globals.getTask());
         startActivity(intent);
     }
+
     public void openEditProject(View view){
         Intent intent = new Intent(this, EditProjectActivity.class);
+        //intent.putExtra(); pass array of contact in the future
+        startActivity(intent);
+    }
+
+    public void openEditTask(View view){
+        Intent intent = new Intent(this, EditTaskActivity.class);
         //intent.putExtra(); pass array of contact in the future
         startActivity(intent);
     }
