@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
     public static String VIEW_TASK_ID = "com.example.planit.VIEW_TASK_ID";
     Globals globals = null;
     FloatingActionButton fab = null;
-    FloatingActionButton fab_close = null;
-
     boolean fab_expanded = false;
 
     @Override
@@ -35,19 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
         fab = findViewById(R.id.fab);
         fab.animate().setDuration(200);
-//        fab_close = findViewById(R.id.fab_close);
-//        fab_close.animate().setDuration(200);
-
-//        fab.setOnClickListener(view -> {
-//            fab.setExpanded(true);
-//            fab_close.setVisibility(View.VISIBLE);
-//            fab.setVisibility(View.INVISIBLE);
-//        });
-//        fab_close.setOnClickListener(view -> {
-//            fab.setExpanded(false);
-//            fab_close.setVisibility(View.INVISIBLE);
-//            fab.setVisibility(View.VISIBLE);
-//        });
 
         fab.setOnClickListener(view -> {
             fab_expanded = !fab_expanded;
@@ -108,8 +93,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setExpanded(fab_expanded);
     }
 
-    public void rotateFab() {
-        this.fab.animate().setDuration(200)
+    private void rotateFab() {
+        fab.animate().setDuration(300)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
