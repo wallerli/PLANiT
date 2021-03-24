@@ -16,10 +16,12 @@
             android:name=".EditProjectActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.PLANiT.NoActionBar" />
-        <activity android:name=".ViewTaskActivity"
+        <activity
+            android:name=".ViewTaskActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.PLANiT.NoActionBar" />
-        <activity android:name=".ViewProjectActivity"
+        <activity
+            android:name=".ViewProjectActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.PLANiT.NoActionBar" />
         <activity

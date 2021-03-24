@@ -103,4 +103,10 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .rotation(fab_expanded ? 45f : 0f);
     }
+
+    public void openEditTask(View view){
+        Intent intent = new Intent(this, EditTaskActivity.class);
+        //intent.putExtra(); pass array of contact in the future
+        startActivity(intent);
+    }
 }
