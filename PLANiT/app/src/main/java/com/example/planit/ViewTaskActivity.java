@@ -70,7 +70,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_edit) {
 
             Intent intent = new Intent(this, EditTaskActivity.class);
-            intent.putExtra(EDIT_TASK_ID, task.getUUID());
+            intent.putExtra(EDIT_TASK_ID, task.getUUID().toString());
             startActivity(intent);
             return true;
         }

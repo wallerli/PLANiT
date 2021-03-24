@@ -70,7 +70,7 @@ public class ViewProjectActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_edit) {
 
             Intent intent = new Intent(this, EditProjectActivity.class);
-            intent.putExtra(EDIT_PROJECT_ID, project.getUUID());
+            intent.putExtra(EDIT_PROJECT_ID, project.getUUID().toString());
             startActivity(intent);
             return true;
         }
