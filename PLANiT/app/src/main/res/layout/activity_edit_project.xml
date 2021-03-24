@@ -55,23 +55,24 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/due_date_label"
                 android:orientation="horizontal">
-
                 <Button
                     android:id="@+id/due_date_value"
                     android:textAllCaps="false"
-                    android:background="@android:color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/no_due_date_selected_text"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"/>
+                    android:layout_marginRight="@dimen/button_margin"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_marginEnd="@dimen/button_margin" />
                 <Button
                     android:id="@+id/due_time_value"
                     android:textAllCaps="false"
-                    android:background="@android:color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/no_due_time_selected_text"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"/>
+                    android:layout_marginRight="@dimen/button_margin"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_marginEnd="@dimen/button_margin" />
             </LinearLayout>
 
             <TextView
