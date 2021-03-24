@@ -3,25 +3,15 @@ package com.example.planit;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -32,9 +22,6 @@ import com.google.android.material.timepicker.TimeFormat;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -47,9 +34,7 @@ public class EditProjectActivity extends AppCompatActivity {
     SimpleDateFormat dateTimeFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
     Date date = new Date(MaterialDatePicker.todayInUtcMilliseconds());
     String strDate;
-    String strTime;
-//    int day, month, year, hour, minute;
-//    int myday, myMonth, myYear, myHour, myMinute;
+    String strTime = "23:59";
     MaterialDatePicker<Long> datePicker;
     MaterialTimePicker timePicker;
 
