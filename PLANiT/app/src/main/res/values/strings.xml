@@ -29,4 +29,8 @@
     <string name="done">Done</string>
     <string name="select_due_date_button_text">Select Due Date</string>
     <string name="no_due_date_selected_text">No due date selected</string>
+
+    <string name="create_project">Project</string>
+    <string name="create_task">Task</string>
+    <string name="expansion_fab_margin">16dp</string>
 </resources>
