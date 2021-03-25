@@ -210,18 +210,15 @@ public class Globals{
     /**
      * Never call this method when setting up Globals
      */
-    public float updateAndGetCompleteness(UUID projectUUID) {
+    public float calculateProjectCompleteness(UUID projectUUID) {
         float totalPoints = 0;
         float completedPoints = 0;
         for(UUID taskUUID : Objects.requireNonNull(projects.get(projectUUID)).getTasks()) {
             Task task = tasks.get(taskUUID);
             if (task == null) continue;
-            if (task.getCompleteStatus()) {
-                totalPoints += translateTaskSize(task.getSize());
-                completedPoints += translateTaskSize(task.getSize());
-            } else {
-                totalPoints += translateTaskSize(task.getSize());
-            }
+            float pts = translateTaskSize(task.getSize());
+            totalPoints += pts;
+            completedPoints += (task.getCompleteStatus() ? pts : 0);
         }
         return completedPoints / totalPoints;
     }

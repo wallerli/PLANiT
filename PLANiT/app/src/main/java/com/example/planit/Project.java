@@ -83,6 +83,6 @@ public class Project {
     }
 
     public void updateCompleteness() {
-        completeness = Globals.getInstance().updateAndGetCompleteness(uuid);
+        completeness = Globals.getInstance().calculateProjectCompleteness(uuid);
     }
 }
