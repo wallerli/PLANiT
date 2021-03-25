@@ -17,10 +17,12 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String EDIT_PROJECT_ID = "com.example.planit.EDIT_PROJECT_ID";
+    public static String EDIT_TASK_ID = "com.example.planit.EDIT_TASK_ID";
     public static String VIEW_PROJECT_ID = "com.example.planit.VIEW_PROJECT_ID";
     public static String VIEW_TASK_ID = "com.example.planit.VIEW_TASK_ID";
-    Globals globals = null;
-    FloatingActionButton fab = null;
+    Globals globals = Globals.getInstance();
+    FloatingActionButton fab;
     boolean fab_expanded = false;
 
     @Override
@@ -29,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        globals = Globals.getInstance();
 
         fab = findViewById(R.id.fab);
         fab.animate().setDuration(200);
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openEditTask(View view){
         Intent intent = new Intent(this, EditTaskActivity.class);
-        //intent.putExtra(); pass array of contact in the future
+        intent.putExtra(EDIT_TASK_ID, globals.getTask()); // pass array of contact in the future
         startActivity(intent);
         fab_expanded = false;
         rotateFab();
