@@ -13,6 +13,8 @@
     <string name="a_task">A Task</string>
     <string name="project_title">Project Title *</string>
     <string name="due_date">Due Date</string>
+    <string name="due_time">Due Time</string>
+    <string name="due_date_time">Due</string>
     <string name="time_display_info">Your Time Display Here</string>
     <string name="date_display_info">Your Date Display Here</string>
     <string name="pick_date">Pick Date</string>
@@ -28,7 +30,9 @@
     <string name="edit">Edit</string>
     <string name="done">Done</string>
     <string name="select_due_date_button_text">Select Due Date</string>
-    <string name="no_due_date_selected_text">No due date selected</string>
+    <string name="select_due_time_button_text">Select Due Time</string>
+    <string name="no_due_date_selected_text">Select Date</string>
+    <string name="no_due_time_selected_text">Select Time</string>
     <string name="task_title">Task Title *</string>
     <string name="size_label_text">Size of Task</string>
     <string name="tiny_text">Tiny</string>

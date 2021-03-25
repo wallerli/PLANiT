@@ -1,38 +1,48 @@
 package com.example.planit;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
 
 import android.app.Activity;
+import android.os.Build;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.Calendar;
 import java.util.UUID;
 
 public class EditProjectActivity extends AppCompatActivity {
-    TextView textView;
-    Button button;
-    int day, month, year, hour, minute;
-    int myday, myMonth, myYear, myHour, myMinute;
+    TextInputLayout title;
+    Button dueDate, dueTime;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    SimpleDateFormat dateTimeFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
+    Date date = new Date(MaterialDatePicker.todayInUtcMilliseconds());
+    String strDate;
+    String strTime = "23:59";
+    MaterialDatePicker<Long> datePicker;
+    MaterialTimePicker timePicker;
     Project project = null;
     Globals globals = null;
 
@@ -45,8 +55,15 @@ public class EditProjectActivity extends AppCompatActivity {
         toolbar.inflateMenu(R.menu.menu_toolbar_edit);
         toolbar.setNavigationOnClickListener(view -> finish());
 
-        textView = findViewById(R.id.due_date_value);
-        button = findViewById(R.id.btnPick);
+        title = findViewById(R.id.edit_project_title);
+        dueDate = findViewById(R.id.due_date_value);
+        dueTime = findViewById(R.id.due_time_value);
+        dueDate.setOnClickListener(this::showDatePickerDialog);
+        dueTime.setOnClickListener(this::showTimePickerDialog);
+
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         globals = Globals.getInstance();
         Intent intent = getIntent();
@@ -85,53 +102,42 @@ public class EditProjectActivity extends AppCompatActivity {
     }
 
     public void showTimePickerDialog(View v) {
-        DialogFragment newFragment = new TimePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "timePicker");
+         timePicker = new MaterialTimePicker.Builder()
+                        .setTitleText("Select time")
+                        .setTimeFormat(TimeFormat.CLOCK_12H)
+                        .setHour(23)
+                        .setMinute(59)
+                        .build();
+        timePicker.show(getSupportFragmentManager(), timePicker.toString());
+        timePicker.addOnPositiveButtonClickListener(t -> {
+            strTime = String.format(Locale.getDefault(), "%02d:%02d", timePicker.getHour(), timePicker.getMinute());
+            dueTime.setText(strTime);
+            updateDate();
+        });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
+        datePicker =
+                MaterialDatePicker.Builder.datePicker()
+                        .setTitleText("Select date")
+                        .setSelection(date.getTime())
+                        .build();
+        datePicker.show(getSupportFragmentManager(), datePicker.toString());
+        datePicker.addOnPositiveButtonClickListener(l -> {
+            strDate = dateFormat.format(new Date(l));
+            dueDate.setText(strDate);
+            updateDate();
+        });
     }
 
-    public static class TimePickerFragment extends DialogFragment
-            implements TimePickerDialog.OnTimeSetListener {
+    private void updateDate() {
+        try {
+            date = dateTimeFormat.parse(strDate+" "+strTime);
+        } catch (ParseException ignored) {}
 
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current time as the default values for the picker
-            final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
-
-            // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(), this, hour, minute,
-                    DateFormat.is24HourFormat(getActivity()));
-        }
-
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            // Do something with the time chosen by the user
-        }
-    }
-
-    public static class DatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-
-            // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            // Do something with the date chosen by the user
-        }
+        // TODO: REMOVE THIS LATER
+        title.setHint(dateTimeFormat.format(date));
     }
 
     public class SpinnerActivity extends Activity implements AdapterView.OnItemSelectedListener {
