@@ -35,6 +35,7 @@
                 android:hint="@string/project_title">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/project_title_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
@@ -120,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/chips"
                 android:layout_marginTop="@dimen/title_margin"
-                android:hint="@string/project_title">
+                android:hint="@string/description_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_description"

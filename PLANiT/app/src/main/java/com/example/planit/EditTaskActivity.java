@@ -19,8 +19,7 @@ public class EditTaskActivity extends AppCompatActivity {
 
     Task task;
     Globals globals = Globals.getInstance();
-    TextInputEditText title;
-    EditText text;
+    TextInputEditText title, text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +34,11 @@ public class EditTaskActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.getStringExtra(EDIT_TASK_ID) != null) {
             task = globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID)));
+            toolbar.setTitle("Edit Task");
         }
         else {
             task = globals.getTask();
+            toolbar.setTitle("Add New Task");
         }
 
         title = findViewById(R.id.task_title_text);

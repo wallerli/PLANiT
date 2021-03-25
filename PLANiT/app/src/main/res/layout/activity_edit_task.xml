@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/size_chips"
                 android:layout_marginTop="@dimen/title_margin"
-                android:text="@string/size_label_text"
+                android:text="@string/priority_label_text"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.chip.ChipGroup
