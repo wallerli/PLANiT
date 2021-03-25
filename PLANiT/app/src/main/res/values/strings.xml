@@ -47,6 +47,6 @@
     <string name="high_text">High</string>
     <string name="critical_text">Critical</string>
     <string name="project_associated_label">Project *</string>
-    <string name="create_project">Project</string>
-    <string name="create_task">Task</string>
+    <string name="create_project">New Project</string>
+    <string name="create_task">New Task</string>
 </resources>
