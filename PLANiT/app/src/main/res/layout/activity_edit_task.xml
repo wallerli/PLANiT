@@ -39,7 +39,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -101,7 +100,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/huge_text"/>
-
             </com.google.android.material.chip.ChipGroup>
 
             <TextView
@@ -142,7 +140,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/critical_text"/>
-
             </com.google.android.material.chip.ChipGroup>
 
             <TextView
@@ -162,27 +159,26 @@
                 app:chipSpacing="10dp">
             </com.google.android.material.chip.ChipGroup>
 
-            <TextView
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/descriptionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/chips"
-                android:text="@string/description_text"
-                android:labelFor="@id/edit_description"/>
+                android:layout_marginTop="@dimen/title_margin"
+                android:hint="@string/description_text">
 
-            <EditText
-                android:id="@+id/edit_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:layout_below="@id/descriptionText"
-                android:inputType="textMultiLine" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/blockers_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/edit_description"
+                android:layout_below="@id/descriptionText"
                 android:layout_marginTop="@dimen/title_margin"
                 android:text="@string/blocked_by"
                 app:layout_constraintTop_toTopOf="parent" />

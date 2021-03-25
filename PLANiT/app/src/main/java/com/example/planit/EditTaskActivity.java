@@ -15,6 +15,8 @@ import java.util.UUID;
 
 public class EditTaskActivity extends AppCompatActivity {
 
+    public static String EDIT_TASK_ID = "com.example.planit.EDIT_TASK_ID";
+
     Task task;
     Globals globals = Globals.getInstance();
     TextInputEditText title;
@@ -31,8 +33,12 @@ public class EditTaskActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(view -> finish());
 
         Intent intent = getIntent();
-        UUID task_id = UUID.fromString(intent.getStringExtra(MainActivity.EDIT_TASK_ID));
-        task = globals.getTask(task_id);
+        if (intent.getStringExtra(EDIT_TASK_ID) != null) {
+            task = globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID)));
+        }
+        else {
+            task = globals.getTask();
+        }
 
         title = findViewById(R.id.task_title_text);
         text = findViewById(R.id.edit_description);
