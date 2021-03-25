@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import java.util.Objects;
@@ -50,9 +52,12 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (android.widget.SearchView) searchItem.getActionView();
+        searchView.onActionViewExpanded();
 
         // Detect SearchView icon clicks
-        searchView.setOnSearchClickListener(v -> Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false));
+        searchView.setOnSearchClickListener(v -> {
+            Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        });
         // Detect SearchView close
         searchView.setOnCloseListener(() -> {
             Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(true);
