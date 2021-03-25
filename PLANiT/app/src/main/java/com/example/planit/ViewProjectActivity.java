@@ -47,7 +47,8 @@ public class ViewProjectActivity extends AppCompatActivity {
 
         title.setText(project.getTitle());
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.getDefault());
-        due.setText(df.format(project.getDueDate()));
+        if (project.getDueDate() != null)
+            due.setText(df.format(project.getDueDate()));
         text.setText(project.getText());
 
         recyclerView = (RecyclerView) findViewById(R.id.tasksRecyclerView);
