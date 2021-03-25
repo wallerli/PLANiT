@@ -56,6 +56,9 @@ public class ViewProjectActivity extends AppCompatActivity {
         TaskAdapter adapter = new TaskAdapter(this, tasks);
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
+
+        project.updateCompleteness();
+        due.setText(String.valueOf(project.getCompleteness()));
     }
 
     @Override

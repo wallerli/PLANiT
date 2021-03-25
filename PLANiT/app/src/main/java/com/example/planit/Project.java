@@ -86,7 +86,6 @@ public class Project {
         return completeness;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void updateCompleteness() {
         completeness = Globals.getInstance().updateAndGetCompleteness(uuid);
     }

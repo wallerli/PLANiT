@@ -124,6 +124,7 @@ public class Globals{
 
         Task task1 = new Task("TaskOneTitle et harum quidem", Size.MEDIUM, Priority.HIGH);
         task1.addTag(tag1.getUUID());
+        task1.setCompleteStatus(true);
         task1.setText("" +
                         "TaskOneDescription donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.\n" +
                         "\n" +
@@ -210,33 +211,37 @@ public class Globals{
         demoTaskUUID = task2.getUUID();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    /**
+     * Never call this method when setting up Globals
+     */
     public float updateAndGetCompleteness(UUID projectUUID) {
-        AtomicReference<Float> totalPoints = new AtomicReference<>((float) 0);
-        AtomicReference<Float> completedPoints = new AtomicReference<>((float) 0);
-        Objects.requireNonNull(projects.get(projectUUID)).getTasks().forEach(taskUUID -> {
+        float totalPoints = 0;
+        float completedPoints = 0;
+        for(UUID taskUUID : Objects.requireNonNull(projects.get(projectUUID)).getTasks()) {
             Task task = tasks.get(taskUUID);
-            assert task != null;
+            if (task == null) continue;
             if (task.getCompleteStatus()) {
-                totalPoints.updateAndGet(v -> v + translateTaskSize(task.getSize()));
-                completedPoints.updateAndGet(v -> v + translateTaskSize(task.getSize()));
+                totalPoints += translateTaskSize(task.getSize());
+                completedPoints += translateTaskSize(task.getSize());
             } else {
-                totalPoints.updateAndGet(v -> v + translateTaskSize(task.getSize()));
+                totalPoints += translateTaskSize(task.getSize());
             }
-        });
-        return completedPoints.get() / totalPoints.get();
+        }
+        return completedPoints / totalPoints;
     }
 
     private float translateTaskSize(Size size) {
         switch (size) {
             case HUGE:
                 return 1.0f;
+            case LARGE:
+                return 0.8f;
             case MEDIUM:
-                return 0.75f;
+                return 0.6f;
             case SMALL:
-                return 0.5f;
+                return 0.4f;
             case TINY:
-                return 0.25f;
+                return 0.2f;
             default:
                 return 0;
         }
