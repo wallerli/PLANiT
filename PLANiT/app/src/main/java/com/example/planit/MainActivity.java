@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         globals = Globals.getInstance();
 
         fab = findViewById(R.id.fab);
-        fab.animate().setDuration(200);
 
         fab.setOnClickListener(view -> {
             fab_expanded = !fab_expanded;
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void rotateFab() {
-        fab.animate().setDuration(300)
+        fab.animate().setDuration(200)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
