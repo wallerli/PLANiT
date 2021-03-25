@@ -19,6 +19,8 @@ import java.util.UUID;
 
 public class ViewProjectActivity extends AppCompatActivity {
 
+    public static String EDIT_PROJECT_ID = "com.example.planit.EDIT_PROJECT_ID";
+
     Project project;
     TextView title, due, text;
     RecyclerView recyclerView;
@@ -66,7 +68,10 @@ public class ViewProjectActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_edit) {
-            // User chose the "Settings" item, show the app settings UI...
+
+            Intent intent = new Intent(this, EditProjectActivity.class);
+            intent.putExtra(EDIT_PROJECT_ID, project.getUUID().toString());
+            startActivity(intent);
             return true;
         }
 

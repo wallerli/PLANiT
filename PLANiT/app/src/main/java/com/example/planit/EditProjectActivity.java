@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.Menu;
@@ -25,12 +26,15 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.Calendar;
+import java.util.UUID;
 
 public class EditProjectActivity extends AppCompatActivity {
     TextView textView;
     Button button;
     int day, month, year, hour, minute;
     int myday, myMonth, myYear, myHour, myMinute;
+    Project project = null;
+    Globals globals = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +43,16 @@ public class EditProjectActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.edit_toolbar);
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.menu_toolbar_edit);
-
         toolbar.setNavigationOnClickListener(view -> finish());
 
         textView = findViewById(R.id.due_date_value);
         button = findViewById(R.id.btnPick);
+
+        globals = Globals.getInstance();
+        Intent intent = getIntent();
+        String strUUID = intent.getStringExtra(ViewProjectActivity.EDIT_PROJECT_ID);
+        if (strUUID != null)
+            project = globals.getProject(UUID.fromString(strUUID));
 
         /**
         Spinner spinner = (Spinner) findViewById(R.id.contacts_spinner);
