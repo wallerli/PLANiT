@@ -14,6 +14,9 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SearchView;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +48,16 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (android.widget.SearchView) searchItem.getActionView();
+
+        // Detect SearchView icon clicks
+        searchView.setOnSearchClickListener(v -> Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false));
+        // Detect SearchView close
+        searchView.setOnCloseListener(() -> {
+            Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(true);
+            return false;
+        });
         return true;
     }
 
@@ -55,8 +68,11 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        if (id == R.id.action_search) {
             return true;
         }
 
