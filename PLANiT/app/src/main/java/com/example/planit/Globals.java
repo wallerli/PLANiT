@@ -295,28 +295,11 @@ public class Globals{
         for(UUID taskUUID : Objects.requireNonNull(projects.get(projectUUID)).getTasks()) {
             Task task = tasks.get(taskUUID);
             if (task == null) continue;
-            float pts = translateTaskSize(task.getSize());
+            float pts = task.getFloatSize();
             totalPoints += pts;
             completedPoints += (task.getCompleteStatus() ? pts : 0);
         }
         return completedPoints / totalPoints;
-    }
-
-    private float translateTaskSize(Size size) {
-        switch (size) {
-            case HUGE:
-                return 1.0f;
-            case LARGE:
-                return 0.8f;
-            case MEDIUM:
-                return 0.6f;
-            case SMALL:
-                return 0.4f;
-            case TINY:
-                return 0.2f;
-            default:
-                return 0;
-        }
     }
 
     /**

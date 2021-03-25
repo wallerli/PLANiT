@@ -51,6 +51,10 @@ public class Task {
         return size;
     }
 
+    public float getFloatSize() {
+        return (size.ordinal() + 1f) / 5f;
+    }
+
     public void setSize(Size size) {
         this.size = size;
     }
