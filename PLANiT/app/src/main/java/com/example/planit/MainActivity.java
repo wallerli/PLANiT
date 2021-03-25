@@ -49,17 +49,20 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
+        MenuItem settingsItem = menu.findItem(R.id.action_settings);
         SearchView searchView = (android.widget.SearchView) searchItem.getActionView();
         searchView.onActionViewExpanded();
 
         searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
+                settingsItem.setVisible(false);
                 return true;
             }
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
+                settingsItem.setVisible(true);
                 return true;
             }
         });
