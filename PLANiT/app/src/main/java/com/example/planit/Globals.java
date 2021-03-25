@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.UUID;
+import java.sql.Timestamp;
+import java.time.Instant;
 
 public class Globals{
 
@@ -299,4 +301,12 @@ public class Globals{
     public String getTask() {
         return demoTaskUUID.toString();
     }
+
+    // Format: // 2021-03-24 17:12:03.311
+    public Timestamp getTimestamp()
+    {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        return timestamp;
+    }
 }
+
