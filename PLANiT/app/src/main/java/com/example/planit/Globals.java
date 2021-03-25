@@ -1,6 +1,9 @@
 package com.example.planit;
 
 import android.graphics.Color;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,7 +11,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Globals{
 
@@ -203,6 +208,38 @@ public class Globals{
 
         demoProjectUUID = project1.getUUID();
         demoTaskUUID = task2.getUUID();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public float updateAndGetCompleteness(UUID projectUUID) {
+        AtomicReference<Float> totalPoints = new AtomicReference<>((float) 0);
+        AtomicReference<Float> completedPoints = new AtomicReference<>((float) 0);
+        Objects.requireNonNull(projects.get(projectUUID)).getTasks().forEach(taskUUID -> {
+            Task task = tasks.get(taskUUID);
+            assert task != null;
+            if (task.getCompleteStatus()) {
+                totalPoints.updateAndGet(v -> v + translateTaskSize(task.getSize()));
+                completedPoints.updateAndGet(v -> v + translateTaskSize(task.getSize()));
+            } else {
+                totalPoints.updateAndGet(v -> v + translateTaskSize(task.getSize()));
+            }
+        });
+        return completedPoints.get() / totalPoints.get();
+    }
+
+    private float translateTaskSize(Size size) {
+        switch (size) {
+            case HUGE:
+                return 1.0f;
+            case MEDIUM:
+                return 0.75f;
+            case SMALL:
+                return 0.5f;
+            case TINY:
+                return 0.25f;
+            default:
+                return 0;
+        }
     }
 
     /**

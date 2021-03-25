@@ -1,8 +1,10 @@
 package com.example.planit;
 
-import java.util.Collections;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -14,7 +16,7 @@ public class Project {
     private final Set<UUID> tags = new HashSet<>();
     private final Set<UUID> tasks = new HashSet<>();
     private String text = "";
-    private final float completeness = .0f;
+    private float completeness = .0f;
 
     public Project(String title) {
         this.setTitle(title);
@@ -84,7 +86,8 @@ public class Project {
         return completeness;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void updateCompleteness() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        completeness = Globals.getInstance().updateAndGetCompleteness(uuid);
     }
 }
