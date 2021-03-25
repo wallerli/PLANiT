@@ -1,9 +1,8 @@
 package com.example.planit;
 
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,7 +13,7 @@ public class Project {
     private final Set<UUID> tags = new HashSet<>();
     private final Set<UUID> tasks = new HashSet<>();
     private String text = "";
-    private final float completeness = .0f;
+    private float completeness = .0f;
 
     public Project(String title) {
         this.setTitle(title);
@@ -85,6 +84,16 @@ public class Project {
     }
 
     public void updateCompleteness() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Globals globals = Globals.getInstance();
+        float totalPoints = 0;
+        float completedPoints = 0;
+        for(UUID taskUUID : tasks) {
+            Task task = globals.getTask(taskUUID);
+            if (task == null) continue;
+            float pts = task.getFloatSize();
+            totalPoints += pts;
+            completedPoints += (task.getCompleteStatus() ? pts : 0);
+        }
+        completeness = completedPoints / totalPoints;
     }
 }
