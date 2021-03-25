@@ -51,6 +51,10 @@ public class Task {
         return size;
     }
 
+    public float getFloatSize() {
+        return (size.ordinal() + 1f) / 5f;
+    }
+
     public void setSize(Size size) {
         this.size = size;
     }
@@ -113,6 +117,13 @@ public class Task {
             allBlockers.addAll(globals.getTask(blocker).allBlockers());
         }
         return allBlockers;
+    }
+
+    /**
+     * @return recursively all blockers of the current task
+     */
+    public Set<UUID> getBlockers() {
+        return blockers;
     }
 
     public String getText() {
