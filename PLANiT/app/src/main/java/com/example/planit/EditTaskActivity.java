@@ -3,11 +3,17 @@ package com.example.planit;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.UUID;
+
 public class EditTaskActivity extends AppCompatActivity {
+
+    Task task = null;
+    Globals globals = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,8 +22,13 @@ public class EditTaskActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.edit_toolbar);
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.menu_toolbar_edit);
-
         toolbar.setNavigationOnClickListener(view -> finish());
+
+        globals = Globals.getInstance();
+        Intent intent = getIntent();
+        String strUUID = intent.getStringExtra(ViewTaskActivity.EDIT_TASK_ID);
+        if (strUUID != null)
+            task = globals.getTask(UUID.fromString(strUUID));
     }
 
     @Override

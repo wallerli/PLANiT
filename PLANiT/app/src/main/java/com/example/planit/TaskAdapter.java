@@ -25,7 +25,7 @@ public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskVie
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.layout_tasks, null);
+        View view = inflater.inflate(R.layout.layout_tasks, parent, false);
         return new TaskViewHolder(view);
     }
 
@@ -34,6 +34,7 @@ public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskVie
         Task task = Globals.getInstance().getTask(tasks.get(position));
         holder.title.setText(task.getTitle());
         holder.description.setText(task.getText());
+        holder.taskUUID = task.getUUID();
     }
 
     @Override

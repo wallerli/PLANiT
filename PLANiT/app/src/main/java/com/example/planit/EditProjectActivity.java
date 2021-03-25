@@ -6,6 +6,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.os.Build;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +29,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.Calendar;
+import java.util.UUID;
 
 public class EditProjectActivity extends AppCompatActivity {
     TextInputLayout title;
@@ -37,6 +43,8 @@ public class EditProjectActivity extends AppCompatActivity {
     String strTime = "23:59";
     MaterialDatePicker<Long> datePicker;
     MaterialTimePicker timePicker;
+    Project project = null;
+    Globals globals = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +53,6 @@ public class EditProjectActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.edit_toolbar);
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.menu_toolbar_edit);
-
         toolbar.setNavigationOnClickListener(view -> finish());
 
         title = findViewById(R.id.edit_project_title);
@@ -57,6 +64,12 @@ public class EditProjectActivity extends AppCompatActivity {
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        globals = Globals.getInstance();
+        Intent intent = getIntent();
+        String strUUID = intent.getStringExtra(ViewProjectActivity.EDIT_PROJECT_ID);
+        if (strUUID != null)
+            project = globals.getProject(UUID.fromString(strUUID));
 
         /**
         Spinner spinner = (Spinner) findViewById(R.id.contacts_spinner);
