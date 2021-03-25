@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 settingsItem.setVisible(true);
+                invalidateOptionsMenu();
                 return true;
             }
         });
