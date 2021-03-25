@@ -231,9 +231,6 @@ public class Globals{
         Task task7 = new Task("Pass your classes", Size.HUGE, Priority.CRITICAL);
         task7.addTag(tag2.getUUID());
         task7.addTag(tag6.getUUID());
-        task7.setText("" +
-                "Cap, Gown, Stole" +
-                "");
         project2.addTask(task4.getUUID());
         project2.addTask(task5.getUUID());
         project2.addTask(task6.getUUID());
@@ -254,7 +251,7 @@ public class Globals{
         addProject(project3);
 
 
-        Project project4 = new Project("Analyze Company Data");
+        Project project4 = new Project("Android Studio");
         project4.setText("" +
                 "Accurately complete the class homework assignments to gain a basic understanding of app development in Android Studio." +
                 "");
@@ -278,7 +275,6 @@ public class Globals{
                 "https://canvas.umn.edu/courses/217930/assignments/1672215?module_item_id=5519230" +
                 "");
         task9.addBlocker(task8.getUUID());
-
         project4.addTask(task8.getUUID());
         project4.addTask(task9.getUUID());
         addProject(project4);
