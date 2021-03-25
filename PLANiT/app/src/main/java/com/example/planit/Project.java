@@ -2,6 +2,7 @@ package com.example.planit;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -83,6 +84,16 @@ public class Project {
     }
 
     public void updateCompleteness() {
-        completeness = Globals.getInstance().calculateProjectCompleteness(uuid);
+        Globals globals = Globals.getInstance();
+        float totalPoints = 0;
+        float completedPoints = 0;
+        for(UUID taskUUID : tasks) {
+            Task task = globals.getTask(taskUUID);
+            if (task == null) continue;
+            float pts = task.getFloatSize();
+            totalPoints += pts;
+            completedPoints += (task.getCompleteStatus() ? pts : 0);
+        }
+        completeness = completedPoints / totalPoints;
     }
 }
