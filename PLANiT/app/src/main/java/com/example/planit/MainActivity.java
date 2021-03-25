@@ -52,14 +52,28 @@ public class MainActivity extends AppCompatActivity {
         SearchView searchView = (android.widget.SearchView) searchItem.getActionView();
         searchView.onActionViewExpanded();
 
-        // Detect SearchView icon clicks
-        searchView.setOnSearchClickListener(v -> {
-            Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                return true;
+            }
         });
-        // Detect SearchView close
-        searchView.setOnCloseListener(() -> {
-            Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(true);
-            return false;
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
         });
         return true;
     }
