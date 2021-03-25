@@ -16,8 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
 
-import java.util.Objects;
-
 public class MainActivity extends AppCompatActivity {
 
     public static String VIEW_PROJECT_ID = "com.example.planit.VIEW_PROJECT_ID";
