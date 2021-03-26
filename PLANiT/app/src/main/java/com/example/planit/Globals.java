@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.UUID;
 
 public class Globals{
@@ -72,7 +71,9 @@ public class Globals{
         return tasks.get(taskUUID);
     }
 
-    public List<UUID> getTasks() { return new ArrayList<UUID>(tasks.keySet()); }
+    public List<UUID> getTasks() { return new ArrayList<>(tasks.keySet()); }
+
+    public List<UUID> getProjects() { return new ArrayList<>(projects.keySet()); }
 
     public Project removeProject(UUID projectUUID) {
         for (UUID taskUUID : this.getProject(projectUUID).getTasks()) {
