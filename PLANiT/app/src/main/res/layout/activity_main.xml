@@ -23,8 +23,6 @@
 
     <include layout="@layout/content_main" />
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -48,7 +46,7 @@
                 android:layout_marginEnd="@dimen/fab_margin"
                 android:layout_margin="@dimen/fab_margin"
                 android:text="@string/create_project"
-                android:onClick="openEditProject"
+                android:onClick="openEditNewProject"
                 app:icon="@drawable/ic_baseline_create_24" />
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/fab_create_task"
@@ -60,7 +58,7 @@
                 android:layout_marginLeft="@dimen/fab_margin"
                 android:layout_marginEnd="@dimen/fab_margin"
                 android:text="@string/create_task"
-                android:onClick="openEditTask"
+                android:onClick="openEditNewTask"
                 app:icon="@drawable/ic_baseline_create_24" />
         </LinearLayout>
 

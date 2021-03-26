@@ -18,13 +18,13 @@ public class Globals{
     private final Map<UUID, Tag> tags = new HashMap<UUID, Tag>();
     private final Map<UUID, Task> tasks = new HashMap<UUID, Task>();
 
-    private UUID demoProjectUUID = null;
-    private UUID demoTaskUUID = null;
+    public UUID demoProjectUUID;
+    public UUID demoTaskUUID;
 
     private Globals() {
-//        projects.put(null, new Project("New Project"));
-//        tags.put(null, new Tag("New Tag"));
-//        tasks.put(null, new Task("New Task", Size.MEDIUM, Priority.MODERATE));
+        projects.put(null, new Project("New Project"));
+        tags.put(null, new Tag("New Tag"));
+        tasks.put(null, new Task("New Task", Size.MEDIUM, Priority.MODERATE));
         setupDummyObjects();
     }
 
@@ -46,12 +46,24 @@ public class Globals{
         return tasks.put(task.getUUID(), task);
     }
 
+    public Project getProject() {
+        return projects.get(null);
+    }
+
     public Project getProject(UUID projectUUID) {
         return projects.get(projectUUID);
     }
 
+    public Tag getTag() {
+        return tags.get(null);
+    }
+
     public Tag getTag(UUID tagUUID) {
-        return tags.remove(tagUUID);
+        return tags.get(tagUUID);
+    }
+
+    public Task getTask() {
+        return tasks.get(null);
     }
 
     public Task getTask(UUID taskUUID) {
@@ -95,9 +107,6 @@ public class Globals{
      * Title and Text are generated from https://www.blindtextgenerator.com/lorem-ipsum
      */
     public void setupDummyObjects() {
-        this.tags.clear();
-        this.projects.clear();
-        this.tasks.clear();
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.getDefault());
         Tag tag0 = new Tag("Work", Color.rgb(112, 87, 255));
         Tag tag1 = new Tag("CSCI 5115", Color.rgb(235, 135, 57));
@@ -284,19 +293,5 @@ public class Globals{
 
         demoProjectUUID = project0.getUUID();
         demoTaskUUID = task2.getUUID();
-    }
-
-    /**
-     * @return the demo project UUID as string
-     */
-    public String getProject() {
-        return demoProjectUUID.toString();
-    }
-
-    /**
-     * @return the demo task UUID as string
-     */
-    public String getTask() {
-        return demoTaskUUID.toString();
     }
 }
