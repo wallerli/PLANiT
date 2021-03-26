@@ -55,8 +55,8 @@
     <string name="settings_text">Settings</string>
     <string name="notification_header">Notifications</string>
     <string name="due_date_alert">Receive due date alerts</string>
-    <string name="due_alert_on">Notification for upcoming due dates is on</string>
-    <string name="due_alert_off">Notification for upcoming due dates is off</string>
+    <string name="due_alert_on">Notifications for upcoming due dates is on</string>
+    <string name="due_alert_off">Notifications for upcoming due dates is off</string>
     <string name="concentrate_remind">Receive concentrate on task reminders</string>
     <string name="concentrate_alert_on">Reminders to concentrate on tasks is on</string>
     <string name="concentrate_alert_off">Reminders to concentrate on tasks is off</string>
