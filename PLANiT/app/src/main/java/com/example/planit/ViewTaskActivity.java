@@ -32,6 +32,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_task);
         Toolbar toolbar = findViewById(R.id.view_toolbar);
+        toolbar.setTitle("View Task");
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.menu_toolbar_view);
 

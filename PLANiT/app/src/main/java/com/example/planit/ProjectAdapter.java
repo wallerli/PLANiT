@@ -26,7 +26,6 @@ public class ProjectAdapter extends RecyclerView.Adapter<com.example.planit.Proj
     public ProjectAdapter(Context mCtx, List<UUID> projects) {
         this.mCtx = mCtx;
         this.projects = projects.stream().filter(Objects::nonNull).collect(Collectors.toList());
-        System.out.println(this.projects.size());
     }
 
     @NonNull
