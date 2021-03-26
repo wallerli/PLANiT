@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.UUID;
 
 import static com.example.planit.MainActivity.VIEW_PROJECT_ID;
-import static com.example.planit.MainActivity.VIEW_TASK_ID;
 
 public class ProjectViewHolder extends RecyclerView.ViewHolder {
 
