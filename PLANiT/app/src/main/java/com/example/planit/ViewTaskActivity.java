@@ -41,7 +41,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         Intent intent = getIntent();
         UUID task_id = UUID.fromString(intent.getStringExtra(MainActivity.VIEW_TASK_ID));
         task = Globals.getInstance().getTask(task_id);
-        blockers.addAll(task.getBlockers());
+        blockers = task.getOrderedBlockers();
 
         title = findViewById(R.id.taskTitleTextView);
         projectTitle = findViewById(R.id.taskProjectTitleTextView);
@@ -51,7 +51,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         projectTitle.setText(Globals.getInstance().getParentProject(task.getUUID()).getTitle());
         text.setText(task.getText());
 
-        recyclerView = (RecyclerView) findViewById(R.id.tasksRecyclerView);
+        recyclerView = findViewById(R.id.tasksRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         TaskAdapter adapter = new TaskAdapter(this, blockers);
