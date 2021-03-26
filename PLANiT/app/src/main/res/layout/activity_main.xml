@@ -71,56 +71,56 @@
             app:srcCompat="@drawable/ic_baseline_add_24" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <Button
-        android:id="@+id/a_project_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|start"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="68dp"
-        android:onClick="openAProject"
-        android:text="@string/a_project"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <Button-->
+<!--        android:id="@+id/a_project_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="top|start"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginLeft="16dp"-->
+<!--        android:layout_marginTop="68dp"-->
+<!--        android:onClick="openAProject"-->
+<!--        android:text="@string/a_project"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <Button
-        android:id="@+id/a_task_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|start"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="118dp"
-        android:onClick="openATask"
-        android:text="@string/a_task"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <Button-->
+<!--        android:id="@+id/a_task_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="top|start"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginLeft="16dp"-->
+<!--        android:layout_marginTop="118dp"-->
+<!--        android:onClick="openATask"-->
+<!--        android:text="@string/a_task"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <Button
-        android:id="@+id/edit_project_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|start"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="168dp"
-        android:onClick="openEditProject"
-        android:text="Edit Project"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <Button-->
+<!--        android:id="@+id/edit_project_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="top|start"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginLeft="16dp"-->
+<!--        android:layout_marginTop="168dp"-->
+<!--        android:onClick="openEditProject"-->
+<!--        android:text="Edit Project"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <Button
-        android:id="@+id/edit_task_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|start"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="218dp"
-        android:onClick="openEditTask"
-        android:text="Edit Task"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <Button-->
+<!--        android:id="@+id/edit_task_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="top|start"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginLeft="16dp"-->
+<!--        android:layout_marginTop="218dp"-->
+<!--        android:onClick="openEditTask"-->
+<!--        android:text="Edit Task"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

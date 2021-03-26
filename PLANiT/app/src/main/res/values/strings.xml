@@ -50,4 +50,6 @@
     <string name="create_project">New Project</string>
     <string name="create_task">New Task</string>
     <string name="priority_label_text">Task Priority</string>
+    <string name="projects_tab">Projects</string>
+    <string name="tasks_tab">Tasks</string>
 </resources>
