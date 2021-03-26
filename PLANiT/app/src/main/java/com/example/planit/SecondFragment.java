@@ -27,6 +27,8 @@ public class SecondFragment extends Fragment {
     View view;
     String filter;
     Handler handler;
+    List<UUID> filteredTasks;
+    List<UUID> allTasks;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -93,14 +95,19 @@ public class SecondFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void showFilteredTasks() {
-        Globals globals = Globals.getInstance();
-        List<UUID> filteredTasks = Globals.getInstance().getTasks().stream().filter(t ->
-                globals.getTask(t).getTitle().toLowerCase().contains(filter.toLowerCase())).collect(Collectors.toList());
-        recyclerView.setAdapter(new TaskAdapter(view.getContext(), filteredTasks));
+        if (filter == null)
+            showAllTasks();
+        else {
+            Globals globals = Globals.getInstance();
+            filteredTasks = globals.getTasks().stream().filter(t ->
+                    globals.getTask(t).getTitle().toLowerCase().contains(filter.toLowerCase())).collect(Collectors.toList());
+            recyclerView.setAdapter(new TaskAdapter(view.getContext(), filteredTasks));
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void showAllTasks() {
-        recyclerView.setAdapter(new TaskAdapter(view.getContext(), Globals.getInstance().getTasks()));
+        allTasks= Globals.getInstance().getTasks();
+        recyclerView.setAdapter(new TaskAdapter(view.getContext(), allTasks));
     }
 }

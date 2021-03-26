@@ -27,6 +27,8 @@ public class FirstFragment extends Fragment {
     View view;
     String filter;
     Handler handler;
+    List<UUID> filteredProjects;
+    List<UUID> allProjects;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -93,14 +95,19 @@ public class FirstFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void showFilteredProjects() {
-        Globals globals = Globals.getInstance();
-        List<UUID> filteredProjects = Globals.getInstance().getProjects().stream().filter(p ->
-                globals.getProject(p).getTitle().toLowerCase().contains(filter.toLowerCase())).collect(Collectors.toList());
-        recyclerView.setAdapter(new ProjectAdapter(view.getContext(),filteredProjects));
+        if (filter == null)
+            showAllProjects();
+        else {
+            Globals globals = Globals.getInstance();
+            filteredProjects = globals.getProjects().stream().filter(p ->
+                    globals.getProject(p).getTitle().toLowerCase().contains(filter.toLowerCase())).collect(Collectors.toList());
+            recyclerView.setAdapter(new ProjectAdapter(view.getContext(),filteredProjects));
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void showAllProjects() {
-        recyclerView.setAdapter(new ProjectAdapter(view.getContext(), Globals.getInstance().getProjects()));
+        allProjects = Globals.getInstance().getProjects();
+        recyclerView.setAdapter(new ProjectAdapter(view.getContext(), allProjects));
     }
 }
