@@ -20,6 +20,7 @@ import android.widget.Button;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
@@ -33,7 +34,13 @@ import java.util.Calendar;
 import java.util.UUID;
 
 public class EditProjectActivity extends AppCompatActivity {
-    TextInputLayout title;
+
+    public static String EDIT_PROJECT_ID = "com.example.planit.EDIT_PROJECT_ID";
+
+    Project project;
+    Globals globals = Globals.getInstance();
+    TextInputEditText title, text;
+
     Button dueDate, dueTime;
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
     SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
@@ -43,8 +50,6 @@ public class EditProjectActivity extends AppCompatActivity {
     String strTime = "23:59";
     MaterialDatePicker<Long> datePicker;
     MaterialTimePicker timePicker;
-    Project project = null;
-    Globals globals = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,21 +60,30 @@ public class EditProjectActivity extends AppCompatActivity {
         toolbar.inflateMenu(R.menu.menu_toolbar_edit);
         toolbar.setNavigationOnClickListener(view -> finish());
 
-        title = findViewById(R.id.edit_project_title);
+        Intent intent = getIntent();
+
+        if (intent.getStringExtra(EDIT_PROJECT_ID) != null) {
+            project = globals.getProject(UUID.fromString(intent.getStringExtra(EDIT_PROJECT_ID)));
+            toolbar.setTitle("Edit Project");
+        }
+        else {
+            project = globals.getProject();
+            toolbar.setTitle("Add New Project");
+        }
+
+        title = findViewById(R.id.project_title_text);
+        text = findViewById(R.id.edit_description);
         dueDate = findViewById(R.id.due_date_value);
         dueTime = findViewById(R.id.due_time_value);
+
+        title.setText(project.getTitle());
+        text.setText(project.getText());
         dueDate.setOnClickListener(this::showDatePickerDialog);
         dueTime.setOnClickListener(this::showTimePickerDialog);
 
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-        globals = Globals.getInstance();
-        Intent intent = getIntent();
-        String strUUID = intent.getStringExtra(ViewProjectActivity.EDIT_PROJECT_ID);
-        if (strUUID != null)
-            project = globals.getProject(UUID.fromString(strUUID));
 
         /**
         Spinner spinner = (Spinner) findViewById(R.id.contacts_spinner);

@@ -1,0 +1,242 @@
+﻿Mock Data
+
+
+Please reference Issue #9 when working on this!
+Templates:
+Tag#0:
+        Name:
+        Color (could be empty):
+Project#0:
+        Title:
+        DueDate:
+DueTime (could be empty):
+        Description:
+        Tags (put tag#s here, could be empty):
+        Tasks (put task#s here, could be empty):
+Task#0:
+        Title:
+        Size (TINY/SMALL/MEDIUM/LARGE/HUGE):
+        Priority (LOW/MODERATE/HIGH/CRITICAL):
+Tags (put tag#s here, could be empty):
+Completed (TRUE/FALSE):
+Description:
+Blocked By (put task#s here, could be empty):
+        
+
+
+Put Data Below:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tag#0:
+        Name: Work
+        Color (could be empty): Purple
+Tag#1:
+        Name: CSCI 5115
+        Color (could be empty): Orange
+Tag#2:
+        Name: Spring Semester
+        Color (could be empty): Green
+Tag#3:
+        Name: Group-Work
+        Color (could be empty): Yellow
+Tag#4:
+        Name: When you have “free time” you can do this
+        Color (could be empty): 
+Tag#5:
+        Name: 🥳
+
+
+        Color (could be empty): Blue
+Tag#6:
+        Name: MOST IMPORTANT
+
+
+        Color (could be empty): Red
+
+
+##Future due date, descriptive tasks
+Project#0:
+        Title: Final Project App Development
+        DueDate: April 27, 2021
+DueTime (could be empty): 12:00 pm
+Description: Work in a group of 6 to create a functioning prototype of an app. Multiple tasks associated with this that are not equally weighted. Milestones along the way need to be completed in order.
+        Tags (put tag#s here, could be empty): Tag#1, Tag#2, Tag#3
+        Tasks (put task#s here, could be empty): Task#0, Task#1, Task#2
+Task#0:
+        Title: Create a User Study Protocol
+        Size (TINY/SMALL/MEDIUM/LARGE/HUGE): Small
+        Priority (LOW/MODERATE/HIGH/CRITICAL): High
+Tags (put tag#s here, could be empty): Tag#3
+Completed (TRUE/FALSE): True
+Description: Needs to include a consent form, interview protocols, online questionnaire with demographic information. Main themes should be decided as a group, but individual work can be done to complete.
+Blocked By (put task#s here, could be empty):
+Task#1:
+        Title: Milestone 1 - Poster
+        Size (TINY/SMALL/MEDIUM/LARGE/HUGE): Medium
+        Priority (LOW/MODERATE/HIGH/CRITICAL): High
+Tags (put tag#s here, could be empty): Tag#3
+Completed (TRUE/FALSE): True
+Description: Create a poster that highlights our groups current progress with developing an app idea. Focus on process and results.
+Key grading points:
+* Accurately describe protocol, data collection and analysis
+* 5 key user themes
+* Single coherent app idea
+* Utilize visuals to explain a narrative
+* Clean design and layout that is easily understandable
+Blocked By (put task#s here, could be empty): task#0
+Task#2:
+        Title: Milestone 2 Demonstration
+        Size (TINY/SMALL/MEDIUM/LARGE/HUGE): Huge
+        Priority (LOW/MODERATE/HIGH/CRITICAL): High
+Tags (put tag#s here, could be empty): Tag#3, Tag#4
+Completed (TRUE/FALSE): False
+Description: A functional prototype of our app, PLANit, needs to be complete for a demonstration. See Github for to-dos and to keep on track. 
+Key grading points:
+* Implement most of the details previously conceptualized
+* Explain changes
+* Working prototype
+* Design is audience specific and friendly
+* Sample tasks to showcase the app (;
+* Good pitch!
+Blocked By (put task#s here, could be empty): task#0, task1
+
+
+
+
+##Past due project
+Project#1:
+        Title: Update Company Website
+        DueDate: March 1,2021
+DueTime (could be empty):
+Description: Include the bios of the new 2021 employees. Find them on the Twitter page (@companyteam_twitter)
+        Tags (put tag#s here, could be empty): Tag#0
+        Tasks (put task#s here, could be empty): Task#3
+Task#3:
+        Title: Make a list of employees missing from “About us” page
+        Size (TINY/SMALL/MEDIUM/LARGE/HUGE): Medium
+        Priority (LOW/MODERATE/HIGH/CRITICAL): Low
+Tags (put tag#s here, could be empty): Tag#0, Tag#4
+Completed (TRUE/FALSE): False
+Description: www.mycompanyweb/about/us.com
+Blocked By (put task#s here, could be empty):
+
+
+
+
+##Future due date, mix of task types
+Project#2:
+        Title: Plan for graduation!!!
+        DueDate: May 17,2021
+DueTime (could be empty):
+Description: The time has come, make sure you’re prepared!
+        Tags (put tag#s here, could be empty): Tag#2, Tag#5
+Tasks (put task#s here, could be empty): Tasks#4, Task#5, Task#6, Task#7
+Task#4:
+        Title: Apply to graduate
+        Size (TINY/SMALL/MEDIUM/LARGE/HUGE): Small
+        Priority (LOW/MODERATE/HIGH/CRITICAL): Critical
+Tags (put tag#s here, could be empty): Tag#5, Tag#2
+Completed (TRUE/FALSE): True
+Description: Email advisor to set up a meeting.
+In the meeting:
+* Discuss requirements
+* Confirm Major and Minors will be complete
+* Make sure you're on the list to be approved in May!
+* Ask for written confirmation
+Blocked By (put task#s here, could be empty):
+Task#5:
+        Title: Make graduation slide
+        Size (TINY/SMALL/MEDIUM/LARGE/HUGE): Tiny
+        Priority (LOW/MODERATE/HIGH/CRITICAL): Moderate
+Tags (put tag#s here, could be empty): Tag#4, Tag#2
+Completed (TRUE/FALSE): False
+Description: Submit picture of yourself.
+Blocked By (put task#s here, could be empty): Task#4
+Task#6:
+        Title: Order graduation apparel
+        Size (TINY/SMALL/MEDIUM/LARGE/HUGE): Tiny
+        Priority (LOW/MODERATE/HIGH/CRITICAL): Low
+Tags (put tag#s here, could be empty): Tag#4, Tag#2
+Completed (TRUE/FALSE): False
+Description: Cap, Gown, Stole
+Blocked By (put task#s here, could be empty): 
+Task#7:
+        Title: Pass your classes
+        Size (TINY/SMALL/MEDIUM/LARGE/HUGE): Huge
+        Priority (LOW/MODERATE/HIGH/CRITICAL): Critical
+Tags (put tag#s here, could be empty): Tag#2, Tag#6
+Completed (TRUE/FALSE): False
+Description: 
+Blocked By (put task#s here, could be empty):
+
+
+##Project with no due date or tasks
+Project#3:
+        Title: Analyze Company Data
+        DueDate: 
+DueTime (could be empty):
+Description: Find ways to utilize past company data that is already being stored. My boss wants to increase sales, find new consumer trends to impress her.
+        Tags (put tag#s here, could be empty): Tag#0, Tag#4
+        Tasks (put task#s here, could be empty):
+
+
+##Completed Project
+Project#4: 
+        Title: Android Studio
+        DueDate:
+DueTime (could be empty): 03/01/2021
+Description: Accurately complete the class homework assignments to gain a basic understanding of app development in Android Studio.
+        Tags (put tag#s here, could be empty):Tag#1, Tag#2
+        Tasks (put task#s here, could be empty): Task#8, Task#9
+Task#8:
+        Title: Android Studio Homework 1
+        Size (TINY/SMALL/MEDIUM/LARGE/HUGE): Medium
+        Priority (LOW/MODERATE/HIGH/CRITICAL): Moderate
+Tags (put tag#s here, could be empty): Tag#1
+Completed (TRUE/FALSE): True
+Description: https://canvas.umn.edu/courses/217930/assignments/1672214?module_item_id=5519210
+Blocked By (put task#s here, could be empty):
+
+
+Task#9:
+        Title: Android Studio Homework 2
+        Size (TINY/SMALL/MEDIUM/LARGE/HUGE): Medium
+        Priority (LOW/MODERATE/HIGH/CRITICAL): Moderate
+Tags (put tag#s here, could be empty): Tag#1
+Completed (TRUE/FALSE): True
+Description: https://canvas.umn.edu/courses/217930/assignments/1672215?module_item_id=5519230
+Blocked By (put task#s here, could be empty): Task#8

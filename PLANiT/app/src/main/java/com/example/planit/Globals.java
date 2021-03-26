@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Globals{
@@ -17,13 +18,13 @@ public class Globals{
     private final Map<UUID, Tag> tags = new HashMap<UUID, Tag>();
     private final Map<UUID, Task> tasks = new HashMap<UUID, Task>();
 
-    private UUID demoProjectUUID = null;
-    private UUID demoTaskUUID = null;
+    public UUID demoProjectUUID;
+    public UUID demoTaskUUID;
 
     private Globals() {
-//        projects.put(null, new Project("New Project"));
-//        tags.put(null, new Tag("New Tag"));
-//        tasks.put(null, new Task("New Task", Size.MEDIUM, Priority.MODERATE));
+        projects.put(null, new Project("New Project"));
+        tags.put(null, new Tag("New Tag"));
+        tasks.put(null, new Task("New Task", Size.MEDIUM, Priority.MODERATE));
         setupDummyObjects();
     }
 
@@ -45,12 +46,24 @@ public class Globals{
         return tasks.put(task.getUUID(), task);
     }
 
+    public Project getProject() {
+        return projects.get(null);
+    }
+
     public Project getProject(UUID projectUUID) {
         return projects.get(projectUUID);
     }
 
+    public Tag getTag() {
+        return tags.get(null);
+    }
+
     public Tag getTag(UUID tagUUID) {
-        return tags.remove(tagUUID);
+        return tags.get(tagUUID);
+    }
+
+    public Task getTask() {
+        return tasks.get(null);
     }
 
     public Task getTask(UUID taskUUID) {
@@ -94,128 +107,191 @@ public class Globals{
      * Title and Text are generated from https://www.blindtextgenerator.com/lorem-ipsum
      */
     public void setupDummyObjects() {
-        this.tags.clear();
-        this.projects.clear();
-        this.tasks.clear();
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.getDefault());
-        Tag tag1 = new Tag("Reading", Color.rgb(255, 0, 0));
-        Tag tag2 = new Tag("Do first", Color.rgb(0, 255, 0));
-        Tag tag3 = new Tag("Team work");
+        Tag tag0 = new Tag("Work", Color.rgb(112, 87, 255));
+        Tag tag1 = new Tag("CSCI 5115", Color.rgb(235, 135, 57));
+        Tag tag2 = new Tag("Spring Semester", Color.rgb(0, 134, 114));
+        Tag tag3 = new Tag("Group-Work", Color.rgb(236, 230, 88));
+        Tag tag4 = new Tag("When you have “free time” you can do this");
+        Tag tag5 = new Tag("\uD83E\uDD73", Color.rgb(0, 117, 202));
+        Tag tag6 = new Tag("MOST IMPORTANT", Color.rgb(182, 2, 5));
+        addTag(tag0);
         addTag(tag1);
         addTag(tag2);
         addTag(tag3);
+        addTag(tag4);
+        addTag(tag5);
+        addTag(tag6);
 
-        Project project1 = new Project("ProjectOneTitle lusut perspiciatis");
-        project1.addTag(tag1.getUUID());
-        project1.addTag(tag3.getUUID());
-        project1.setText("" +
-                        "ProjectOneDescription lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.\n" +
-                        "\n" +
-                        "Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante."
-                        );
+        Project project0 = new Project("Final Project App Development");
+        project0.addTag(tag1.getUUID());
+        project0.addTag(tag2.getUUID());
+        project0.addTag(tag3.getUUID());
+        project0.setText("" +
+                "Work in a group of 6 to create a functioning prototype of an app. Multiple tasks associated with this that are not equally weighted. Milestones along the way need to be completed in order." +
+                "");
         try {
-            project1.setDueDate(df.parse("3/23/2022 23:59"));
+            project0.setDueDate(df.parse("4/27/2021 12:00"));
         } catch (ParseException ignored) {}
 
-        Task task1 = new Task("TaskOneTitle et harum quidem", Size.MEDIUM, Priority.HIGH);
-        task1.addTag(tag1.getUUID());
+        Task task0 = new Task("Create a User Study Protocol", Size.SMALL, Priority.HIGH);
+        task0.addTag(tag3.getUUID());
+        task0.setCompleteStatus(true);
+        task0.setText("" +
+                "Needs to include a consent form, interview protocols, online questionnaire with demographic information. Main themes should be decided as a group, but individual work can be done to complete." +
+                "");
+
+        Task task1 = new Task("Milestone 1 - Poster", Size.MEDIUM, Priority.HIGH);
+        task1.addTag(tag3.getUUID());
+        task1.setCompleteStatus(true);
         task1.setText("" +
-                        "TaskOneDescription donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.\n" +
-                        "\n" +
-                        "Nulla consequat massa quis enim.\n" +
-                        "\n" +
-                        "Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.\n" +
-                        "\n" +
-                        "In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.\n" +
-                        "\n" +
-                        "Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus." +
-                        "");
-        Task task2 = new Task("TaskTwoTitle taque earum rerum hic", Size.LARGE, Priority.CRITICAL);
-        task2.addTag(tag2.getUUID());
+                "Create a poster that highlights our groups current progress with developing an app idea. Focus on process and results.\n" +
+                "Key grading points:\n" +
+                "* Accurately describe protocol, data collection and analysis\n" +
+                "* 5 key user themes\n" +
+                "* Single coherent app idea\n" +
+                "* Utilize visuals to explain a narrative\n" +
+                "* Clean design and layout that is easily understandable" +
+                "");
+        task1.addBlocker(task0.getUUID());
+
+        Task task2 = new Task("Milestone 2 Demonstration", Size.HUGE, Priority.HIGH);
+        task2.addTag(tag3.getUUID());
+        task2.addTag(tag4.getUUID());
         task2.setText("" +
-                        "TaskTwoDescription curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Maecenas malesuada.\n" +
-                        "\n" +
-                        "Praesent congue erat at massa. Sed cursus turpis vitae tortor. Donec posuere vulputate arcu.\n" +
-                        "\n" +
-                        "Phasellus accumsan cursus velit.\n" +
-                        "\n" +
-                        "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed aliquam, nisi quis porttitor congue, elit erat euismod orci, ac placerat dolor lectus quis orci.\n" +
-                        "\n" +
-                        "Phasellus consectetuer vestibulum elit. Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc.\n" +
-                        "\n" +
-                        "Vestibulum fringilla pede sit amet augue. In turpis. Pellentesque posuere. Praesent turpis.\n" +
-                        "\n" +
-                        "Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Donec elit libero, sodales nec, volutpat a, suscipit non, turpis.\n" +
-                        "\n" +
-                        "Nullam sagittis. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc.\n" +
-                        "\n" +
-                        "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce id purus. Ut varius tincidunt libero. Phasellus dolor. Maecenas vestibulum mollis" +
-                        "");
+                "A functional prototype of our app, PLANit, needs to be complete for a demonstration. See Github for to-dos and to keep on track. \n" +
+                "Key grading points:\n" +
+                "* Implement most of the details previously conceptualized\n" +
+                "* Explain changes\n" +
+                "* Working prototype\n" +
+                "* Design is audience specific and friendly\n" +
+                "* Sample tasks to showcase the app (;\n" +
+                "* Good pitch!" +
+                "");
+        task2.addBlocker(task0.getUUID());
         task2.addBlocker(task1.getUUID());
-        Task task3 = new Task("TaskThreeTitle vero eos et accusamus", Size.LARGE, Priority.CRITICAL);
-        task3.addTag(tag1.getUUID());
-        task3.setText("" +
-                        "TaskThreeDescription am libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.\n" +
-                        "\n" +
-                        "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.\n" +
-                        "\n" +
-                        "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat." +
-                        "");
-        task3.setCompleteStatus(true);
-        project1.addTask(task1.getUUID());
-        project1.addTask(task2.getUUID());
-        project1.addTask(task3.getUUID());
-        addProject(project1);
+
+        project0.addTask(task0.getUUID());
+        project0.addTask(task1.getUUID());
+        project0.addTask(task2.getUUID());
+        addProject(project0);
+        addTask(task0);
         addTask(task1);
         addTask(task2);
+
+
+        Project project1 = new Project("Update Company Website");
+        project1.setText("" +
+                "Include the bios of the new 2021 employees. Find them on the Twitter page (@companyteam_twitter)" +
+                "");
+        project1.addTag(tag0.getUUID());
+        try {
+            project1.setDueDate(df.parse("03/01/2021 23:59"));
+        } catch (ParseException ignored) {}
+
+        Task task3 = new Task("Make a list of employees missing from “About us” page", Size.MEDIUM, Priority.LOW);
+        task3.addTag(tag0.getUUID());
+        task3.addTag(tag4.getUUID());
+        task3.setText("" +
+                "www.mycompanyweb/about/us.com" +
+                "");
+        project1.addTask(task3.getUUID());
+        addProject(project1);
         addTask(task3);
 
 
-
-        Project project2 = new Project("ProjectTwoTitle uisautem vel eum iure");
+        Project project2 = new Project("Plan for graduation!!!");
         project2.setText("" +
-                        "ProjectTwoDescription hasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.\n" +
-                        "\n" +
-                        "Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien."
-                        );
+                "The time has come, make sure you’re prepared!" +
+                "");
+        project2.addTag(tag2.getUUID());
+        project2.addTag(tag5.getUUID());
         try {
-            project2.setDueDate(df.parse("03/23/2021 05:12"));
+            project2.setDueDate(df.parse("05/17/2021 23:59"));
         } catch (ParseException ignored) {}
 
-        Task task4 = new Task("TaskFourTitle perspiciatis unde omnis", Size.SMALL, Priority.MODERATE);
+        Task task4 = new Task("Apply to graduate", Size.SMALL, Priority.CRITICAL);
         task4.addTag(tag2.getUUID());
+        task4.addTag(tag5.getUUID());
+        task4.setCompleteStatus(true);
         task4.setText("" +
-                        "TaskFourDescription orem ipsum dolor sit amet, consectetuer adipiscing elit.\n" +
-                        "\n" +
-                        "Aenean commodo ligula eget dolor. Aenean massa.\n" +
-                        "\n" +
-                        "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n" +
-                        "\n" +
-                        "Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.\n" +
-                        "\n" +
-                        "Nulla consequat massa quis enim." +
-                        "");
+                "Email advisor to set up a meeting.\n" +
+                "In the meeting:\n" +
+                "* Discuss requirements\n" +
+                "* Confirm Major and Minors will be complete\n" +
+                "* Make sure you're on the list to be approved in May!\n" +
+                "* Ask for written confirmation" +
+                "");
+
+        Task task5 = new Task("Make graduation slide", Size.TINY, Priority.MODERATE);
+        task5.addTag(tag4.getUUID());
+        task5.addTag(tag2.getUUID());
+        task5.setText("" +
+                "Submit picture of yourself." +
+                "");
+        task5.addBlocker(task4.getUUID());
+
+        Task task6 = new Task("Order graduation apparel", Size.TINY, Priority.LOW);
+        task6.addTag(tag4.getUUID());
+        task6.addTag(tag2.getUUID());
+        task6.setText("" +
+                "Cap, Gown, Stole" +
+                "");
+
+        Task task7 = new Task("Pass your classes", Size.HUGE, Priority.CRITICAL);
+        task7.addTag(tag2.getUUID());
+        task7.addTag(tag6.getUUID());
         project2.addTask(task4.getUUID());
+        project2.addTask(task5.getUUID());
+        project2.addTask(task6.getUUID());
+        project2.addTask(task7.getUUID());
         addProject(project2);
         addTask(task4);
+        addTask(task5);
+        addTask(task6);
+        addTask(task7);
 
 
+        Project project3 = new Project("Analyze Company Data");
+        project3.setText("" +
+                "Find ways to utilize past company data that is already being stored. My boss wants to increase sales, find new consumer trends to impress her." +
+                "");
+        project3.addTag(tag0.getUUID());
+        project3.addTag(tag4.getUUID());
+        addProject(project3);
 
-        demoProjectUUID = project1.getUUID();
+
+        Project project4 = new Project("Android Studio");
+        project4.setText("" +
+                "Accurately complete the class homework assignments to gain a basic understanding of app development in Android Studio." +
+                "");
+        project4.addTag(tag1.getUUID());
+        project4.addTag(tag2.getUUID());
+        try {
+            project2.setDueDate(df.parse("03/01/2021 23:59"));
+        } catch (ParseException ignored) {}
+
+        Task task8 = new Task("Android Studio Homework 1", Size.MEDIUM, Priority.MODERATE);
+        task8.addTag(tag1.getUUID());
+        task8.setCompleteStatus(true);
+        task8.setText("" +
+                "https://canvas.umn.edu/courses/217930/assignments/1672214?module_item_id=5519210" +
+                "");
+
+        Task task9 = new Task("Android Studio Homework 2", Size.MEDIUM, Priority.MODERATE);
+        task9.addTag(tag1.getUUID());
+        task9.setCompleteStatus(true);
+        task9.setText("" +
+                "https://canvas.umn.edu/courses/217930/assignments/1672215?module_item_id=5519230" +
+                "");
+        task9.addBlocker(task8.getUUID());
+        project4.addTask(task8.getUUID());
+        project4.addTask(task9.getUUID());
+        addProject(project4);
+        addTask(task8);
+        addTask(task9);
+
+        demoProjectUUID = project0.getUUID();
         demoTaskUUID = task2.getUUID();
-    }
-
-    /**
-     * @return the demo project UUID as string
-     */
-    public String getProject() {
-        return demoProjectUUID.toString();
-    }
-
-    /**
-     * @return the demo task UUID as string
-     */
-    public String getTask() {
-        return demoTaskUUID.toString();
     }
 }
