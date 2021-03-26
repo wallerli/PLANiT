@@ -73,7 +73,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/taskBlockedByTextView"
-                android:layout_marginBottom="@dimen/title_margin" />
+                android:layout_marginBottom="@dimen/title_margin"
+                android:overScrollMode="never"/>
         </RelativeLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
