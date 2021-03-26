@@ -39,7 +39,7 @@ public class ViewProjectActivity extends AppCompatActivity {
         Intent intent = getIntent();
         UUID project_id = UUID.fromString(intent.getStringExtra(MainActivity.VIEW_PROJECT_ID));
         project = Globals.getInstance().getProject(project_id);
-        tasks.addAll(project.getTasks());
+        tasks = project.getOrderedTasks();
 
         title = findViewById(R.id.projectTitleTextView);
         due = findViewById(R.id.projectDueTextView);
@@ -51,7 +51,7 @@ public class ViewProjectActivity extends AppCompatActivity {
             due.setText(df.format(project.getDueDate()));
         text.setText(project.getText());
 
-        recyclerView = (RecyclerView) findViewById(R.id.tasksRecyclerView);
+        recyclerView = findViewById(R.id.tasksRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         TaskAdapter adapter = new TaskAdapter(this, tasks);
