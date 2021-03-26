@@ -4,6 +4,7 @@
     <dimen name="button_margin">8dp</dimen>
     <dimen name="subtitle_margin">12dp</dimen>
     <dimen name="description_margin">24dp</dimen>
+    <dimen name="settings_icon_margin">12dp</dimen>
     <dimen name="expansion_menu_padding">8dp</dimen>
 
     <dimen name="section_header_font_size">16sp</dimen>
