@@ -1,6 +1,5 @@
 package com.example.planit;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -31,16 +29,24 @@ public class SecondFragment extends Fragment {
     Handler handler;
     List<UUID> filteredTasks;
     List<UUID> allTasks;
+    MenuItem searchItem;
+    SearchView searchView;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResume() {
         super.onResume();
-        filter = "";
-        showAllTasks();
-        // Hide soft keyboard
-        final InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
+        if (searchItem != null && !searchItem.isActionViewExpanded()) {
+            filter = "";
+            showAllTasks();
+            searchView.clearFocus();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        searchView.clearFocus();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -66,13 +72,14 @@ public class SecondFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (android.widget.SearchView) searchItem.getActionView();
+        searchItem = menu.findItem(R.id.action_search);
+        searchView = (android.widget.SearchView) searchItem.getActionView();
         searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
                 showFilteredTasks();
+                searchView.requestFocus();
                 return true;
             }
 
@@ -80,6 +87,7 @@ public class SecondFragment extends Fragment {
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 showAllTasks();
+                searchView.clearFocus();
                 return true;
             }
         });
