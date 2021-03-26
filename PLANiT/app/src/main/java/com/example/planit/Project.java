@@ -1,7 +1,12 @@
 package com.example.planit;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -67,6 +72,21 @@ public class Project {
 
     public Set<UUID> getTasks() {
         return this.tasks;
+    }
+
+    /**
+     * Ordered by number of blockers, largest first
+     */
+    public List<UUID> getOrderedTasks() {
+        Globals globals = Globals.getInstance();
+        List<UUID> sortedTasks = new ArrayList<>(tasks);
+        Collections.sort(sortedTasks, (task1, task2) -> {
+            int t1 = globals.getTask(task1).getBlockers().size();
+            int t2 = globals.getTask(task2).getBlockers().size();
+            // inverse for descending
+            return globals.getTask(task2).getBlockers().size() - globals.getTask(task1).getBlockers().size();
+        });
+        return sortedTasks;
     }
 
     public boolean removeTask(UUID uuid) {

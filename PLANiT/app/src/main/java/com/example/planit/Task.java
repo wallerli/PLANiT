@@ -1,7 +1,9 @@
 package com.example.planit;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -124,11 +126,23 @@ public class Task {
         return allBlockers;
     }
 
-    /**
-     * @return recursively all blockers of the current task
-     */
     public Set<UUID> getBlockers() {
         return blockers;
+    }
+
+    /**
+     * Ordered by number of blockers, largest first
+     */
+    public List<UUID> getOrderedBlockers() {
+        Globals globals = Globals.getInstance();
+        List<UUID> sortedBlockers = new ArrayList<>(blockers);
+        Collections.sort(sortedBlockers, (blocker1, blocker2) -> {
+            int b1 = globals.getTask(blocker1).getBlockers().size();
+            int b2 = globals.getTask(blocker2).getBlockers().size();
+            // inverse for descending
+            return globals.getTask(blocker2).getBlockers().size() - globals.getTask(blocker1).getBlockers().size();
+        });
+        return sortedBlockers;
     }
 
     public String getText() {
