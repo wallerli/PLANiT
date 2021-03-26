@@ -1,5 +1,6 @@
 package com.example.planit;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -29,6 +31,17 @@ public class SecondFragment extends Fragment {
     Handler handler;
     List<UUID> filteredTasks;
     List<UUID> allTasks;
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onResume() {
+        super.onResume();
+        filter = "";
+        showAllTasks();
+        // Hide soft keyboard
+        final InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override

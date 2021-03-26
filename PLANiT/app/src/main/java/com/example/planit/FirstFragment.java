@@ -1,5 +1,6 @@
 package com.example.planit;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -24,11 +26,22 @@ import java.util.stream.Collectors;
 public class FirstFragment extends Fragment {
 
     RecyclerView recyclerView;
-    View view;
+    View view, rootView;
     String filter;
     Handler handler;
     List<UUID> filteredProjects;
     List<UUID> allProjects;
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onResume() {
+        super.onResume();
+        filter = "";
+        showAllProjects();
+        // Hide soft keyboard
+        final InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -38,6 +51,7 @@ public class FirstFragment extends Fragment {
     ) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_first, container, false);
+        rootView = inflater.inflate(R.layout.activity_main, container, false);
 
         // Add the following lines to create RecyclerView
         recyclerView = view.findViewById(R.id.projectsRecyclerView);
