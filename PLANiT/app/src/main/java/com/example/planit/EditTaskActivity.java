@@ -26,11 +26,6 @@ public class EditTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
         Toolbar toolbar = findViewById(R.id.edit_toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.inflateMenu(R.menu.menu_toolbar_edit);
-
-        toolbar.setNavigationOnClickListener(view -> finish());
-
         Intent intent = getIntent();
         if (intent.getStringExtra(EDIT_TASK_ID) != null) {
             task = globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID)));
@@ -40,6 +35,9 @@ public class EditTaskActivity extends AppCompatActivity {
             task = globals.getTask();
             toolbar.setTitle("Add New Task");
         }
+        setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.menu_toolbar_edit);
+        toolbar.setNavigationOnClickListener(view -> finish());
 
         title = findViewById(R.id.task_title_text);
         text = findViewById(R.id.edit_description);

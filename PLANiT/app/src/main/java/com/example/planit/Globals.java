@@ -22,9 +22,9 @@ public class Globals{
     public UUID demoTaskUUID;
 
     private Globals() {
-        projects.put(null, new Project("New Project"));
-        tags.put(null, new Tag("New Tag"));
-        tasks.put(null, new Task("New Task", Size.MEDIUM, Priority.MODERATE));
+        projects.put(null, new Project(""));
+        tags.put(null, new Tag(""));
+        tasks.put(null, new Task("", Size.MEDIUM, Priority.MODERATE));
         setupDummyObjects();
     }
 
