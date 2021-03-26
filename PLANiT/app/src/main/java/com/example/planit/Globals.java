@@ -4,7 +4,9 @@ import android.graphics.Color;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -69,6 +71,8 @@ public class Globals{
     public Task getTask(UUID taskUUID) {
         return tasks.get(taskUUID);
     }
+
+    public List<UUID> getTasks() { return new ArrayList<UUID>(tasks.keySet()); }
 
     public Project removeProject(UUID projectUUID) {
         for (UUID taskUUID : this.getProject(projectUUID).getTasks()) {
