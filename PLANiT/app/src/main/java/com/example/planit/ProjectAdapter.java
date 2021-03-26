@@ -1,26 +1,31 @@
 package com.example.planit;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class ProjectAdapter extends RecyclerView.Adapter<com.example.planit.ProjectViewHolder> {
 
     private final Context mCtx;
     private final List<UUID> projects;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public ProjectAdapter(Context mCtx, List<UUID> projects) {
         this.mCtx = mCtx;
-        this.projects = projects;
+        this.projects = projects.stream().filter(Objects::nonNull).collect(Collectors.toList());
     }
 
     @NonNull

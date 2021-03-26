@@ -1,24 +1,29 @@
 package com.example.planit;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskViewHolder> {
 
     private final Context mCtx;
     private final List<UUID> tasks;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public TaskAdapter(Context mCtx, List<UUID> tasks) {
         this.mCtx = mCtx;
-        this.tasks = tasks;
+        this.tasks = tasks.stream().filter(Objects::nonNull).collect(Collectors.toList());
     }
 
     @NonNull
