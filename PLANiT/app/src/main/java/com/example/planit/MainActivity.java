@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, Settings.class);
+            startActivity(intent);
             return true;
         }
 
@@ -102,5 +104,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .rotation(fab_expanded ? 45f : 0f);
+    }
+
+    public void openSetting(View view){
+        Intent intent = new Intent(this, Settings.class);
+        startActivity(intent);
+        //fab_expanded = false;
+        //rotateFab();
+        //fab.setExpanded(fab_expanded);
     }
 }

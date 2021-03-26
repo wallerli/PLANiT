@@ -1,0 +1,66 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory app:title="@string/notification_header"
+                        app:iconSpaceReserved="false">
+
+        <SwitchPreferenceCompat
+            app:key="dueDateAlert"
+            app:title="@string/due_date_alert"
+            app:summaryOff="@string/due_alert_off"
+            app:summaryOn="@string/due_alert_on"
+            app:iconSpaceReserved="false"
+            app:defaultValue="false"/>
+
+        <SwitchPreferenceCompat
+            app:key="concentrateAlert"
+            app:title="@string/concentrate_remind"
+            app:summaryOff="@string/concentrate_alert_off"
+            app:summaryOn="@string/concentrate_alert_on"
+            app:iconSpaceReserved="false"
+            app:defaultValue="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/tags_header"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            app:key="manageTag"
+            app:title="@string/tags_settings_title"
+            app:summary="@string/tags_settings_summary"
+            app:iconSpaceReserved="false"
+            android:widgetLayout="@layout/activity_settings_icon_layout_arrowright">
+            <intent
+                android:targetPackage="com.example.planit"
+                android:targetClass="com.example.planit.EditProjectActivity"/>
+        </Preference>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/help_header"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            app:key="emailDeveloper"
+            app:title="@string/email_developer_title"
+            app:summary="@string/email_developer_summary"
+            app:iconSpaceReserved="false"
+            android:widgetLayout="@layout/activity_settings_icon_layout_email">
+        </Preference>
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="FAQ"
+            app:summary="@string/faq_settings_summary"
+            app:title="@string/faq_settings_title"
+            android:widgetLayout="@layout/activity_settings_icon_layout">
+
+        </Preference>
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>
