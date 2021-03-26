@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.UUID;
@@ -18,8 +20,13 @@ public class EditTaskActivity extends AppCompatActivity {
     public static String EDIT_TASK_ID = "com.example.planit.EDIT_TASK_ID";
 
     Task task;
+    Size size;
     Globals globals = Globals.getInstance();
     TextInputEditText title, text;
+    ChipGroup sizeChips;
+    ChipGroup priorityChips;
+    final int[] sizeChipIDs = new int[] {R.id.tiny_chip, R.id.small_chip, R.id.medium_chip, R.id.large_chip, R.id.huge_chip};
+    final int[] priorityChipIDs = new int[] {R.id.low_chip, R.id.moderate_chip, R.id.high_chip, R.id.critical_chip};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +48,13 @@ public class EditTaskActivity extends AppCompatActivity {
 
         title = findViewById(R.id.task_title_text);
         text = findViewById(R.id.edit_description);
+        sizeChips = findViewById(R.id.size_chips);
+        priorityChips = findViewById(R.id.priority_chips);
 
         title.setText(task.getTitle());
         text.setText(task.getText());
+        sizeChips.check(sizeChipIDs[task.getSize().ordinal()]);
+        priorityChips.check(priorityChipIDs[task.getPriority().ordinal()]);
     }
 
     @Override
