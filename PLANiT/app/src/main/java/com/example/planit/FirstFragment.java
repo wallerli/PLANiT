@@ -14,6 +14,7 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,7 +63,7 @@ public class FirstFragment extends Fragment {
         // Add the following lines to create RecyclerView
         recyclerView = view.findViewById(R.id.projectsRecyclerView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
         showAllProjects();
 
         handler = new Handler();

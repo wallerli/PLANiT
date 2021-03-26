@@ -1,10 +1,12 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="card_margin">16dp</dimen>
     <dimen name="title_margin">16dp</dimen>
     <dimen name="button_margin">8dp</dimen>
     <dimen name="subtitle_margin">12dp</dimen>
     <dimen name="description_margin">24dp</dimen>
     <dimen name="expansion_menu_padding">8dp</dimen>
+    <dimen name="project_card_height">180dp</dimen>
 
     <dimen name="section_header_font_size">16sp</dimen>
     <dimen name="view_description_font_size">18sp</dimen>
