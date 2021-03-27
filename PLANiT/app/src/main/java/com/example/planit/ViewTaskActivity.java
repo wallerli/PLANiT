@@ -26,7 +26,6 @@ public class ViewTaskActivity extends AppCompatActivity {
     Task task;
     TextView title, projectTitle, text;
     RecyclerView recyclerView;
-    List<UUID> blockers = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -89,7 +88,6 @@ public class ViewTaskActivity extends AppCompatActivity {
         projectTitle.setText(globals.getParentProject(task.getUUID()).getTitle());
         text.setText(task.getText());
 
-        TaskAdapter adapter = new TaskAdapter(this, task.getOrderedBlockers());
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(new TaskAdapter(this, task.getOrderedBlockers()));
     }
 }
