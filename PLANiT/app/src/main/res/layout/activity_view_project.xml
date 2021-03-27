@@ -101,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/projectTags"
-                android:lineSpacingMultiplier="1.2"
+                android:lineSpacingMultiplier="1.3"
                 android:layout_marginTop="@dimen/description_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
@@ -116,7 +116,7 @@
                 android:layout_marginTop="@dimen/blocked_by_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
-                android:textColor="?colorAccent"
+                android:textColor="?colorPrimary"
                 android:text="@string/tasks"
                 android:textSize="@dimen/view_description_font_size" />
 

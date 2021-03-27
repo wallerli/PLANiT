@@ -1,9 +1,12 @@
 package com.example.planit;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -32,12 +36,14 @@ public class EditTaskActivity extends AppCompatActivity {
     Spinner projects, blockers;
     ChipGroup sizeChips;
     ChipGroup priorityChips;
+    ChipGroup tagChips;
 
 //    ArrayList<UUID> projectUUIDs = (ArrayList<UUID>) globals.getProjects();
 //    ArrayList<String> projectTitles = new ArrayList<>();
     final Integer[] sizeChipIDs = new Integer[] {R.id.tiny_chip, R.id.small_chip, R.id.medium_chip, R.id.large_chip, R.id.huge_chip};
     final Integer[] priorityChipIDs = new Integer[] {R.id.low_chip, R.id.moderate_chip, R.id.high_chip, R.id.critical_chip};
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Initializing xml structure
@@ -46,6 +52,7 @@ public class EditTaskActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.edit_toolbar);
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.menu_toolbar_edit);
+        tagChips = findViewById(R.id.tag_chips);
 
 //        for (UUID projectUUID : projectUUIDs) {
 //            projectTitles.add(globals.getProject(projectUUID).getTitle());
@@ -126,6 +133,19 @@ public class EditTaskActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 task.setText(s.toString());
             }
+        });
+
+        task.getTags().forEach(t -> {
+            Tag tag = globals.getTag(t);
+            Chip lChip = new Chip(this);
+            lChip.setText(tag.getName());
+            if (tag.getHexColor() != -1) {
+                lChip.setTextColor(getResources().getColor(R.color.white));
+                lChip.setChipBackgroundColor(ColorStateList.valueOf(tag.getHexColor()));
+            }
+            lChip.setClickable(false);
+            lChip.setFocusable(false);
+            tagChips.addView(lChip);
         });
     }
 

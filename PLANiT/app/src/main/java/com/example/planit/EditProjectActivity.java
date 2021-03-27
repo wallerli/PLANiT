@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -43,6 +44,7 @@ public class EditProjectActivity extends AppCompatActivity {
     Button dueDate, dueTime;
     MaterialDatePicker<Long> datePicker;
     MaterialTimePicker timePicker;
+    ChipGroup tagChips;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
     SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
@@ -51,6 +53,7 @@ public class EditProjectActivity extends AppCompatActivity {
     String strDate;
     String strTime;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Initializing xml structure
@@ -67,6 +70,7 @@ public class EditProjectActivity extends AppCompatActivity {
         dueDate = findViewById(R.id.due_date_value);
         dueTime = findViewById(R.id.due_time_value);
         text = findViewById(R.id.edit_description);
+        tagChips = findViewById(R.id.tag_chips);
 
         if (intent.getStringExtra(EDIT_PROJECT_ID) != null) {
             project = new Project(globals.getProject(UUID.fromString(intent.getStringExtra(EDIT_PROJECT_ID))));
@@ -95,6 +99,19 @@ public class EditProjectActivity extends AppCompatActivity {
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        project.getTags().forEach(t -> {
+            Tag tag = globals.getTag(t);
+            Chip lChip = new Chip(this);
+            lChip.setText(tag.getName());
+            if (tag.getHexColor() != -1) {
+                lChip.setTextColor(getResources().getColor(R.color.white));
+                lChip.setChipBackgroundColor(ColorStateList.valueOf(tag.getHexColor()));
+            }
+            lChip.setClickable(false);
+            lChip.setFocusable(false);
+            tagChips.addView(lChip);
+        });
     }
 
     @Override
