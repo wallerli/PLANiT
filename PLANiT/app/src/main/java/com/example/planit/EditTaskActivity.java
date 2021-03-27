@@ -9,46 +9,66 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
 
 public class EditTaskActivity extends AppCompatActivity {
 
     public static String EDIT_TASK_ID = "com.example.planit.EDIT_TASK_ID";
+    Globals globals = Globals.getInstance();
 
     Task task;
-    Size size;
-    String title, text;
-    Priority priority;
-    Globals globals = Globals.getInstance();
     TextInputEditText titleEdit, textEdit;
+    Spinner projects, blockers;
     ChipGroup sizeChips;
     ChipGroup priorityChips;
+
+//    ArrayList<UUID> projectUUIDs = (ArrayList<UUID>) globals.getProjects();
+//    ArrayList<String> projectTitles = new ArrayList<>();
     final Integer[] sizeChipIDs = new Integer[] {R.id.tiny_chip, R.id.small_chip, R.id.medium_chip, R.id.large_chip, R.id.huge_chip};
     final Integer[] priorityChipIDs = new Integer[] {R.id.low_chip, R.id.moderate_chip, R.id.high_chip, R.id.critical_chip};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Initializing xml structure
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
         Toolbar toolbar = findViewById(R.id.edit_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.menu_toolbar_edit);
+
+//        for (UUID projectUUID : projectUUIDs) {
+//            projectTitles.add(globals.getProject(projectUUID).getTitle());
+//        }
+//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, projectTitles);
+//        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        projects.setAdapter(arrayAdapter);
+
+        // Filling content
         Intent intent = getIntent();
 
         titleEdit = findViewById(R.id.task_title_text);
-        textEdit = findViewById(R.id.edit_description);
+        projects = findViewById(R.id.projects_spinner);
         sizeChips = findViewById(R.id.size_chips);
         priorityChips = findViewById(R.id.priority_chips);
+        textEdit = findViewById(R.id.edit_description);
 
         if (intent.getStringExtra(EDIT_TASK_ID) != null) {
-            task = globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID)));
+            task = new Task(globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID))));
             toolbar.setTitle("Edit Task");
-            textEdit.setText(task.getText());
             sizeChips.check(sizeChipIDs[task.getSize().ordinal()]);
             priorityChips.check(priorityChipIDs[task.getPriority().ordinal()]);
+            textEdit.setText(task.getText());
         }
         else {
             task = new Task("New Task");
@@ -56,15 +76,8 @@ public class EditTaskActivity extends AppCompatActivity {
         }
         titleEdit.setText(task.getTitle());
 
-        setSupportActionBar(toolbar);
-        toolbar.inflateMenu(R.menu.menu_toolbar_edit);
+        // Activating listeners
         toolbar.setNavigationOnClickListener(view -> finish());
-
-        sizeChips.setOnCheckedChangeListener((group, checkedId) ->
-                size = Size.values()[Arrays.asList(sizeChipIDs).indexOf(checkedId)]);
-
-        priorityChips.setOnCheckedChangeListener((group, checkedId) ->
-                priority = Priority.values()[Arrays.asList(priorityChipIDs).indexOf(checkedId)]);
 
         titleEdit.addTextChangedListener(new TextWatcher() {
             @Override
@@ -72,14 +85,33 @@ public class EditTaskActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                Add validation here
+                // Add validation here
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                title = s.toString();
+                task.setTitle(s.toString());
             }
         });
+
+//        projects.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                String projectTitle = parent.getItemAtPosition(position).toString();
+//                Toast.makeText(parent.getContext(), "Selected: " + projectTitle, Toast.LENGTH_LONG).show();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView <?> parent) {
+//            }
+//        });
+
+        sizeChips.setOnCheckedChangeListener((group, checkedId) ->
+            task.setSize(Size.values()[Arrays.asList(sizeChipIDs).indexOf(checkedId)]));
+
+        priorityChips.setOnCheckedChangeListener((group, checkedId) ->
+            task.setPriority(Priority.values()[Arrays.asList(priorityChipIDs).indexOf(checkedId)]));
 
         textEdit.addTextChangedListener(new TextWatcher() {
             @Override
@@ -87,12 +119,12 @@ public class EditTaskActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                Add validation here
+                // Add validation here
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                text = s.toString();
+                task.setText(s.toString());
             }
         });
     }
@@ -107,11 +139,12 @@ public class EditTaskActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_done) {
-            // User chose the "Settings" item, show the app settings UI...
-            return true;
+            globals.addTask(task);
+            finish();
         }
 
         // Invoke the superclass to handle it.
         return super.onOptionsItemSelected(item);
     }
+
 }
