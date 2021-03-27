@@ -28,9 +28,7 @@ public class ViewTaskActivity extends AppCompatActivity {
     public static String EDIT_TASK_ID = "com.example.planit.EDIT_TASK_ID";
     UUID task_id;
     Globals globals = Globals.getInstance();
-
     Task task;
-    UUID task_id;
     TextView title, projectTitle, text;
     RecyclerView recyclerView;
     List<UUID> blockers = new ArrayList<>();
@@ -47,7 +45,6 @@ public class ViewTaskActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        updateTask();
         populate();
     }
 
@@ -75,13 +72,10 @@ public class ViewTaskActivity extends AppCompatActivity {
         indicator = findViewById(R.id.task_indicator);
         sizeChip = findViewById(R.id.sizeChip);
         priorityChip = findViewById(R.id.priorityChip);
-        updateTask();
-
         recyclerView = findViewById(R.id.tasksRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNestedScrollingEnabled(false);
-
         populate();
 
         indicator.setOnClickListener(v -> {
@@ -113,7 +107,7 @@ public class ViewTaskActivity extends AppCompatActivity {
                     alertDialog.show();
                 }
             }
-            updateTask();
+            populate();
         });
     }
 
@@ -138,7 +132,7 @@ public class ViewTaskActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void updateTask() {
+    public void populate() {
         Globals globals = Globals.getInstance();
         task = globals.getTask(task_id);
         blockers = task.getOrderedBlockers();
@@ -156,6 +150,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         } else {
             setBlocked();
         }
+        recyclerView.setAdapter(new TaskAdapter(this, task.getOrderedBlockers()));
     }
 
     public void setComplete() {
@@ -196,16 +191,5 @@ public class ViewTaskActivity extends AppCompatActivity {
             lChip.setFocusable(false);
             tagChips.addView(lChip);
         });
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void populate() {
-        task = globals.getTask(task_id);
-
-        title.setText(task.getTitle());
-        projectTitle.setText(globals.getParentProject(task.getUUID()).getTitle());
-        text.setText(task.getText());
-
-        recyclerView.setAdapter(new TaskAdapter(this, task.getOrderedBlockers()));
     }
 }

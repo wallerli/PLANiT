@@ -30,9 +30,6 @@ import java.util.UUID;
 public class ViewProjectActivity extends AppCompatActivity {
 
     public static String EDIT_PROJECT_ID = "com.example.planit.EDIT_PROJECT_ID";
-    UUID project_id;
-    Globals globals = Globals.getInstance();
-
     Project project;
     TextView title, due, text, completenessText;
     RecyclerView recyclerView;
@@ -46,7 +43,6 @@ public class ViewProjectActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        updateProject();
         populate();
     }
 
@@ -71,14 +67,12 @@ public class ViewProjectActivity extends AppCompatActivity {
         tagChips = findViewById(R.id.projectTags);
         completenessText = findViewById(R.id.project_indicator_text);
         indicator = findViewById(R.id.project_indicator);
-        updateProject();
-
         recyclerView = findViewById(R.id.tasksRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNestedScrollingEnabled(false);
-
-        indicator.setOnClickListener(v -> updateProject());
+        populate();
+        indicator.setOnClickListener(v -> populate());
     }
 
     @Override
@@ -102,7 +96,7 @@ public class ViewProjectActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void updateProject() {
+    public void populate() {
         Globals globals = Globals.getInstance();
         project = globals.getProject(projectUUID);
         tasks = project.getOrderedTasks();
@@ -126,6 +120,7 @@ public class ViewProjectActivity extends AppCompatActivity {
         text.setText(project.getText());
         completenessText.setText(String.format(Locale.getDefault(), "%.1f%%", 100 * project.getCompleteness()));
         indicator.setProgress((int) (100 * project.getCompleteness()));
+        recyclerView.setAdapter(new TaskAdapter(this, project.getOrderedTasks()));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -144,22 +139,5 @@ public class ViewProjectActivity extends AppCompatActivity {
             lChip.setFocusable(false);
             tagChips.addView(lChip);
         });
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void populate() {
-        project = globals.getProject(project_id);
-
-        title.setText(project.getTitle());
-        if (project.getDueDate() != null)
-            due.setText(
-                 new SimpleDateFormat(
-                     "MM/dd/yyyy hh:mm",
-                      Locale.getDefault()
-                 ).format(project.getDueDate())
-            );
-        text.setText(project.getText());
-
-        recyclerView.setAdapter(new TaskAdapter(this, project.getOrderedTasks()));
     }
 }
