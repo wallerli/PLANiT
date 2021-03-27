@@ -65,7 +65,6 @@
                     android:lineSpacingMultiplier="1.2"
                     android:layout_height="wrap_content"
                     android:text="Blocker Task Title"
-                    android:textColor="@color/black"
                     android:textSize="@dimen/recycler_title_font_size" />
 
                 <TextView

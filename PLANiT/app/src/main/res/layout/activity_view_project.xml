@@ -37,7 +37,6 @@
                 android:layout_marginTop="@dimen/title_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
-                android:textColor="@color/black"
                 android:lineSpacingMultiplier="1.2"
                 android:text="Project title project title project title"
                 android:textSize="@dimen/view_title_font_size" />
