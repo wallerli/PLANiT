@@ -1,20 +1,47 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="card_margin">16dp</dimen>
+    <dimen name="card_margin">8dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
     <dimen name="title_margin">16dp</dimen>
+    <dimen name="project_recycler_default_margin">6dp</dimen>
+    <dimen name="project_recycler_large_margin">8dp</dimen>
+    <dimen name="title_margin_with_indicator">115dp</dimen>
     <dimen name="button_margin">8dp</dimen>
     <dimen name="subtitle_margin">12dp</dimen>
     <dimen name="description_margin">24dp</dimen>
     <dimen name="settings_icon_margin">12dp</dimen>
+    <dimen name="blocked_by_margin">70dp</dimen>
     <dimen name="expansion_menu_padding">8dp</dimen>
-    <dimen name="project_card_height">180dp</dimen>
+    <dimen name="project_card_height">175dp</dimen>
+    <dimen name="task_indicator_marginLeft">4dp</dimen>
+    <dimen name="task_indicator_marginTop">24dp</dimen>
+    <dimen name="task_indicator_size">36dp</dimen>
+    <dimen name="task_indicator_size_large">60dp</dimen>
+
+    <dimen name="project_indicator_size">32dp</dimen>
+    <dimen name="project_indicator_size_large">60dp</dimen>
+
+    <dimen name="task_indicator_complete_thickness">18dp</dimen>
+    <dimen name="task_indicator_complete_thickness_large">30dp</dimen>
+    <dimen name="task_indicator_incomplete_thickness">4dp</dimen>
+    <dimen name="task_indicator_incomplete_thickness_large">8dp</dimen>
+
+    <dimen name="project_indicator_thickness_large">18dp</dimen>
+    <dimen name="project_indicator_thickness">10dp</dimen>
+
+    <dimen name="view_task_title_width">280dp</dimen>
 
     <dimen name="section_header_font_size">16sp</dimen>
     <dimen name="view_description_font_size">18sp</dimen>
-    <dimen name="view_subtitle_font_size">12sp</dimen>
+    <dimen name="view_subtitle_font_size">16sp</dimen>
     <dimen name="view_title_font_size">26sp</dimen>
-    <dimen name="recycler_title_font_size">20sp</dimen>
-    <dimen name="recycler_subtitle_font_size">12sp</dimen>
+
+    <dimen name="indicator_hint_font_size">12sp</dimen>
+    <dimen name="indicator_progress_font_size">12sp</dimen>
+    <dimen name="indicator_hint_font_size_large">34sp</dimen>
+
+    <dimen name="recycler_title_font_size">18sp</dimen>
+    <dimen name="recycler_subtitle_font_size">14sp</dimen>
     <dimen name="recycler_description_font_size">14sp</dimen>
 
     <dimen name="max_title_length">50</dimen>

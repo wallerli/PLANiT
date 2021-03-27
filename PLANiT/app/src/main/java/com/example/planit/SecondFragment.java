@@ -39,14 +39,16 @@ public class SecondFragment extends Fragment {
         if (searchItem != null && !searchItem.isActionViewExpanded()) {
             filter = "";
             showAllTasks();
-            searchView.clearFocus();
+            if (searchView != null)
+                searchView.clearFocus();
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        searchView.clearFocus();
+        if (searchView != null)
+            searchView.clearFocus();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -120,7 +122,7 @@ public class SecondFragment extends Fragment {
             showAllTasks();
         else {
             Globals globals = Globals.getInstance();
-            filteredTasks = globals.getTasks().stream().filter(t ->
+            filteredTasks = globals.getOrderedTasks().stream().filter(t ->
                     globals.getTask(t).getTitle().toLowerCase().contains(filter.toLowerCase())).collect(Collectors.toList());
             recyclerView.setAdapter(new TaskAdapter(view.getContext(), filteredTasks));
         }
@@ -128,7 +130,7 @@ public class SecondFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void showAllTasks() {
-        allTasks= Globals.getInstance().getTasks();
+        allTasks= Globals.getInstance().getOrderedTasks();
         recyclerView.setAdapter(new TaskAdapter(view.getContext(), allTasks));
     }
 }

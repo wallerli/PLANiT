@@ -84,6 +84,10 @@ public class Project {
         return this.tasks;
     }
 
+    public List<UUID> getTags() {
+        return new ArrayList<>(tags);
+    }
+
     /**
      * Ordered by number of blockers, largest first
      */
@@ -91,8 +95,6 @@ public class Project {
         Globals globals = Globals.getInstance();
         List<UUID> sortedTasks = new ArrayList<>(tasks);
         Collections.sort(sortedTasks, (task1, task2) -> {
-            int t1 = globals.getTask(task1).getBlockers().size();
-            int t2 = globals.getTask(task2).getBlockers().size();
             // inverse for descending
             return globals.getTask(task2).getBlockers().size() - globals.getTask(task1).getBlockers().size();
         });
@@ -114,6 +116,7 @@ public class Project {
     }
 
     public float getCompleteness() {
+        updateCompleteness();
         return completeness;
     }
 
@@ -121,6 +124,10 @@ public class Project {
         Globals globals = Globals.getInstance();
         float totalPoints = 0;
         float completedPoints = 0;
+        if (tasks.size() == 0) {
+            completeness = 0;
+            return;
+        }
         for(UUID taskUUID : tasks) {
             Task task = globals.getTask(taskUUID);
             if (task == null) continue;

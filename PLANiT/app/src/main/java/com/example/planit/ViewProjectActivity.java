@@ -7,14 +7,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -22,12 +30,14 @@ import java.util.UUID;
 public class ViewProjectActivity extends AppCompatActivity {
 
     public static String EDIT_PROJECT_ID = "com.example.planit.EDIT_PROJECT_ID";
-    UUID project_id;
-    Globals globals = Globals.getInstance();
-
     Project project;
-    TextView title, due, text;
+    TextView title, due, text, completenessText;
     RecyclerView recyclerView;
+    UUID projectUUID;
+    List<UUID> tasks = new ArrayList<>();
+    List<UUID> tags = new ArrayList<>();
+    CircularProgressIndicator indicator;
+    ChipGroup tagChips;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -49,15 +59,20 @@ public class ViewProjectActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(view -> finish());
 
         Intent intent = getIntent();
-        project_id = UUID.fromString(intent.getStringExtra(MainActivity.VIEW_PROJECT_ID));
+        projectUUID = UUID.fromString(intent.getStringExtra(MainActivity.VIEW_PROJECT_ID));
 
         title = findViewById(R.id.projectTitleTextView);
         due = findViewById(R.id.projectDueTextView);
         text = findViewById(R.id.projectDescriptionTextView);
+        tagChips = findViewById(R.id.projectTags);
+        completenessText = findViewById(R.id.project_indicator_text);
+        indicator = findViewById(R.id.project_indicator);
         recyclerView = findViewById(R.id.tasksRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNestedScrollingEnabled(false);
+        populate();
+        indicator.setOnClickListener(v -> populate());
     }
 
     @Override
@@ -81,19 +96,48 @@ public class ViewProjectActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void populate() {
-        project = globals.getProject(project_id);
-
+    public void populate() {
+        Globals globals = Globals.getInstance();
+        project = globals.getProject(projectUUID);
+        tasks = project.getOrderedTasks();
+        tags = project.getTags();
         title.setText(project.getTitle());
-        if (project.getDueDate() != null)
-            due.setText(
-                 new SimpleDateFormat(
-                     "MM/dd/yyyy hh:mm",
-                      Locale.getDefault()
-                 ).format(project.getDueDate())
-            );
+        updateChips();
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.getDefault());
+        Date dd = project.getDueDate();
+        if (dd != null) {
+            this.due.setText(df.format(project.getDueDate()));
+            if (dd.getTime() < System.currentTimeMillis() && project.getCompleteness() < 1) {
+                due.setTextColor(getResources().getColor(R.color.orange_700));
+                due.setTypeface(null, Typeface.BOLD);
+            } else {
+                due.setTextColor(R.attr.editTextColor);
+                due.setTypeface(null);
+            }
+        } else {
+            due.setText(R.string.no_due_date);
+        }
         text.setText(project.getText());
-
+        completenessText.setText(String.format(Locale.getDefault(), "%.1f%%", 100 * project.getCompleteness()));
+        indicator.setProgress((int) (100 * project.getCompleteness()));
         recyclerView.setAdapter(new TaskAdapter(this, project.getOrderedTasks()));
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void updateChips() {
+        Globals globals = Globals.getInstance();
+        tagChips.removeAllViews();
+        tags.forEach(t -> {
+            Tag tag = globals.getTag(t);
+            Chip lChip = new Chip(this);
+            lChip.setText(tag.getName());
+            if (tag.getHexColor() != -1) {
+                lChip.setTextColor(getResources().getColor(R.color.white));
+                lChip.setChipBackgroundColor(ColorStateList.valueOf(tag.getHexColor()));
+            }
+            lChip.setClickable(false);
+            lChip.setFocusable(false);
+            tagChips.addView(lChip);
+        });
     }
 }

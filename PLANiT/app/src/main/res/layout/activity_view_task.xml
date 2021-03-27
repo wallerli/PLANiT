@@ -24,37 +24,132 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/taskTitleTextView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="@dimen/title_margin"
-                android:layout_marginLeft="@dimen/title_margin"
-                android:layout_marginRight="@dimen/title_margin"
-                android:text="taskTitle"
-                android:textSize="@dimen/view_title_font_size" />
+                android:id="@+id/taskTitles"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/taskTitleTextView"
+                    android:layout_width="@dimen/view_task_title_width"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingMultiplier="1.2"
+                    android:textColor="@color/material_on_background_emphasis_high_type"
+                    android:layout_marginTop="@dimen/title_margin"
+                    android:layout_marginLeft="@dimen/title_margin"
+                    android:layout_marginStart="@dimen/title_margin"
+                    android:text="Title title title title title title title title"
+                    android:textSize="@dimen/view_title_font_size" />
+
+                <RelativeLayout
+                    android:id="@+id/task_marker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/title_margin"
+                    android:layout_marginEnd="@dimen/title_margin"
+                    android:layout_marginTop="@dimen/title_margin">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/task_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:clickable="true"
+                        app:showAnimationBehavior="inward"
+                        android:focusable="true"
+                        app:indicatorSize="@dimen/task_indicator_size_large"
+                        app:trackColor="?colorSecondaryVariant" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@id/task_indicator"
+                        android:layout_alignLeft="@id/task_indicator"
+                        android:layout_alignTop="@id/task_indicator"
+                        android:layout_alignEnd="@id/task_indicator"
+                        android:layout_alignRight="@id/task_indicator"
+                        android:layout_alignBottom="@id/task_indicator"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/ic_baseline_done_24"
+                        app:tint="?colorSurface" />
+
+                    <TextView
+                        android:id="@+id/task_indicator_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/task_indicator"
+                        android:layout_alignStart="@id/task_indicator"
+                        android:layout_alignLeft="@id/task_indicator"
+                        android:text="@string/indicator_hint"
+                        android:gravity="center"
+                        android:textSize="@dimen/indicator_hint_font_size" />
+                </RelativeLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/taskProjectTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskTitleTextView"
+                android:layout_below="@id/taskTitles"
                 android:layout_marginTop="@dimen/subtitle_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
-                android:text="projectTitle"
+                android:lineSpacingMultiplier="1.2"
+                android:text="Project title project title project title project title"
                 android:textSize="@dimen/view_subtitle_font_size" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/taskSizePriority"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/taskProjectTitleTextView"
+                android:layout_marginTop="@dimen/subtitle_margin"
+                android:layout_marginLeft="@dimen/title_margin"
+                android:layout_marginRight="@dimen/title_margin"
+                app:chipSpacingVertical="0dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/sizeChip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    app:ensureMinTouchTargetSize="false"
+                    android:text="Size"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/priorityChip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    app:ensureMinTouchTargetSize="false"
+                    android:text="Priority"/>
+            </com.google.android.material.chip.ChipGroup>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/taskTags"
+                android:layout_width="match_parent"
+                android:layout_below="@id/taskSizePriority"
+                android:layout_marginTop="@dimen/subtitle_margin"
+                android:layout_marginLeft="@dimen/title_margin"
+                android:layout_marginRight="@dimen/title_margin"
+                app:chipSpacingVertical="2dp"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/taskDescriptionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskProjectTitleTextView"
+                android:layout_below="@id/taskTags"
+                android:lineSpacingMultiplier="1.3"
                 android:layout_marginTop="@dimen/description_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
-                android:text="djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvbdjfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb"
+                android:text="djfhbvlsdbvflsdbae bbsbo  aerligbael bbsbo  aerligbael r balr ebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvbdjfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb"
                 android:textSize="@dimen/view_description_font_size" />
 
             <TextView
@@ -62,9 +157,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/taskDescriptionTextView"
-                android:layout_marginTop="@dimen/description_margin"
+                android:layout_marginTop="@dimen/blocked_by_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
+                android:textColor="?colorPrimary"
                 android:text="@string/blocked_by"
                 android:textSize="@dimen/view_description_font_size" />
 
