@@ -1,5 +1,6 @@
 package com.example.planit;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,6 +12,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -111,9 +113,14 @@ public class ViewProjectActivity extends AppCompatActivity {
             this.due.setText(df.format(project.getDueDate()));
             if (dd.getTime() < System.currentTimeMillis() && project.getCompleteness() < 1) {
                 due.setTextColor(getResources().getColor(R.color.orange_700));
+                due.setAlpha(1);
                 due.setTypeface(null, Typeface.BOLD);
             } else {
-                due.setTextColor(R.attr.editTextColor);
+                TypedValue typedValue = new TypedValue();
+                getTheme().resolveAttribute(R.attr.colorOnBackground, typedValue, true);
+                @ColorInt int color = typedValue.data;
+                due.setTextColor(color);
+                due.setAlpha(0.7f);
                 due.setTypeface(null);
             }
         } else {
