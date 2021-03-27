@@ -11,45 +11,23 @@
         android:layout_height="@dimen/project_card_height"
         android:layout_margin="@dimen/card_margin"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        app:cardElevation="@dimen/card_elevation">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/title_margin"
-            android:layout_marginRight="@dimen/title_margin">
-
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/project_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:gravity="center"
-                app:indicatorSize="@dimen/task_indicator_size_large"
-                app:trackColor="@color/custom_secondary_variant" />
-
-            <TextView
-                android:id="@+id/completeness_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@id/project_indicator"
-                android:layout_alignLeft="@id/project_indicator"
-                android:layout_alignTop="@id/project_indicator"
-                android:layout_alignEnd="@id/project_indicator"
-                android:layout_alignRight="@id/project_indicator"
-                android:layout_alignBottom="@id/project_indicator"
-                android:text="@string/indicator_hint"
-                android:gravity="center"
-                android:textSize="@dimen/indicator_hint_font_size" />
+            android:layout_marginRight="@dimen/title_margin"
+            android:layout_marginBottom="@dimen/title_margin">
 
             <TextView
                 android:id="@+id/projectTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/project_indicator"
                 android:layout_marginTop="@dimen/title_margin"
                 android:text="Project Title"
+                android:maxLines="2"
                 android:textSize="@dimen/recycler_title_font_size" />
 
             <TextView
@@ -57,11 +35,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/projectTitleTextView"
-                android:layout_marginTop="@dimen/subtitle_margin"
-                android:layout_marginBottom="@dimen/title_margin"
-                android:maxLines="3"
-                android:text="0/0/0000 00:00"
-                android:textSize="@dimen/recycler_description_font_size" />
+                android:layout_marginTop="@dimen/project_recycler_default_margin"
+                android:text="No Due Date"
+                android:textSize="@dimen/recycler_subtitle_font_size" />
+
+            <TextView
+                android:id="@+id/projectCompletenessTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/projectDueTextView"
+                android:layout_marginTop="@dimen/project_recycler_default_margin"
+                android:text="100.00%"
+                android:maxLines="1"
+                android:gravity="center"
+                android:textSize="@dimen/indicator_hint_font_size_large" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/project_indicator"
+                android:layout_below="@id/projectDueTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/project_recycler_default_margin"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                app:indicatorSize="@dimen/project_indicator_size_large"
+                app:trackColor="@color/custom_secondary_variant" />
 
         </RelativeLayout>
 

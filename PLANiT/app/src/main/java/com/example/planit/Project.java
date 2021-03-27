@@ -102,6 +102,7 @@ public class Project {
     }
 
     public float getCompleteness() {
+        updateCompleteness();
         return completeness;
     }
 
@@ -109,6 +110,10 @@ public class Project {
         Globals globals = Globals.getInstance();
         float totalPoints = 0;
         float completedPoints = 0;
+        if (tasks.size() == 0) {
+            completeness = 0;
+            return;
+        }
         for(UUID taskUUID : tasks) {
             Task task = globals.getTask(taskUUID);
             if (task == null) continue;

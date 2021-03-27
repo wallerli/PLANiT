@@ -17,8 +17,9 @@ import static com.example.planit.MainActivity.VIEW_PROJECT_ID;
 
 public class ProjectViewHolder extends RecyclerView.ViewHolder {
 
-    TextView title, description, due, completeness;
+    TextView title, description, due, completeness_text;
     UUID projectUUID;
+    int completeness;
     CircularProgressIndicator indicator;
 
     public ProjectViewHolder(@NonNull View itemView) {
@@ -27,12 +28,18 @@ public class ProjectViewHolder extends RecyclerView.ViewHolder {
         title = itemView.findViewById(R.id.projectTitleTextView);
         description = itemView.findViewById(R.id.projectDescriptionTextView);
         due = itemView.findViewById(R.id.projectDueTextView);
-//        completeness = itemView.findViewById(R.id.projectCompletenessTextView);
+        completeness_text = itemView.findViewById(R.id.projectCompletenessTextView);
+        indicator = itemView.findViewById(R.id.project_indicator);
+        indicator.setTrackThickness((int) itemView.getResources().getDimension(R.dimen.project_indicator_thickness_large));
         itemView.findViewById(R.id.projectClickBox).setOnClickListener(v -> {
             Context context = v.getContext();
             Intent intent = new Intent(context, ViewProjectActivity.class);
             intent.putExtra(VIEW_PROJECT_ID, projectUUID.toString());
             context.startActivity(intent);
         });
+    }
+
+    public void updateProgress() {
+        indicator.setProgress(completeness);
     }
 }
