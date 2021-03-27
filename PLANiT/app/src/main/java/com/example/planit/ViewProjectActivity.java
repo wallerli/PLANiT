@@ -1,5 +1,6 @@
 package com.example.planit;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -111,7 +113,10 @@ public class ViewProjectActivity extends AppCompatActivity {
                 due.setTextColor(getResources().getColor(R.color.orange_700));
                 due.setTypeface(null, Typeface.BOLD);
             } else {
-                due.setTextColor(R.attr.editTextColor);
+                TypedValue typedValue = new TypedValue();
+                getTheme().resolveAttribute(R.attr.colorOnSurface, typedValue, true);
+                @ColorInt int color = typedValue.data;
+                due.setTextColor(color);
                 due.setTypeface(null);
             }
         } else {

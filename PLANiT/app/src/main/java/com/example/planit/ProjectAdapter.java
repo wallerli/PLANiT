@@ -3,10 +3,12 @@ package com.example.planit;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,6 +51,12 @@ public class ProjectAdapter extends RecyclerView.Adapter<com.example.planit.Proj
             if (due.getTime() < System.currentTimeMillis() && project.getCompleteness() < 1) {
                 holder.due.setTextColor(mCtx.getResources().getColor(R.color.orange_700));
                 holder.due.setTypeface(null, Typeface.BOLD);
+            } else {
+                TypedValue typedValue = new TypedValue();
+                mCtx.getTheme().resolveAttribute(R.attr.colorOnSurface, typedValue, true);
+                @ColorInt int color = typedValue.data;
+                holder.due.setTextColor(color);
+                holder.due.setTypeface(null);
             }
         } else {
             holder.due.setText(R.string.no_due_date);
