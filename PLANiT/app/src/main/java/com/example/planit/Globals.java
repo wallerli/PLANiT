@@ -45,16 +45,8 @@ public class Globals{
         return projects.get(projectUUID);
     }
 
-    public Tag getTag() {
-        return tags.get(null);
-    }
-
     public Tag getTag(UUID tagUUID) {
         return tags.get(tagUUID);
-    }
-
-    public Task getTask() {
-        return tasks.get(null);
     }
 
     public Task getTask(UUID taskUUID) {
