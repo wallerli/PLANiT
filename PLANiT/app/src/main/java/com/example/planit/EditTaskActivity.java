@@ -42,9 +42,10 @@ public class EditTaskActivity extends AppCompatActivity {
             toolbar.setTitle("Edit Task");
         }
         else {
-            task = globals.getTask();
+            task = new Task("New Task");
             toolbar.setTitle("Add New Task");
         }
+
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.menu_toolbar_edit);
         toolbar.setNavigationOnClickListener(view -> finish());

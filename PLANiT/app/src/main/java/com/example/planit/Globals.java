@@ -19,13 +19,7 @@ public class Globals{
     private final Map<UUID, Tag> tags = new HashMap<UUID, Tag>();
     private final Map<UUID, Task> tasks = new HashMap<UUID, Task>();
 
-    public UUID demoProjectUUID;
-    public UUID demoTaskUUID;
-
     private Globals() {
-        projects.put(null, new Project(""));
-        tags.put(null, new Tag(""));
-        tasks.put(null, new Task("", Size.MEDIUM, Priority.MODERATE));
         setupDummyObjects();
     }
 
@@ -45,10 +39,6 @@ public class Globals{
 
     public Task addTask(Task task) {
         return tasks.put(task.getUUID(), task);
-    }
-
-    public Project getProject() {
-        return projects.get(null);
     }
 
     public Project getProject(UUID projectUUID) {
@@ -295,8 +285,5 @@ public class Globals{
         addProject(project4);
         addTask(task8);
         addTask(task9);
-
-        demoProjectUUID = project0.getUUID();
-        demoTaskUUID = task2.getUUID();
     }
 }

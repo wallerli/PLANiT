@@ -21,6 +21,10 @@ public class Task {
     private final Set<UUID> blockers = new HashSet<>();
     private String text = "";
 
+    public Task(String title) {
+        this.setTitle(title);
+    }
+
     public Task(String title, Size size, Priority priority) {
         this.setTitle(title);
         this.size = size;

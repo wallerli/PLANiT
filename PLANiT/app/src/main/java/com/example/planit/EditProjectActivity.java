@@ -62,7 +62,7 @@ public class EditProjectActivity extends AppCompatActivity {
             toolbar.setTitle("Edit Project");
         }
         else {
-            project = globals.getProject();
+            project = new Project("New Project");
             toolbar.setTitle("Add New Project");
         }
         setSupportActionBar(toolbar);
