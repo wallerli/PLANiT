@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
@@ -35,39 +36,11 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         indicator = itemView.findViewById(R.id.task_indicator);
 
         itemView.findViewById(R.id.taskClickBox).setOnClickListener(v -> {
-            Context context = v.getContext();
-            Intent intent = new Intent(context, ViewTaskActivity.class);
-            intent.putExtra(VIEW_TASK_ID, taskUUID.toString());
-            context.startActivity(intent);
+            openTask(v.getContext());
         });
 
         completeThickness = (int) itemView.getResources().getDimension(R.dimen.task_indicator_complete_thickness);
         incompleteThickness = (int) itemView.getResources().getDimension(R.dimen.task_indicator_incomplete_thickness);
-
-        indicator.setOnClickListener(v -> {
-            int ret;
-            if (completed) {
-                ret = Globals.getInstance().setTaskCompleted(taskUUID, false);
-                if (ret == 0) {
-                    completed = false;
-                    setIncomplete();
-                } else if (ret == 3) {
-                    completed = false;
-                    unblocked = false;
-                    setBlocked();
-                }
-            } else {
-                ret = Globals.getInstance().setTaskCompleted(taskUUID, true);
-                if (ret == 0) {
-                    completed = true;
-                    setComplete();
-                } else if (ret == 2) {
-                    completed = false;
-                    unblocked = false;
-                    setBlocked();
-                }
-            }
-        });
     }
 
     public void setComplete() {
@@ -83,5 +56,11 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     public void setBlocked() {
         indicator.setProgress(0);
         indicator.setTrackThickness(incompleteThickness);
+    }
+
+    public void openTask(Context c) {
+        Intent intent = new Intent(c, ViewTaskActivity.class);
+        intent.putExtra(VIEW_TASK_ID, taskUUID.toString());
+        c.startActivity(intent);
     }
 }

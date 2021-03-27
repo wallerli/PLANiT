@@ -1,19 +1,23 @@
 package com.example.planit;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +104,12 @@ public class ViewTaskActivity extends AppCompatActivity {
                     completed = false;
                     unblocked = false;
                     setBlocked();
+                    AlertDialog alertDialog = new AlertDialog.Builder(ViewTaskActivity.this).create();
+                    alertDialog.setTitle("The Task is Blocked");
+                    alertDialog.setMessage("Please complete all its blockers before marking the task completed.");
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
+                            (dialog, which) -> dialog.dismiss());
+                    alertDialog.show();
                 }
             }
         });
