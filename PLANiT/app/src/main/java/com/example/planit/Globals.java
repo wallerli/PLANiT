@@ -50,6 +50,11 @@ public class Globals{
         return projects.get(projectUUID);
     }
 
+    public Map<UUID, Project> getProjects()
+    {
+        return projects;
+    }
+
     public Tag getTag(UUID tagUUID) {
         return tags.remove(tagUUID);
     }

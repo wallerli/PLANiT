@@ -41,26 +41,30 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/project_title_text"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id = "@+id/til_project"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/edit_task_title"
                 android:layout_marginTop="@dimen/title_margin"
-                android:text="@string/project_associated_label"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                style = "@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
 
-            <Spinner
-                android:id="@+id/projects_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/project_title_text"/>
+                <AutoCompleteTextView
+                    android:id="@+id/act_projects"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:background="@null"
+                    android:hint="Project"
+                     />
+        </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/size_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/projects_spinner"
+                android:layout_below="@id/til_project"
                 android:layout_marginTop="@dimen/title_margin"
                 android:text="@string/size_label_text"
                 app:layout_constraintTop_toTopOf="parent" />
