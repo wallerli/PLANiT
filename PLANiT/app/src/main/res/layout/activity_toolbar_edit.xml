@@ -14,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/colorPrimary"
-            app:title="@string/edit_activity_title"
             app:menu="@menu/menu_toolbar_edit"
             app:navigationIcon="@drawable/ic_baseline_close_24"
             app:popupTheme="@style/Theme.PLANiT.PopupOverlay"/>

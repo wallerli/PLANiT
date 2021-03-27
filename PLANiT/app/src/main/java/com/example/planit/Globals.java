@@ -1,15 +1,26 @@
 package com.example.planit;
 
 import android.graphics.Color;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.sql.Timestamp;
+import java.time.Instant;
 
 public class Globals{
 
@@ -18,13 +29,7 @@ public class Globals{
     private final Map<UUID, Tag> tags = new HashMap<UUID, Tag>();
     private final Map<UUID, Task> tasks = new HashMap<UUID, Task>();
 
-    private UUID demoProjectUUID = null;
-    private UUID demoTaskUUID = null;
-
     private Globals() {
-//        projects.put(null, new Project("New Project"));
-//        tags.put(null, new Tag("New Tag"));
-//        tasks.put(null, new Task("New Task", Size.MEDIUM, Priority.MODERATE));
         setupDummyObjects();
     }
 
@@ -56,12 +61,66 @@ public class Globals{
     }
 
     public Tag getTag(UUID tagUUID) {
-        return tags.remove(tagUUID);
+        return tags.get(tagUUID);
     }
 
     public Task getTask(UUID taskUUID) {
         return tasks.get(taskUUID);
     }
+
+    public List<UUID> getTasks() { return new ArrayList<>(tasks.keySet()); }
+
+    /**
+     * Ordered by number of blockers, largest first
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public List<UUID> getOrderedTasks() {
+        List<UUID> incomplete = tasks.keySet().stream().filter(t -> !tasks.get(t).getCompleteStatus()).sorted((task1, task2) -> {
+            // inverse for descending
+            return tasks.get(task2).getBlockers().size() - tasks.get(task1).getBlockers().size();
+        }).collect(Collectors.toList());
+        List<UUID> complete = tasks.keySet().stream().filter(t -> tasks.get(t).getCompleteStatus()).sorted((task1, task2) -> {
+            // inverse for descending
+            return tasks.get(task2).getBlockers().size() - tasks.get(task1).getBlockers().size();
+        }).collect(Collectors.toList());
+        incomplete.addAll(complete);
+        return incomplete;
+    }
+
+    /**
+     * Ordered by due date, earliest first
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public List<UUID> getOrderedProjects() {
+        List<UUID> incomplete = projects.keySet().stream().filter(p -> Objects.requireNonNull(projects.get(p)).getCompleteness() < 1).sorted((p1, p2) -> {
+            // inverse for descending
+            Date d1 = Objects.requireNonNull(projects.get(p1)).getDueDate();
+            Date d2 = Objects.requireNonNull(projects.get(p2)).getDueDate();
+            if (d1 == null && d2 == null) {
+                return 0;
+            } else if (d1 == null) {
+                return 1;
+            } else if (d2 == null) {
+                return -1;
+            } else return Long.compare(d1.getTime(), d2.getTime());
+        }).collect(Collectors.toList());
+        List<UUID> complete = projects.keySet().stream().filter(p -> Objects.requireNonNull(projects.get(p)).getCompleteness() >= 1).sorted((p1, p2) -> {
+            // inverse for descending
+            Date d1 = Objects.requireNonNull(projects.get(p1)).getDueDate();
+            Date d2 = Objects.requireNonNull(projects.get(p2)).getDueDate();
+            if (d1 == null && d2 == null) {
+                return 0;
+            } else if (d1 == null) {
+                return 1;
+            } else if (d2 == null) {
+                return -1;
+            } else return Long.compare(d1.getTime(), d2.getTime());
+        }).collect(Collectors.toList());
+        incomplete.addAll(complete);
+        return incomplete;
+    }
+
+//    public List<UUID> getProjects() { return new ArrayList<>(projects.keySet()); }
 
     public Project removeProject(UUID projectUUID) {
         for (UUID taskUUID : this.getProject(projectUUID).getTasks()) {
@@ -97,18 +156,47 @@ public class Globals{
     }
 
     /**
+     * @return 0: successful;
+     * 1: no change;
+     * 2: attempting to mark a blocked task as completed;
+     * 3: the task is marked incomplete and it has incomplete blockers
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public int setTaskCompleted(UUID taskUUID, boolean completeStatus) {
+        Task task = tasks.get(taskUUID);
+        boolean isCompleted = task.getCompleteStatus();
+        boolean isUnblocked = task.getBlockers().stream().allMatch(b -> tasks.get(b).getCompleteStatus());
+        if (completeStatus) {
+            if (isCompleted)
+                return 1;
+            if (!isUnblocked)
+                return 2;
+            task.setCompleteStatus(true);
+        } else {
+            if (!isCompleted)
+                return 1;
+            if (!isUnblocked) {
+                task.setCompleteStatus(false);
+                addTask(task);
+                return 3;
+            }
+            task.setCompleteStatus(false);
+        }
+        addTask(task);
+        return 0;
+    }
+
+    /**
      * Title and Text are generated from https://www.blindtextgenerator.com/lorem-ipsum
      */
     public void setupDummyObjects() {
-        this.tags.clear();
-        this.projects.clear();
-        this.tasks.clear();
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.getDefault());
         Tag tag0 = new Tag("Work", Color.rgb(112, 87, 255));
         Tag tag1 = new Tag("CSCI 5115", Color.rgb(235, 135, 57));
         Tag tag2 = new Tag("Spring Semester", Color.rgb(0, 134, 114));
-        Tag tag3 = new Tag("Group-Work", Color.rgb(236, 230, 88));
-        Tag tag4 = new Tag("When you have “free time” you can do this");
+        Tag tag3 = new Tag("Group-Work", Color.rgb(186, 180, 38));
+//        Tag tag4 = new Tag("When you have “free time” you can do this");
+        Tag tag4 = new Tag("“free time” only");  // The original one looks too long
         Tag tag5 = new Tag("\uD83E\uDD73", Color.rgb(0, 117, 202));
         Tag tag6 = new Tag("MOST IMPORTANT", Color.rgb(182, 2, 5));
         addTag(tag0);
@@ -209,7 +297,7 @@ public class Globals{
         Task task4 = new Task("Apply to graduate", Size.SMALL, Priority.CRITICAL);
         task4.addTag(tag2.getUUID());
         task4.addTag(tag5.getUUID());
-        task4.setCompleteStatus(true);
+//        task4.setCompleteStatus(true);
         task4.setText("" +
                 "Email advisor to set up a meeting.\n" +
                 "In the meeting:\n" +
@@ -286,22 +374,13 @@ public class Globals{
         addProject(project4);
         addTask(task8);
         addTask(task9);
-
-        demoProjectUUID = project0.getUUID();
-        demoTaskUUID = task2.getUUID();
     }
 
-    /**
-     * @return the demo project UUID as string
-     */
-    public String getProject() {
-        return demoProjectUUID.toString();
-    }
-
-    /**
-     * @return the demo task UUID as string
-     */
-    public String getTask() {
-        return demoTaskUUID.toString();
+    // Format: // 2021-03-24 17:12:03.311
+    public Timestamp getTimestamp()
+    {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        return timestamp;
     }
 }
+

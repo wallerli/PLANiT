@@ -35,6 +35,7 @@
                 android:hint="@string/project_title">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/project_title_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
@@ -76,59 +77,35 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/contactText"
+                android:id="@+id/tags_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/due_date_layout"
                 android:layout_marginTop="@dimen/title_margin"
-                android:text="@string/contact_text"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Spinner
-                android:id="@+id/contacts_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/contactText"/>
-
-            <TextView
-                android:id="@+id/tags_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/contacts_spinner"
-                android:layout_marginTop="@dimen/title_margin"
-                android:text="@string/tag_text"
+                android:text="@string/tags_label_text"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chips"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/tag_chips"
+                android:layout_width="match_parent"
                 android:layout_below="@id/tags_label"
-                app:chipSpacing="10dp">
+                app:chipSpacingVertical="2dp"
+                android:layout_height="wrap_content"/>
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipReading"
-                    style="@style/Widget.MaterialComponents.Chip.Entry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Reading" />
-            </com.google.android.material.chip.ChipGroup>
-
-            <TextView
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/descriptionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/chips"
-                android:text="@string/description_text"
-                android:labelFor="@id/edit_description"/>
+                android:layout_below="@id/tag_chips"
+                android:layout_marginTop="@dimen/title_margin"
+                android:hint="@string/description_text">
 
-            <EditText
-                android:id="@+id/edit_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:layout_below="@id/descriptionText"
-                android:inputType="textMultiLine" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.View;
 
@@ -16,13 +18,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     public static String VIEW_PROJECT_ID = "com.example.planit.VIEW_PROJECT_ID";
     public static String VIEW_TASK_ID = "com.example.planit.VIEW_TASK_ID";
-    Globals globals = null;
-    FloatingActionButton fab = null;
+    FloatingActionButton fab;
     boolean fab_expanded = false;
+    FragmentPagerAdapter FragmentPagerAdapter;
+    ViewPager viewPager;
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        globals = Globals.getInstance();
 
         fab = findViewById(R.id.fab);
 
@@ -39,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
             rotateFab();
             fab.setExpanded(fab_expanded);
         });
+
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabLayout);
+
+        setPagerAdapter();
+        setTabLayout();
     }
 
     @Override
@@ -64,18 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
         return true;
     }
 
@@ -87,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, Settings.class);
+            startActivity(intent);
             return true;
         }
 
@@ -97,30 +98,28 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void openAProject(View view) {
-        Intent intent = new Intent(this, ViewProjectActivity.class);
-        intent.putExtra(VIEW_PROJECT_ID, globals.getProject());
-        startActivity(intent);
+    private void setPagerAdapter() {
+        FragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPager.setAdapter(FragmentPagerAdapter);
     }
 
-    public void openATask(View view) {
-        Intent intent = new Intent(this, ViewTaskActivity.class);
-        intent.putExtra(VIEW_TASK_ID, globals.getTask());
-        startActivity(intent);
+    private void setTabLayout() {
+        tabLayout.setupWithViewPager(viewPager);
+
+        Objects.requireNonNull(tabLayout.getTabAt(0)).setText("Projects");
+        Objects.requireNonNull(tabLayout.getTabAt(1)).setText("Tasks");
     }
 
-    public void openEditProject(View view){
+    public void openEditNewProject(View view){
         Intent intent = new Intent(this, EditProjectActivity.class);
-        //intent.putExtra(); pass array of contact in the future
         startActivity(intent);
         fab_expanded = false;
         rotateFab();
         fab.setExpanded(fab_expanded);
     }
 
-    public void openEditTask(View view){
+    public void openEditNewTask(View view){
         Intent intent = new Intent(this, EditTaskActivity.class);
-        //intent.putExtra(); pass array of contact in the future
         startActivity(intent);
         fab_expanded = false;
         rotateFab();
@@ -136,5 +135,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .rotation(fab_expanded ? 45f : 0f);
+    }
+
+    public void openSetting(View view){
+        Intent intent = new Intent(this, Settings.class);
+        startActivity(intent);
+        //fab_expanded = false;
+        //rotateFab();
+        //fab.setExpanded(fab_expanded);
     }
 }

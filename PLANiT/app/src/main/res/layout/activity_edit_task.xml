@@ -35,10 +35,10 @@
                 android:hint="@string/task_title">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/task_title_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -54,10 +54,7 @@
                     android:id="@+id/act_projects"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
-                    android:background="@null"
-                    android:hint="Project"
-                     />
+                    android:hint="@string/project_title" />
         </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -73,38 +70,44 @@
                 android:id="@+id/size_chips"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/size_label">
+                android:layout_below="@id/size_label"
+                app:singleSelection="true"
+                app:selectionRequired="true">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/tiny_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tiny_text"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/small_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/small_text"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/medium_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/medium_text"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/large_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/large_text"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/huge_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/huge_text"/>
-
             </com.google.android.material.chip.ChipGroup>
 
             <TextView
@@ -113,39 +116,44 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/size_chips"
                 android:layout_marginTop="@dimen/title_margin"
-                android:text="@string/size_label_text"
+                android:text="@string/priority_label_text"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/priority_chips"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/priority_label">
+                android:layout_below="@id/priority_label"
+                app:singleSelection="true"
+                app:selectionRequired="true">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/low_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/low_text"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/moderate_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/moderate_text"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/high_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/high_text"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/critical_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/critical_text"/>
-
             </com.google.android.material.chip.ChipGroup>
 
             <TextView
@@ -154,38 +162,36 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/priority_chips"
                 android:layout_marginTop="@dimen/title_margin"
-                android:text="@string/tag_text"
+                android:text="@string/tags_label_text"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chips"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/tag_chips"
+                android:layout_width="match_parent"
                 android:layout_below="@id/tags_label"
-                app:chipSpacing="10dp">
-            </com.google.android.material.chip.ChipGroup>
+                app:chipSpacingVertical="2dp"
+                android:layout_height="wrap_content"/>
 
-            <TextView
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/descriptionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/chips"
-                android:text="@string/description_text"
-                android:labelFor="@id/edit_description"/>
+                android:layout_below="@id/tag_chips"
+                android:layout_marginTop="@dimen/title_margin"
+                android:hint="@string/description_text">
 
-            <EditText
-                android:id="@+id/edit_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:layout_below="@id/descriptionText"
-                android:inputType="textMultiLine" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/blockers_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/edit_description"
+                android:layout_below="@id/descriptionText"
                 android:layout_marginTop="@dimen/title_margin"
                 android:text="@string/blocked_by"
                 app:layout_constraintTop_toTopOf="parent" />

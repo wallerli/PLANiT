@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/custom_secondary_variant</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Accent brand color. -->
-        <item name="colorAccent">@color/custom_accent</item>
+        <item name="colorAccent">?attr/colorSecondary</item>
 <!--        <item name="colorAccentVariant">@color/orange_700</item>-->
 <!--        <item name="colorOnAccent">@color/black</item>-->
         <!-- Status bar color. -->
