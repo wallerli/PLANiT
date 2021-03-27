@@ -30,6 +30,8 @@ import java.util.UUID;
 public class ViewProjectActivity extends AppCompatActivity {
 
     public static String EDIT_PROJECT_ID = "com.example.planit.EDIT_PROJECT_ID";
+    UUID project_id;
+    Globals globals = Globals.getInstance();
 
     Project project;
     TextView title, due, text, completenessText;
@@ -45,6 +47,7 @@ public class ViewProjectActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         updateProject();
+        populate();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -73,8 +76,6 @@ public class ViewProjectActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.tasksRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        TaskAdapter adapter = new TaskAdapter(this, tasks);
-        recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
 
         indicator.setOnClickListener(v -> updateProject());
@@ -90,7 +91,6 @@ public class ViewProjectActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_edit) {
-
             Intent intent = new Intent(this, EditProjectActivity.class);
             intent.putExtra(EDIT_PROJECT_ID, project.getUUID().toString());
             startActivity(intent);
@@ -144,5 +144,22 @@ public class ViewProjectActivity extends AppCompatActivity {
             lChip.setFocusable(false);
             tagChips.addView(lChip);
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void populate() {
+        project = globals.getProject(project_id);
+
+        title.setText(project.getTitle());
+        if (project.getDueDate() != null)
+            due.setText(
+                 new SimpleDateFormat(
+                     "MM/dd/yyyy hh:mm",
+                      Locale.getDefault()
+                 ).format(project.getDueDate())
+            );
+        text.setText(project.getText());
+
+        recyclerView.setAdapter(new TaskAdapter(this, project.getOrderedTasks()));
     }
 }

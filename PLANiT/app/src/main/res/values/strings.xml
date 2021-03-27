@@ -36,7 +36,7 @@
     <string name="no_due_date_selected_text">Select Date</string>
     <string name="no_due_time_selected_text">Select Time</string>
     <string name="task_title">Task Title *</string>
-    <string name="size_label_text">Size of Task</string>
+    <string name="size_label_text">Size of Task *</string>
     <string name="tiny_text">Tiny</string>
     <string name="small_text">Small</string>
     <string name="medium_text">Medium</string>
@@ -49,7 +49,7 @@
     <string name="project_associated_label">Project *</string>
     <string name="create_project">New Project</string>
     <string name="create_task">New Task</string>
-    <string name="priority_label_text">Task Priority</string>
+    <string name="priority_label_text">Task Priority *</string>
     <string name="indicator_hint">DONE?</string>
     <string name="indicator_progress">0.0%</string>
     <string name="no_due_date">No Due Date</string>

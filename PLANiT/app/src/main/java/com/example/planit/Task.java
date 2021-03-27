@@ -13,12 +13,12 @@ enum Priority { LOW, MODERATE, HIGH, CRITICAL }
 
 public class Task {
     private String title;
-    private final UUID uuid = UUID.randomUUID();
+    private UUID uuid = UUID.randomUUID();
     private boolean complete = false;
     private Size size;
     private Priority priority;
-    private final Set<UUID> tags = new HashSet<>();
-    private final Set<UUID> blockers = new HashSet<>();
+    private Set<UUID> tags = new HashSet<>();
+    private Set<UUID> blockers = new HashSet<>();
     private String text = "";
 
     public Task(String title) {
@@ -29,6 +29,17 @@ public class Task {
         this.setTitle(title);
         this.size = size;
         this.priority = priority;
+    }
+
+    public Task(Task originalTask) {
+        this.title = originalTask.title;
+        this.uuid = originalTask.uuid;
+        this.complete = originalTask.complete;
+        this.size = originalTask.size;
+        this.priority = originalTask.priority;
+        this.tags = originalTask.tags;
+        this.blockers = originalTask.blockers;
+        this.text = originalTask.text;
     }
 
     public String getTitle() {

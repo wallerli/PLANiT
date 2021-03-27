@@ -12,15 +12,25 @@ import java.util.UUID;
 
 public class Project {
     private String title;
-    private final UUID uuid = UUID.randomUUID();
+    private UUID uuid = UUID.randomUUID();
     private Date dueDate;
-    private final Set<UUID> tags = new HashSet<>();
-    private final Set<UUID> tasks = new HashSet<>();
+    private Set<UUID> tags = new HashSet<>();
+    private Set<UUID> tasks = new HashSet<>();
     private String text = "";
     private float completeness = .0f;
 
     public Project(String title) {
         this.setTitle(title);
+    }
+
+    public Project(Project originalProject) {
+        this.title = originalProject.title;
+        this.uuid = originalProject.uuid;
+        this.dueDate = originalProject.dueDate;
+        this.tags = originalProject.tags;
+        this.tasks = originalProject.tasks;
+        this.text = originalProject.text;
+        this.completeness = originalProject.completeness;
     }
 
     public String getTitle() {
