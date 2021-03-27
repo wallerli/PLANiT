@@ -35,6 +35,7 @@
                     android:layout_width="@dimen/view_task_title_width"
                     android:layout_height="wrap_content"
                     android:lineSpacingMultiplier="1.2"
+                    android:textColor="@color/material_on_background_emphasis_high_type"
                     android:layout_marginTop="@dimen/title_margin"
                     android:layout_marginLeft="@dimen/title_margin"
                     android:layout_marginStart="@dimen/title_margin"
@@ -59,7 +60,7 @@
                         app:showAnimationBehavior="inward"
                         android:focusable="true"
                         app:indicatorSize="@dimen/task_indicator_size_large"
-                        app:trackColor="@color/custom_secondary_variant" />
+                        app:trackColor="?colorSecondaryVariant" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -73,7 +74,7 @@
                         android:layout_gravity="center"
                         android:padding="10dp"
                         app:srcCompat="@drawable/ic_baseline_done_24"
-                        app:tint="@color/white" />
+                        app:tint="?colorSurface" />
 
                     <TextView
                         android:id="@+id/task_indicator_text"
@@ -148,7 +149,7 @@
                 android:layout_marginTop="@dimen/description_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
-                android:text="djfhbvlsdbvflsdbae bbsbo  aerligbael bbsbo  aerligbael r balr blerigb lierbg earbvl vu efv beruv berfvb arbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvbdjfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb"
+                android:text="djfhbvlsdbvflsdbae bbsbo  aerligbael bbsbo  aerligbael r balr ebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvbdjfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb"
                 android:textSize="@dimen/view_description_font_size" />
 
             <TextView
@@ -159,8 +160,7 @@
                 android:layout_marginTop="@dimen/blocked_by_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
-                android:textColor="@color/custom_accent"
-                android:textStyle="bold"
+                android:textColor="?colorAccent"
                 android:text="@string/blocked_by"
                 android:textSize="@dimen/view_description_font_size" />
 

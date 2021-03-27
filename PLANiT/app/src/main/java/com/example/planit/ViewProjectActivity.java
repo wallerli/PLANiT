@@ -38,7 +38,6 @@ public class ViewProjectActivity extends AppCompatActivity {
     List<UUID> tasks = new ArrayList<>();
     List<UUID> tags = new ArrayList<>();
     CircularProgressIndicator indicator;
-    ColorStateList defaultDueDateColor;
     ChipGroup tagChips;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -69,7 +68,6 @@ public class ViewProjectActivity extends AppCompatActivity {
         tagChips = findViewById(R.id.projectTags);
         completenessText = findViewById(R.id.project_indicator_text);
         indicator = findViewById(R.id.project_indicator);
-        defaultDueDateColor =  completenessText.getTextColors();
         updateProject();
 
         recyclerView = findViewById(R.id.tasksRecyclerView);
@@ -119,7 +117,7 @@ public class ViewProjectActivity extends AppCompatActivity {
                 due.setTextColor(getResources().getColor(R.color.orange_700));
                 due.setTypeface(null, Typeface.BOLD);
             } else {
-                due.setTextColor(defaultDueDateColor);
+                due.setTextColor(R.attr.editTextColor);
                 due.setTypeface(null);
             }
         } else {

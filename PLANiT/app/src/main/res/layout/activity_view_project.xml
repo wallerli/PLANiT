@@ -34,6 +34,7 @@
                 android:id="@+id/projectTitleTextView"
                 android:layout_width="@dimen/view_task_title_width"
                 android:layout_height="wrap_content"
+                android:textColor="@color/material_on_background_emphasis_high_type"
                 android:layout_marginTop="@dimen/title_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
@@ -59,7 +60,7 @@
                         android:focusable="true"
                         app:indicatorSize="@dimen/project_indicator_size_large"
                         app:trackThickness="@dimen/project_indicator_thickness_large"
-                        app:trackColor="@color/custom_secondary_variant" />
+                        app:trackColor="?colorSecondaryVariant" />
 
                     <TextView
                         android:id="@+id/project_indicator_text"
@@ -115,8 +116,7 @@
                 android:layout_marginTop="@dimen/blocked_by_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
-                android:textColor="@color/custom_accent"
-                android:textStyle="bold"
+                android:textColor="?colorAccent"
                 android:text="@string/tasks"
                 android:textSize="@dimen/view_description_font_size" />
 

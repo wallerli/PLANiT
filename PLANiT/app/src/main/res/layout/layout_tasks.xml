@@ -22,7 +22,7 @@
             android:layout_marginLeft="@dimen/task_indicator_marginLeft"
             android:layout_marginTop="@dimen/task_indicator_marginTop"
             app:showAnimationBehavior="inward"
-            app:trackColor="@color/custom_secondary_variant"
+            app:trackColor="?colorSecondaryVariant"
             app:indicatorSize="@dimen/task_indicator_size" />
 
         <ImageView
@@ -36,7 +36,7 @@
             android:padding="10dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/ic_baseline_done_24"
-            app:tint="@color/white"
+            app:tint="?colorSurface"
             android:layout_alignEnd="@id/task_indicator" />
     </RelativeLayout>
 
@@ -64,6 +64,7 @@
                     android:layout_width="match_parent"
                     android:lineSpacingMultiplier="1.2"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/material_on_background_emphasis_high_type"
                     android:text="Blocker Task Title"
                     android:textSize="@dimen/recycler_title_font_size" />
 

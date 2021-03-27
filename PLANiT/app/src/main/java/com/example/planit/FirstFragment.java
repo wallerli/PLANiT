@@ -40,14 +40,16 @@ public class FirstFragment extends Fragment {
         if (searchItem != null && !searchItem.isActionViewExpanded()) {
             filter = "";
             showAllProjects();
-            searchView.clearFocus();
+            if (searchView != null)
+                searchView.clearFocus();
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        searchView.clearFocus();
+        if (searchView != null)
+            searchView.clearFocus();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
