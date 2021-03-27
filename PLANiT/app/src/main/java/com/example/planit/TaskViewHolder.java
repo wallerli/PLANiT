@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.util.UUID;
@@ -22,6 +23,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     TextView title, description;
     UUID taskUUID;
     CircularProgressIndicator indicator;
+    ChipGroup chips;
     boolean completed;
     boolean unblocked;
     final int completeThickness;
@@ -34,6 +36,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         title = itemView.findViewById(R.id.taskTitleTextView);
         description = itemView.findViewById(R.id.taskDescriptionTextView);
         indicator = itemView.findViewById(R.id.task_indicator);
+        chips = itemView.findViewById(R.id.taskTags);
 
         itemView.findViewById(R.id.taskClickBox).setOnClickListener(v -> {
             openTask(v.getContext());

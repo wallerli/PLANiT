@@ -8,12 +8,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.util.ArrayList;
@@ -29,7 +32,9 @@ public class ViewTaskActivity extends AppCompatActivity {
     TextView title, projectTitle, text;
     RecyclerView recyclerView;
     List<UUID> blockers = new ArrayList<>();
+    List<UUID> tags = new ArrayList<>();
     CircularProgressIndicator indicator;
+    ChipGroup tagChips;
     boolean completed;
     boolean unblocked;
     int completeThickness;
@@ -62,6 +67,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         title = findViewById(R.id.taskTitleTextView);
         projectTitle = findViewById(R.id.taskProjectTitleTextView);
         text = findViewById(R.id.taskDescriptionTextView);
+        tagChips = findViewById(R.id.taskTags);
         indicator = findViewById(R.id.task_indicator);
         updateTask();
 
@@ -131,11 +137,13 @@ public class ViewTaskActivity extends AppCompatActivity {
         Globals globals = Globals.getInstance();
         task = globals.getTask(task_id);
         blockers = task.getOrderedBlockers();
+        tags = task.getTags();
         title.setText(task.getTitle());
         projectTitle.setText(globals.getParentProject(task.getUUID()).getTitle());
         text.setText(task.getText());
         completed = task.getCompleteStatus();
         unblocked = task.getBlockers().stream().allMatch(b -> globals.getTask(b).getCompleteStatus());
+        updateChips();
         if (completed) {
             setComplete();
         } else if (unblocked) {
@@ -158,5 +166,23 @@ public class ViewTaskActivity extends AppCompatActivity {
     public void setBlocked() {
         indicator.setProgress(0);
         indicator.setTrackThickness(incompleteThickness);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void updateChips() {
+        Globals globals = Globals.getInstance();
+        tagChips.removeAllViews();
+        tags.forEach(t -> {
+            Tag tag = globals.getTag(t);
+            Chip lChip = new Chip(this);
+            lChip.setText(tag.getName());
+            if (tag.getHexColor() != -1) {
+                lChip.setTextColor(getResources().getColor(R.color.white));
+                lChip.setChipBackgroundColor(ColorStateList.valueOf(tag.getHexColor()));
+            }
+            lChip.setClickable(false);
+            lChip.setFocusable(false);
+            tagChips.addView(lChip);
+        });
     }
 }

@@ -74,9 +74,16 @@
                     android:lineSpacingMultiplier="1.2"
                     android:layout_below="@id/taskTitleTextView"
                     android:layout_marginTop="@dimen/subtitle_margin"
-                    android:maxLines="3"
+                    android:maxLines="2"
                     android:text="djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvbdjfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb"
                     android:textSize="@dimen/recycler_description_font_size" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/taskTags"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/taskDescriptionTextView"
+                    android:layout_marginTop="@dimen/subtitle_margin"
+                    android:layout_height="wrap_content"/>
 
             </RelativeLayout>
 
