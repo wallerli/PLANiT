@@ -187,8 +187,9 @@ public class Globals{
         Tag tag0 = new Tag("Work", Color.rgb(112, 87, 255));
         Tag tag1 = new Tag("CSCI 5115", Color.rgb(235, 135, 57));
         Tag tag2 = new Tag("Spring Semester", Color.rgb(0, 134, 114));
-        Tag tag3 = new Tag("Group-Work", Color.rgb(236, 230, 88));
-        Tag tag4 = new Tag("When you have “free time” you can do this");
+        Tag tag3 = new Tag("Group-Work", Color.rgb(186, 180, 38));
+//        Tag tag4 = new Tag("When you have “free time” you can do this");
+        Tag tag4 = new Tag("“free time” only");  // The original one looks too long
         Tag tag5 = new Tag("\uD83E\uDD73", Color.rgb(0, 117, 202));
         Tag tag6 = new Tag("MOST IMPORTANT", Color.rgb(182, 2, 5));
         addTag(tag0);

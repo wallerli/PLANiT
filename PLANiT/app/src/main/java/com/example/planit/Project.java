@@ -74,6 +74,10 @@ public class Project {
         return this.tasks;
     }
 
+    public List<UUID> getTags() {
+        return new ArrayList<>(tags);
+    }
+
     /**
      * Ordered by number of blockers, largest first
      */

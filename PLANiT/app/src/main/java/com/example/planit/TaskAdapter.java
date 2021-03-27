@@ -1,6 +1,7 @@
 package com.example.planit;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.chip.Chip;
 
 import java.util.List;
 import java.util.Objects;
@@ -53,6 +56,20 @@ public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskVie
         } else {
             holder.setBlocked();
         }
+
+        holder.chips.removeAllViews();
+        task.getTags().forEach(t -> {
+            Tag tag = globals.getTag(t);
+            Chip lChip = new Chip(mCtx);
+            lChip.setText(tag.getName());
+            if (tag.getHexColor() != -1) {
+                lChip.setTextColor(mCtx.getResources().getColor(R.color.white));
+                lChip.setChipBackgroundColor(ColorStateList.valueOf(tag.getHexColor()));
+            }
+            lChip.setClickable(false);
+            lChip.setFocusable(false);
+            holder.chips.addView(lChip);
+        });
 
         holder.indicator.setOnClickListener(v -> {
             int ret;

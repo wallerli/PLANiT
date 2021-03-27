@@ -134,6 +134,10 @@ public class Task {
         return blockers;
     }
 
+    public List<UUID> getTags() {
+        return new ArrayList<>(tags);
+    }
+
     /**
      * Ordered by number of blockers, largest first
      */

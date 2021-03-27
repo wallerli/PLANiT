@@ -1,10 +1,13 @@
 package com.example.planit;
 
+import android.graphics.Color;
+
 import java.util.UUID;
 
 public class Tag {
     private String name;
-    private int hexColor = R.attr.colorAccent;
+    private int hexColor = -1;   // The accent color feels confusing with custom tag colors
+//    private int hexColor = R.attr.colorAccent;
     private final UUID uuid = UUID.randomUUID();
 
     public Tag(String name, int hexColor) {
