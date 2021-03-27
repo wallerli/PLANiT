@@ -6,15 +6,19 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     Globals globals = Globals.getInstance();
     FloatingActionButton fab;
     boolean fab_expanded = false;
+    FragmentPagerAdapter FragmentPagerAdapter;
+    ViewPager viewPager;
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
             rotateFab();
             fab.setExpanded(fab_expanded);
         });
+
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabLayout);
+
+        setPagerAdapter();
+        setTabLayout();
     }
 
     @Override
@@ -65,18 +78,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
         return true;
     }
 
@@ -98,6 +99,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setPagerAdapter() {
+        FragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPager.setAdapter(FragmentPagerAdapter);
+    }
+
+    private void setTabLayout() {
+        tabLayout.setupWithViewPager(viewPager);
+
+        Objects.requireNonNull(tabLayout.getTabAt(0)).setText("Projects");
+        Objects.requireNonNull(tabLayout.getTabAt(1)).setText("Tasks");
     }
 
     public void openAProject(View view) {

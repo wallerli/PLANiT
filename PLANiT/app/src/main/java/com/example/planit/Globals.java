@@ -4,11 +4,12 @@ import android.graphics.Color;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.UUID;
 
 public class Globals{
@@ -69,6 +70,10 @@ public class Globals{
     public Task getTask(UUID taskUUID) {
         return tasks.get(taskUUID);
     }
+
+    public List<UUID> getTasks() { return new ArrayList<>(tasks.keySet()); }
+
+    public List<UUID> getProjects() { return new ArrayList<>(projects.keySet()); }
 
     public Project removeProject(UUID projectUUID) {
         for (UUID taskUUID : this.getProject(projectUUID).getTasks()) {

@@ -23,9 +23,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/title_margin"
-            android:layout_marginRight="@dimen/title_margin">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/projectTitleTextView"
@@ -33,6 +31,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="@dimen/title_margin"
+                android:layout_marginLeft="@dimen/title_margin"
+                android:layout_marginRight="@dimen/title_margin"
                 android:text="projectTitle"
                 android:textSize="@dimen/view_title_font_size" />
 
@@ -42,6 +42,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/projectTitleTextView"
                 android:layout_marginTop="@dimen/subtitle_margin"
+                android:layout_marginLeft="@dimen/title_margin"
+                android:layout_marginRight="@dimen/title_margin"
                 android:text="projectDue"
                 android:textSize="@dimen/view_subtitle_font_size" />
 
@@ -51,6 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/projectDueTextView"
                 android:layout_marginTop="@dimen/description_margin"
+                android:layout_marginLeft="@dimen/title_margin"
+                android:layout_marginRight="@dimen/title_margin"
                 android:text="djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvbdjfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb"
                 android:textSize="@dimen/view_description_font_size" />
 
@@ -60,6 +64,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/projectDescriptionTextView"
                 android:layout_marginTop="@dimen/description_margin"
+                android:layout_marginLeft="@dimen/title_margin"
+                android:layout_marginRight="@dimen/title_margin"
                 android:text="@string/tasks"
                 android:textSize="@dimen/view_description_font_size" />
 
@@ -68,7 +74,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/projectTasksTextView"
-                android:layout_marginBottom="@dimen/title_margin" />
+                android:layout_marginBottom="@dimen/title_margin"
+                android:overScrollMode="never"/>
         </RelativeLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
