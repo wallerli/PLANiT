@@ -38,7 +38,6 @@
                     android:layout_marginTop="@dimen/title_margin"
                     android:layout_marginLeft="@dimen/title_margin"
                     android:layout_marginStart="@dimen/title_margin"
-                    android:textColor="@color/black"
                     android:text="Title title title title title title title title"
                     android:textSize="@dimen/view_title_font_size" />
 
