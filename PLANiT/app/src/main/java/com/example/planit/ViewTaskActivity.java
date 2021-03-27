@@ -7,17 +7,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +37,13 @@ public class ViewTaskActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
+    public void onResume() {
+        super.onResume();
+        updateTask();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_task);
@@ -53,28 +57,13 @@ public class ViewTaskActivity extends AppCompatActivity {
         incompleteThickness = (int) getResources().getDimension(R.dimen.task_indicator_incomplete_thickness_large);
 
         Intent intent = getIntent();
-        Globals globals = Globals.getInstance();
         task_id = UUID.fromString(intent.getStringExtra(MainActivity.VIEW_TASK_ID));
-        task = globals.getTask(task_id);
-        blockers = task.getOrderedBlockers();
 
         title = findViewById(R.id.taskTitleTextView);
         projectTitle = findViewById(R.id.taskProjectTitleTextView);
         text = findViewById(R.id.taskDescriptionTextView);
         indicator = findViewById(R.id.task_indicator);
-
-        title.setText(task.getTitle());
-        projectTitle.setText(Globals.getInstance().getParentProject(task.getUUID()).getTitle());
-        text.setText(task.getText());
-        completed = task.getCompleteStatus();
-        unblocked = task.getBlockers().stream().allMatch(b -> globals.getTask(b).getCompleteStatus());
-        if (completed) {
-            setComplete();
-        } else if (unblocked) {
-            setIncomplete();
-        } else {
-            setBlocked();
-        }
+        updateTask();
 
         recyclerView = findViewById(R.id.tasksRecyclerView);
         recyclerView.setHasFixedSize(true);
@@ -112,6 +101,7 @@ public class ViewTaskActivity extends AppCompatActivity {
                     alertDialog.show();
                 }
             }
+            updateTask();
         });
     }
 
@@ -134,6 +124,25 @@ public class ViewTaskActivity extends AppCompatActivity {
 
         // Invoke the superclass to handle it.
         return super.onOptionsItemSelected(item);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void updateTask() {
+        Globals globals = Globals.getInstance();
+        task = globals.getTask(task_id);
+        blockers = task.getOrderedBlockers();
+        title.setText(task.getTitle());
+        projectTitle.setText(globals.getParentProject(task.getUUID()).getTitle());
+        text.setText(task.getText());
+        completed = task.getCompleteStatus();
+        unblocked = task.getBlockers().stream().allMatch(b -> globals.getTask(b).getCompleteStatus());
+        if (completed) {
+            setComplete();
+        } else if (unblocked) {
+            setIncomplete();
+        } else {
+            setBlocked();
+        }
     }
 
     public void setComplete() {

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class ViewProjectActivity extends AppCompatActivity {
     UUID projectUUID;
     List<UUID> tasks = new ArrayList<>();
     CircularProgressIndicator indicator;
+    ColorStateList defaultDueDateColor;
 
     @Override
     public void onResume() {
@@ -54,14 +56,13 @@ public class ViewProjectActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         projectUUID = UUID.fromString(intent.getStringExtra(MainActivity.VIEW_PROJECT_ID));
-        project = Globals.getInstance().getProject(projectUUID);
-        tasks = project.getOrderedTasks();
 
         title = findViewById(R.id.projectTitleTextView);
         due = findViewById(R.id.projectDueTextView);
         text = findViewById(R.id.projectDescriptionTextView);
         completenessText = findViewById(R.id.project_indicator_text);
         indicator = findViewById(R.id.project_indicator);
+        defaultDueDateColor =  completenessText.getTextColors();
         updateProject();
 
         recyclerView = findViewById(R.id.tasksRecyclerView);
@@ -96,8 +97,9 @@ public class ViewProjectActivity extends AppCompatActivity {
     }
 
     public void updateProject() {
-        Globals.getInstance().getProject(projectUUID);
-
+        Globals globals = Globals.getInstance();
+        project = globals.getProject(projectUUID);
+        tasks = project.getOrderedTasks();
         title.setText(project.getTitle());
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.getDefault());
         Date dd = project.getDueDate();
@@ -106,6 +108,9 @@ public class ViewProjectActivity extends AppCompatActivity {
             if (dd.getTime() < System.currentTimeMillis() && project.getCompleteness() < 1) {
                 due.setTextColor(getResources().getColor(R.color.orange_700));
                 due.setTypeface(null, Typeface.BOLD);
+            } else {
+                due.setTextColor(defaultDueDateColor);
+                due.setTypeface(null);
             }
         } else {
             due.setText(R.string.no_due_date);
