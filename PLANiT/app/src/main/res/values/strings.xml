@@ -75,7 +75,7 @@
     <string name="faq_settings_title">Frequently Asked Questions</string>
     <string name="empty_project_recycler">Nothing to show here.</string>
     <string name="empty_task_recycler">This task has no blockers 🎊</string>
-    <string name="empty_tags_edit">Nothing to show here.</string>
+    <string name="empty_tags_edit">No tag has been selected.</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

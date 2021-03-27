@@ -92,11 +92,20 @@
                 app:chipSpacingVertical="2dp"
                 android:layout_height="wrap_content"/>
 
+            <TextView
+                android:id="@+id/empty_tags_text"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/empty_tags_hint_height"
+                android:layout_below="@id/tags_label"
+                android:gravity="center"
+                android:text="@string/empty_tags_edit"
+                android:textSize="@dimen/empty_tags_hint" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/descriptionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tag_chips"
+                android:layout_below="@id/empty_tags_text"
                 android:layout_marginTop="@dimen/title_margin"
                 android:hint="@string/description_text">
 

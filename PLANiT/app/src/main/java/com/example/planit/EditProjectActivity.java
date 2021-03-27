@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -45,6 +46,7 @@ public class EditProjectActivity extends AppCompatActivity {
     MaterialDatePicker<Long> datePicker;
     MaterialTimePicker timePicker;
     ChipGroup tagChips;
+    TextView emptyTagsText;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
     SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
@@ -71,6 +73,7 @@ public class EditProjectActivity extends AppCompatActivity {
         dueTime = findViewById(R.id.due_time_value);
         text = findViewById(R.id.edit_description);
         tagChips = findViewById(R.id.tag_chips);
+        emptyTagsText = findViewById(R.id.empty_tags_text);
 
         if (intent.getStringExtra(EDIT_PROJECT_ID) != null) {
             project = new Project(globals.getProject(UUID.fromString(intent.getStringExtra(EDIT_PROJECT_ID))));
@@ -112,6 +115,11 @@ public class EditProjectActivity extends AppCompatActivity {
             lChip.setFocusable(false);
             tagChips.addView(lChip);
         });
+
+        if (project.getTags().size() == 0)
+            emptyTagsText.setVisibility(View.VISIBLE);
+        else
+            emptyTagsText.setVisibility(View.INVISIBLE);
     }
 
     @Override
