@@ -35,6 +35,7 @@ public class ViewTaskActivity extends AppCompatActivity {
     List<UUID> tags = new ArrayList<>();
     CircularProgressIndicator indicator;
     ChipGroup tagChips;
+    Chip sizeChip, priorityChip;
     boolean completed;
     boolean unblocked;
     int completeThickness;
@@ -69,6 +70,8 @@ public class ViewTaskActivity extends AppCompatActivity {
         text = findViewById(R.id.taskDescriptionTextView);
         tagChips = findViewById(R.id.taskTags);
         indicator = findViewById(R.id.task_indicator);
+        sizeChip = findViewById(R.id.sizeChip);
+        priorityChip = findViewById(R.id.priorityChip);
         updateTask();
 
         recyclerView = findViewById(R.id.tasksRecyclerView);
@@ -171,6 +174,12 @@ public class ViewTaskActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void updateChips() {
         Globals globals = Globals.getInstance();
+        String taskSize = task.getSize().toString();
+        sizeChip.setText(String.format("%s%s", taskSize.charAt(0), taskSize.substring(1).toLowerCase()));
+        sizeChip.setChecked(true);
+        String taskPriority = task.getPriority().toString();
+        priorityChip.setText(String.format("%s%s", taskPriority.charAt(0), taskPriority.substring(1).toLowerCase()));
+        priorityChip.setChecked(true);
         tagChips.removeAllViews();
         tags.forEach(t -> {
             Tag tag = globals.getTag(t);
@@ -180,6 +189,7 @@ public class ViewTaskActivity extends AppCompatActivity {
                 lChip.setTextColor(getResources().getColor(R.color.white));
                 lChip.setChipBackgroundColor(ColorStateList.valueOf(tag.getHexColor()));
             }
+            lChip.setEnsureMinTouchTargetSize(false);
             lChip.setClickable(false);
             lChip.setFocusable(false);
             tagChips.addView(lChip);

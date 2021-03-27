@@ -17,5 +17,6 @@
     <color name="custom_primary_variant">#166788</color>
     <color name="custom_secondary">#7a9e7e</color>
     <color name="custom_secondary_variant">#B4CDB7</color>
-    <color name="custom_accent">@color/brown_500</color>
+    <color name="custom_accent">@color/custom_secondary</color>
+<!--    <color name="custom_accent">@color/brown_500</color>-->
 </resources>

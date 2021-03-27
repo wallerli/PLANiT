@@ -57,6 +57,12 @@ public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskVie
             holder.setBlocked();
         }
 
+        String taskSize = task.getSize().toString();
+        holder.sizeChip.setText(String.format("%s%s", taskSize.charAt(0), taskSize.substring(1).toLowerCase()));
+        holder.sizeChip.setChecked(true);
+        String taskPriority = task.getPriority().toString();
+        holder.priorityChip.setText(String.format("%s%s", taskPriority.charAt(0), taskPriority.substring(1).toLowerCase()));
+        holder.priorityChip.setChecked(true);
         holder.chips.removeAllViews();
         task.getTags().forEach(t -> {
             Tag tag = globals.getTag(t);
@@ -66,8 +72,8 @@ public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskVie
                 lChip.setTextColor(mCtx.getResources().getColor(R.color.white));
                 lChip.setChipBackgroundColor(ColorStateList.valueOf(tag.getHexColor()));
             }
+            lChip.setEnsureMinTouchTargetSize(false);
             lChip.setClickable(false);
-            lChip.setFocusable(false);
             holder.chips.addView(lChip);
         });
 

@@ -102,9 +102,38 @@
                 android:textSize="@dimen/view_subtitle_font_size" />
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/taskSizePriority"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/taskProjectTitleTextView"
+                android:layout_marginTop="@dimen/subtitle_margin"
+                android:layout_marginLeft="@dimen/title_margin"
+                android:layout_marginRight="@dimen/title_margin"
+                app:chipSpacingVertical="0dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/sizeChip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    app:ensureMinTouchTargetSize="false"
+                    android:text="Size"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/priorityChip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    app:ensureMinTouchTargetSize="false"
+                    android:text="Priority"/>
+            </com.google.android.material.chip.ChipGroup>
+
+            <com.google.android.material.chip.ChipGroup
                 android:id="@+id/taskTags"
                 android:layout_width="match_parent"
-                android:layout_below="@id/taskProjectTitleTextView"
+                android:layout_below="@id/taskSizePriority"
                 android:layout_marginTop="@dimen/subtitle_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
