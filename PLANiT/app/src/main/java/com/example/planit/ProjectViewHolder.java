@@ -30,7 +30,6 @@ public class ProjectViewHolder extends RecyclerView.ViewHolder {
         due = itemView.findViewById(R.id.projectDueTextView);
         completeness_text = itemView.findViewById(R.id.projectCompletenessTextView);
         indicator = itemView.findViewById(R.id.project_indicator);
-        indicator.setTrackThickness((int) itemView.getResources().getDimension(R.dimen.project_indicator_thickness_large));
         itemView.findViewById(R.id.projectClickBox).setOnClickListener(v -> {
             Context context = v.getContext();
             Intent intent = new Intent(context, ViewProjectActivity.class);

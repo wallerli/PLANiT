@@ -51,6 +51,7 @@
     <string name="create_task">New Task</string>
     <string name="priority_label_text">Task Priority</string>
     <string name="indicator_hint">DONE?</string>
+    <string name="no_due_date">No Due Date</string>
 
     <!-- Settings String -->
     <string name="settings_text">Settings</string>

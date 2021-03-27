@@ -10,12 +10,12 @@
     <dimen name="description_margin">24dp</dimen>
     <dimen name="settings_icon_margin">12dp</dimen>
     <dimen name="expansion_menu_padding">8dp</dimen>
-    <dimen name="project_card_height">175dp</dimen>
+    <dimen name="project_card_height">180dp</dimen>
     <dimen name="task_indicator_marginLeft">4dp</dimen>
     <dimen name="task_indicator_marginTop">24dp</dimen>
     <dimen name="task_indicator_size">36dp</dimen>
     <dimen name="task_indicator_size_large">60dp</dimen>
-    <dimen name="project_indicator_size">60dp</dimen>
+    <dimen name="project_indicator_size">36dp</dimen>
     <dimen name="project_indicator_size_large">60dp</dimen>
     <dimen name="task_indicator_complete_thickness">18dp</dimen>
     <dimen name="task_indicator_complete_thickness_large">30dp</dimen>
