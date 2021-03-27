@@ -1,8 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="card_margin">8dp</dimen>
-    <dimen name="card_elevation">8dp</dimen>
-    <dimen name="tab_elevation">8dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
     <dimen name="title_margin">16dp</dimen>
     <dimen name="project_recycler_default_margin">4dp</dimen>
     <dimen name="title_margin_with_indicator">115dp</dimen>
