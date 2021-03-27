@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -25,6 +26,7 @@ public class SecondFragment extends Fragment {
 
     RecyclerView recyclerView;
     View view;
+    TextView emptyRecyclerText;
     String filter;
     Handler handler;
     List<UUID> filteredTasks;
@@ -64,6 +66,7 @@ public class SecondFragment extends Fragment {
         recyclerView = view.findViewById(R.id.tasksRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        emptyRecyclerText = view.findViewById(R.id.empty_recycler_text);
         showAllTasks();
 
         handler = new Handler();
@@ -125,6 +128,10 @@ public class SecondFragment extends Fragment {
             filteredTasks = globals.getOrderedTasks().stream().filter(t ->
                     globals.getTask(t).getTitle().toLowerCase().contains(filter.toLowerCase())).collect(Collectors.toList());
             recyclerView.setAdapter(new TaskAdapter(view.getContext(), filteredTasks));
+            if (filteredTasks.size() == 0)
+                emptyRecyclerText.setVisibility(View.VISIBLE);
+            else
+                emptyRecyclerText.setVisibility(View.GONE);
         }
     }
 
@@ -132,5 +139,9 @@ public class SecondFragment extends Fragment {
     private void showAllTasks() {
         allTasks= Globals.getInstance().getOrderedTasks();
         recyclerView.setAdapter(new TaskAdapter(view.getContext(), allTasks));
+        if (allTasks.size() == 0)
+            emptyRecyclerText.setVisibility(View.VISIBLE);
+        else
+            emptyRecyclerText.setVisibility(View.GONE);
     }
 }

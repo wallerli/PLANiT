@@ -13,12 +13,13 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import java.util.ArrayList;
 import java.util.Map;
+
+import android.widget.TextView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -30,6 +31,7 @@ import java.util.UUID;
 public class EditTaskActivity extends AppCompatActivity {
 
     public static String EDIT_TASK_ID = "com.example.planit.EDIT_TASK_ID";
+    public static String PARENT_PROJECT_ID = "com.example.planit.PARENT_PROJECT_ID";
     Globals globals = Globals.getInstance();
 
     Task task;
@@ -39,6 +41,7 @@ public class EditTaskActivity extends AppCompatActivity {
     ChipGroup sizeChips;
     ChipGroup priorityChips;
     ChipGroup tagChips;
+    TextView emptyTagsText;
 
     final Integer[] sizeChipIDs = new Integer[] {R.id.tiny_chip, R.id.small_chip, R.id.medium_chip, R.id.large_chip, R.id.huge_chip};
     final Integer[] priorityChipIDs = new Integer[] {R.id.low_chip, R.id.moderate_chip, R.id.high_chip, R.id.critical_chip};
@@ -66,14 +69,11 @@ public class EditTaskActivity extends AppCompatActivity {
         priorityChips = findViewById(R.id.priority_chips);
         tagChips = findViewById(R.id.tag_chips);
         textEdit = findViewById(R.id.edit_description);
+        emptyTagsText = findViewById(R.id.empty_tags_text);
 
         if (intent.getStringExtra(EDIT_TASK_ID) != null) {
             task = new Task(globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID))));
-            parentProject = new Project(globals.getParentProject(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID))));
             toolbar.setTitle("Edit Task");
-            if (parentProject != null) {
-                act_projects.setText(parentProject.getTitle());
-            }
             sizeChips.check(sizeChipIDs[task.getSize().ordinal()]);
             priorityChips.check(priorityChipIDs[task.getPriority().ordinal()]);
             textEdit.setText(task.getText());
@@ -83,6 +83,13 @@ public class EditTaskActivity extends AppCompatActivity {
             toolbar.setTitle("Add New Task");
         }
         titleEdit.setText(task.getTitle());
+
+        if (PARENT_PROJECT_ID != null) {
+            parentProject = new Project(globals.getProject(UUID.fromString(intent.getStringExtra(PARENT_PROJECT_ID))));
+        }
+        if (parentProject != null) {
+            act_projects.setText(parentProject.getTitle());
+        }
 
         // Get all project names to fill in menu
         for (Map.Entry<UUID, Project> p : globals.getProjects().entrySet()) {
@@ -147,6 +154,11 @@ public class EditTaskActivity extends AppCompatActivity {
             lChip.setFocusable(false);
             tagChips.addView(lChip);
         });
+
+        if (task.getTags().size() == 0)
+            emptyTagsText.setVisibility(View.VISIBLE);
+        else
+            emptyTagsText.setVisibility(View.INVISIBLE);
     }
 
     @Override

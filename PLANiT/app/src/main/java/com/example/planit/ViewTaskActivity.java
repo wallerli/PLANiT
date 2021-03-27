@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.chip.Chip;
@@ -27,9 +28,8 @@ public class ViewTaskActivity extends AppCompatActivity {
 
     public static String EDIT_TASK_ID = "com.example.planit.EDIT_TASK_ID";
     UUID task_id;
-    Globals globals = Globals.getInstance();
     Task task;
-    TextView title, projectTitle, text;
+    TextView title, projectTitle, text, emptyRecyclerText;
     RecyclerView recyclerView;
     List<UUID> blockers = new ArrayList<>();
     List<UUID> tags = new ArrayList<>();
@@ -68,6 +68,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         title = findViewById(R.id.taskTitleTextView);
         projectTitle = findViewById(R.id.taskProjectTitleTextView);
         text = findViewById(R.id.taskDescriptionTextView);
+        emptyRecyclerText = findViewById(R.id.empty_recycler_text);
         tagChips = findViewById(R.id.taskTags);
         indicator = findViewById(R.id.task_indicator);
         sizeChip = findViewById(R.id.sizeChip);
@@ -151,6 +152,10 @@ public class ViewTaskActivity extends AppCompatActivity {
             setBlocked();
         }
         recyclerView.setAdapter(new TaskAdapter(this, task.getOrderedBlockers()));
+        if (task.getOrderedBlockers().size() == 0)
+            emptyRecyclerText.setVisibility(View.VISIBLE);
+        else
+            emptyRecyclerText.setVisibility(View.INVISIBLE);
     }
 
     public void setComplete() {
