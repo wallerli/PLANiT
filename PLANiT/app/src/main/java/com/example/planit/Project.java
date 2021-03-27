@@ -81,8 +81,6 @@ public class Project {
         Globals globals = Globals.getInstance();
         List<UUID> sortedTasks = new ArrayList<>(tasks);
         Collections.sort(sortedTasks, (task1, task2) -> {
-            int t1 = globals.getTask(task1).getBlockers().size();
-            int t2 = globals.getTask(task2).getBlockers().size();
             // inverse for descending
             return globals.getTask(task2).getBlockers().size() - globals.getTask(task1).getBlockers().size();
         });

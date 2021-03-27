@@ -8,12 +8,15 @@ import androidx.annotation.RequiresApi;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Globals{
 
@@ -57,6 +60,23 @@ public class Globals{
     }
 
     public List<UUID> getTasks() { return new ArrayList<>(tasks.keySet()); }
+
+    /**
+     * Ordered by number of blockers, largest first
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public List<UUID> getOrderedTasks() {
+        List<UUID> incomplete = tasks.keySet().stream().filter(t -> !tasks.get(t).getCompleteStatus()).sorted((task1, task2) -> {
+            // inverse for descending
+            return tasks.get(task2).getBlockers().size() - tasks.get(task1).getBlockers().size();
+        }).collect(Collectors.toList());
+        List<UUID> complete = tasks.keySet().stream().filter(t -> tasks.get(t).getCompleteStatus()).sorted((task1, task2) -> {
+            // inverse for descending
+            return tasks.get(task2).getBlockers().size() - tasks.get(task1).getBlockers().size();
+        }).collect(Collectors.toList());
+        incomplete.addAll(complete);
+        return incomplete;
+    }
 
     public List<UUID> getProjects() { return new ArrayList<>(projects.keySet()); }
 
