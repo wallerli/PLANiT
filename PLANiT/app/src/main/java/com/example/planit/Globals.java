@@ -1,6 +1,9 @@
 package com.example.planit;
 
 import android.graphics.Color;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -88,6 +91,34 @@ public class Globals{
             task.removeBlocker(taskUUID);
         }
         return tasks.remove(taskUUID);
+    }
+
+    /**
+     * @return 0: successful;
+     * 1: no change;
+     * 2: attempting to mark a blocked task as completed
+     * 3: marking a task as incomplete and the task has incomplete blockers
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public int setTaskCompleted(UUID taskUUID, boolean completeStatus) {
+        Task task = tasks.get(taskUUID);
+        boolean isCompleted = task.getCompleteStatus();
+        boolean isUnblocked = task.getBlockers().stream().allMatch(b -> tasks.get(b).getCompleteStatus());
+        if (completeStatus) {
+            if (isCompleted)
+                return 1;
+            if (!isUnblocked)
+                return 2;
+            task.setCompleteStatus(true);
+        } else {
+            if (!isCompleted)
+                return 1;
+            if (!isUnblocked)
+                return 3;
+            task.setCompleteStatus(false);
+        }
+        addTask(task);
+        return 0;
     }
 
     /**

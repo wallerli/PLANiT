@@ -2,10 +2,12 @@ package com.example.planit;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
@@ -24,6 +26,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     final int completeThickness;
     final int incompleteThickness;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public TaskViewHolder(@NonNull View itemView) {
         super(itemView);
 
@@ -42,12 +45,29 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         incompleteThickness = (int) itemView.getResources().getDimension(R.dimen.task_indicator_incomplete_thickness);
 
         indicator.setOnClickListener(v -> {
-            indicator.setProgress(100);
+            int ret;
+            if (completed) {
+                ret = Globals.getInstance().setTaskCompleted(taskUUID, false);
+                if (ret == 0) {
+                    completed = false;
+                    setIncomplete();
+                } else if (ret == 3) {
+                    completed = false;
+                    unblocked = false;
+                    setBlocked();
+                }
+            } else {
+                ret = Globals.getInstance().setTaskCompleted(taskUUID, true);
+                if (ret == 0) {
+                    completed = true;
+                    setComplete();
+                } else if (ret == 2) {
+                    completed = false;
+                    unblocked = false;
+                    setBlocked();
+                }
+            }
         });
-    }
-
-    public void updateIndicator() {
-
     }
 
     public void setComplete() {
