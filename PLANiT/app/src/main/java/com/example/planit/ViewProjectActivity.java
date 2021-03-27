@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -149,7 +148,7 @@ public class ViewProjectActivity extends AppCompatActivity {
     }
 
     public void openEditNewTask(View view){
-        Intent intent = new Intent(this, EditProjectActivity.class);
+        Intent intent = new Intent(this, EditTaskActivity.class);
         intent.putExtra(PARENT_PROJECT_ID, project.getUUID().toString());
         startActivity(intent);
     }

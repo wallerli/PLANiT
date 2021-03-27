@@ -28,7 +28,6 @@ public class ViewTaskActivity extends AppCompatActivity {
 
     public static String EDIT_TASK_ID = "com.example.planit.EDIT_TASK_ID";
     UUID task_id;
-    Globals globals = Globals.getInstance();
     Task task;
     TextView title, projectTitle, text, emptyRecyclerText;
     RecyclerView recyclerView;
