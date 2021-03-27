@@ -111,12 +111,14 @@ public class ViewProjectActivity extends AppCompatActivity {
             this.due.setText(df.format(project.getDueDate()));
             if (dd.getTime() < System.currentTimeMillis() && project.getCompleteness() < 1) {
                 due.setTextColor(getResources().getColor(R.color.orange_700));
+                due.setAlpha(1);
                 due.setTypeface(null, Typeface.BOLD);
             } else {
                 TypedValue typedValue = new TypedValue();
-                getTheme().resolveAttribute(R.attr.colorOnSurface, typedValue, true);
+                getTheme().resolveAttribute(R.attr.colorOnBackground, typedValue, true);
                 @ColorInt int color = typedValue.data;
                 due.setTextColor(color);
+                due.setAlpha(0.7f);
                 due.setTypeface(null);
             }
         } else {

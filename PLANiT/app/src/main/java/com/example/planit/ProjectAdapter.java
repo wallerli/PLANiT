@@ -50,12 +50,14 @@ public class ProjectAdapter extends RecyclerView.Adapter<com.example.planit.Proj
             holder.due.setText(df.format(project.getDueDate()));
             if (due.getTime() < System.currentTimeMillis() && project.getCompleteness() < 1) {
                 holder.due.setTextColor(mCtx.getResources().getColor(R.color.orange_700));
+                holder.due.setAlpha(1);
                 holder.due.setTypeface(null, Typeface.BOLD);
             } else {
                 TypedValue typedValue = new TypedValue();
-                mCtx.getTheme().resolveAttribute(R.attr.colorOnSurface, typedValue, true);
+                mCtx.getTheme().resolveAttribute(R.attr.colorOnBackground, typedValue, true);
                 @ColorInt int color = typedValue.data;
                 holder.due.setTextColor(color);
+                holder.due.setAlpha(0.7f);
                 holder.due.setTypeface(null);
             }
         } else {
