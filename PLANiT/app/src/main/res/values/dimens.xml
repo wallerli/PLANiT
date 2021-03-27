@@ -3,6 +3,7 @@
     <dimen name="card_margin">8dp</dimen>
     <dimen name="card_elevation">2dp</dimen>
     <dimen name="title_margin">16dp</dimen>
+    <dimen name="title_margin_with_indicator">115dp</dimen>
     <dimen name="button_margin">8dp</dimen>
     <dimen name="subtitle_margin">12dp</dimen>
     <dimen name="description_margin">24dp</dimen>
@@ -12,13 +13,16 @@
     <dimen name="task_indicator_marginLeft">4dp</dimen>
     <dimen name="task_indicator_marginTop">24dp</dimen>
     <dimen name="task_indicator_size">36dp</dimen>
+    <dimen name="task_indicator_size_large">54dp</dimen>
     <dimen name="task_indicator_complete_thickness">18dp</dimen>
+    <dimen name="task_indicator_complete_thickness_large">27dp</dimen>
     <dimen name="task_indicator_incomplete_thickness">4dp</dimen>
 
     <dimen name="section_header_font_size">16sp</dimen>
     <dimen name="view_description_font_size">18sp</dimen>
     <dimen name="view_subtitle_font_size">12sp</dimen>
     <dimen name="view_title_font_size">26sp</dimen>
+    <dimen name="indicator_hint_font_size">12sp</dimen>
     <dimen name="recycler_title_font_size">20sp</dimen>
     <dimen name="recycler_subtitle_font_size">12sp</dimen>
     <dimen name="recycler_description_font_size">14sp</dimen>
