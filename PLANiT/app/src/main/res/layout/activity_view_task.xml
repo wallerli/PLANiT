@@ -37,7 +37,6 @@
                     android:layout_marginTop="@dimen/title_margin"
                     android:layout_marginLeft="@dimen/title_margin"
                     android:layout_marginStart="@dimen/title_margin"
-                    app:layout_constraintEnd_toStartOf="@+id/task_marker"
                     android:text="Title title title title title title title title"
                     android:textSize="@dimen/view_title_font_size" />
 
@@ -96,7 +95,7 @@
                 android:layout_marginTop="@dimen/subtitle_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
-                android:text="projectTitle"
+                android:text="Project title project title project title project title"
                 android:textSize="@dimen/view_subtitle_font_size" />
 
             <TextView
@@ -115,7 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/taskDescriptionTextView"
-                android:layout_marginTop="@dimen/description_margin"
+                android:layout_marginTop="@dimen/blocked_by_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
                 android:text="@string/blocked_by"

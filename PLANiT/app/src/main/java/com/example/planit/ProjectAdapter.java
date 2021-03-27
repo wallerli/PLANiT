@@ -53,7 +53,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<com.example.planit.Proj
         } else {
             holder.due.setText(R.string.no_due_date);
         }
-        holder.completeness_text.setText(String.format(Locale.getDefault(), "%.2f %%", 100 * project.getCompleteness()));
+        holder.completeness_text.setText(String.format(Locale.getDefault(), "%.1f%%", 100 * project.getCompleteness()));
         holder.projectUUID = project.getUUID();
         holder.completeness = (int) (100 * project.getCompleteness());
         holder.updateProgress();

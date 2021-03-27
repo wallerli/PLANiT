@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ViewProjectActivity">
 
     <include
@@ -25,26 +24,62 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/projectTitleTextView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:id="@+id/projectTitles"
+                android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/projectTitleTextView"
+                android:layout_width="@dimen/view_task_title_width"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/title_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
-                android:text="projectTitle"
+                android:text="Project title project title project title"
                 android:textSize="@dimen/view_title_font_size" />
+
+                <RelativeLayout
+                    android:id="@+id/project_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/title_margin"
+                    android:layout_marginEnd="@dimen/title_margin"
+                    android:layout_marginTop="@dimen/title_margin">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/project_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        app:indicatorSize="@dimen/project_indicator_size_large"
+                        app:trackThickness="@dimen/project_indicator_thickness_large"
+                        app:trackColor="@color/custom_secondary_variant" />
+
+                    <TextView
+                        android:id="@+id/project_indicator_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/project_indicator"
+                        android:layout_alignStart="@id/project_indicator"
+                        android:layout_alignLeft="@id/project_indicator"
+                        android:text="@string/indicator_progress"
+                        android:gravity="center"
+                        android:textSize="@dimen/indicator_progress_font_size" />
+                </RelativeLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/projectDueTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/projectTitleTextView"
+                android:layout_below="@id/projectTitles"
                 android:layout_marginTop="@dimen/subtitle_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
-                android:text="projectDue"
+                android:text="0/0/0000 00:00 AM"
                 android:textSize="@dimen/view_subtitle_font_size" />
 
             <TextView
@@ -63,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/projectDescriptionTextView"
-                android:layout_marginTop="@dimen/description_margin"
+                android:layout_marginTop="@dimen/blocked_by_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
                 android:text="@string/tasks"
