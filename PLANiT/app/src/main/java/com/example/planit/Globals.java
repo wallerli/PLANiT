@@ -200,7 +200,7 @@ public class Globals{
         Task task4 = new Task("Apply to graduate", Size.SMALL, Priority.CRITICAL);
         task4.addTag(tag2.getUUID());
         task4.addTag(tag5.getUUID());
-        task4.setCompleteStatus(true);
+//        task4.setCompleteStatus(true);
         task4.setText("" +
                 "Email advisor to set up a meeting.\n" +
                 "In the meeting:\n" +
