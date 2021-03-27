@@ -171,6 +171,20 @@
                 android:layout_below="@id/taskBlockedByTextView"
                 android:layout_marginBottom="@dimen/title_margin"
                 android:overScrollMode="never"/>
+
+            <TextView
+                android:id="@+id/empty_recycler_text"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/empty_recycler_hint_height"
+                android:layout_below="@id/tasksRecyclerView"
+                android:lineSpacingMultiplier="1.3"
+                android:visibility="visible"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/description_margin"
+                android:layout_marginLeft="@dimen/title_margin"
+                android:layout_marginRight="@dimen/title_margin"
+                android:text="@string/empty_task_recycler"
+                android:textSize="@dimen/empty_recycler_hint" />
         </RelativeLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

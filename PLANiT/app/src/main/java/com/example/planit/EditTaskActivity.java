@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
@@ -37,6 +38,7 @@ public class EditTaskActivity extends AppCompatActivity {
     ChipGroup sizeChips;
     ChipGroup priorityChips;
     ChipGroup tagChips;
+    TextView emptyTagsText;
 
 //    ArrayList<UUID> projectUUIDs = (ArrayList<UUID>) globals.getProjects();
 //    ArrayList<String> projectTitles = new ArrayList<>();
@@ -69,6 +71,7 @@ public class EditTaskActivity extends AppCompatActivity {
         sizeChips = findViewById(R.id.size_chips);
         priorityChips = findViewById(R.id.priority_chips);
         textEdit = findViewById(R.id.edit_description);
+        emptyTagsText = findViewById(R.id.empty_tags_text);
 
         if (intent.getStringExtra(EDIT_TASK_ID) != null) {
             task = new Task(globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID))));
@@ -147,6 +150,11 @@ public class EditTaskActivity extends AppCompatActivity {
             lChip.setFocusable(false);
             tagChips.addView(lChip);
         });
+
+        if (task.getTags().size() == 0)
+            emptyTagsText.setVisibility(View.VISIBLE);
+        else
+            emptyTagsText.setVisibility(View.INVISIBLE);
     }
 
     @Override
