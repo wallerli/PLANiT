@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -26,6 +27,7 @@ public class FirstFragment extends Fragment {
 
     RecyclerView recyclerView;
     View view, rootView;
+    TextView emptyRecyclerText;
     String filter;
     Handler handler;
     List<UUID> filteredProjects;
@@ -66,6 +68,7 @@ public class FirstFragment extends Fragment {
         recyclerView = view.findViewById(R.id.projectsRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+        emptyRecyclerText = view.findViewById(R.id.empty_recycler_text);
         showAllProjects();
 
         handler = new Handler();
@@ -127,6 +130,10 @@ public class FirstFragment extends Fragment {
             filteredProjects = globals.getOrderedProjects().stream().filter(p ->
                     globals.getProject(p).getTitle().toLowerCase().contains(filter.toLowerCase())).collect(Collectors.toList());
             recyclerView.setAdapter(new ProjectAdapter(view.getContext(),filteredProjects));
+            if (filteredProjects.size() == 0)
+                emptyRecyclerText.setVisibility(View.VISIBLE);
+            else
+                emptyRecyclerText.setVisibility(View.GONE);
         }
     }
 
@@ -134,5 +141,9 @@ public class FirstFragment extends Fragment {
     private void showAllProjects() {
         allProjects = Globals.getInstance().getOrderedProjects();
         recyclerView.setAdapter(new ProjectAdapter(view.getContext(), allProjects));
+        if (allProjects.size() == 0)
+            emptyRecyclerText.setVisibility(View.VISIBLE);
+        else
+            emptyRecyclerText.setVisibility(View.GONE);
     }
 }

@@ -11,6 +11,7 @@
     <dimen name="description_margin">24dp</dimen>
     <dimen name="settings_icon_margin">12dp</dimen>
     <dimen name="blocked_by_margin">70dp</dimen>
+    <dimen name="empty_recycler_hint_height">20dp</dimen>
     <dimen name="expansion_menu_padding">8dp</dimen>
     <dimen name="project_card_height">175dp</dimen>
     <dimen name="task_indicator_marginLeft">4dp</dimen>
@@ -43,6 +44,7 @@
     <dimen name="recycler_title_font_size">18sp</dimen>
     <dimen name="recycler_subtitle_font_size">14sp</dimen>
     <dimen name="recycler_description_font_size">14sp</dimen>
+    <dimen name="empty_recycler_hint">14sp</dimen>
 
     <dimen name="max_title_length">50</dimen>
     <dimen name="max_text_length">500</dimen>

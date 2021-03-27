@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.chip.Chip;
@@ -30,8 +31,9 @@ import java.util.UUID;
 public class ViewProjectActivity extends AppCompatActivity {
 
     public static String EDIT_PROJECT_ID = "com.example.planit.EDIT_PROJECT_ID";
+    public static String PARENT_PROJECT_ID = "com.example.planit.PARENT_PROJECT_ID";
     Project project;
-    TextView title, due, text, completenessText;
+    TextView title, due, text, completenessText, emptyRecyclerText;
     RecyclerView recyclerView;
     UUID projectUUID;
     List<UUID> tasks = new ArrayList<>();
@@ -66,6 +68,7 @@ public class ViewProjectActivity extends AppCompatActivity {
         text = findViewById(R.id.projectDescriptionTextView);
         tagChips = findViewById(R.id.projectTags);
         completenessText = findViewById(R.id.project_indicator_text);
+        emptyRecyclerText = findViewById(R.id.empty_recycler_text);
         indicator = findViewById(R.id.project_indicator);
         recyclerView = findViewById(R.id.tasksRecyclerView);
         recyclerView.setHasFixedSize(true);
@@ -121,6 +124,10 @@ public class ViewProjectActivity extends AppCompatActivity {
         completenessText.setText(String.format(Locale.getDefault(), "%.1f%%", 100 * project.getCompleteness()));
         indicator.setProgress((int) (100 * project.getCompleteness()));
         recyclerView.setAdapter(new TaskAdapter(this, project.getOrderedTasks()));
+        if (project.getOrderedTasks().size() == 0)
+            emptyRecyclerText.setVisibility(View.VISIBLE);
+        else
+            emptyRecyclerText.setVisibility(View.INVISIBLE);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -139,5 +146,11 @@ public class ViewProjectActivity extends AppCompatActivity {
             lChip.setFocusable(false);
             tagChips.addView(lChip);
         });
+    }
+
+    public void openEditNewTask(View view){
+        Intent intent = new Intent(this, EditProjectActivity.class);
+        intent.putExtra(PARENT_PROJECT_ID, project.getUUID().toString());
+        startActivity(intent);
     }
 }
