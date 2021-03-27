@@ -32,7 +32,7 @@
     <dimen name="view_title_font_size">26sp</dimen>
     <dimen name="indicator_hint_font_size">12sp</dimen>
     <dimen name="indicator_hint_font_size_large">24sp</dimen>
-    <dimen name="recycler_title_font_size">20sp</dimen>
+    <dimen name="recycler_title_font_size">18sp</dimen>
     <dimen name="recycler_subtitle_font_size">12sp</dimen>
     <dimen name="recycler_description_font_size">14sp</dimen>
 

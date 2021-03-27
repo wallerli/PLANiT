@@ -122,7 +122,7 @@ public class FirstFragment extends Fragment {
             showAllProjects();
         else {
             Globals globals = Globals.getInstance();
-            filteredProjects = globals.getProjects().stream().filter(p ->
+            filteredProjects = globals.getOrderedProjects().stream().filter(p ->
                     globals.getProject(p).getTitle().toLowerCase().contains(filter.toLowerCase())).collect(Collectors.toList());
             recyclerView.setAdapter(new ProjectAdapter(view.getContext(),filteredProjects));
         }
@@ -130,7 +130,7 @@ public class FirstFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void showAllProjects() {
-        allProjects = Globals.getInstance().getProjects();
+        allProjects = Globals.getInstance().getOrderedProjects();
         recyclerView.setAdapter(new ProjectAdapter(view.getContext(), allProjects));
     }
 }

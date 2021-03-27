@@ -10,11 +10,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -73,6 +75,39 @@ public class Globals{
         List<UUID> complete = tasks.keySet().stream().filter(t -> tasks.get(t).getCompleteStatus()).sorted((task1, task2) -> {
             // inverse for descending
             return tasks.get(task2).getBlockers().size() - tasks.get(task1).getBlockers().size();
+        }).collect(Collectors.toList());
+        incomplete.addAll(complete);
+        return incomplete;
+    }
+
+    /**
+     * Ordered by due date, earliest first
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public List<UUID> getOrderedProjects() {
+        List<UUID> incomplete = projects.keySet().stream().filter(p -> Objects.requireNonNull(projects.get(p)).getCompleteness() < 1).sorted((p1, p2) -> {
+            // inverse for descending
+            Date d1 = Objects.requireNonNull(projects.get(p1)).getDueDate();
+            Date d2 = Objects.requireNonNull(projects.get(p2)).getDueDate();
+            if (d1 == null && d2 == null) {
+                return 0;
+            } else if (d1 == null) {
+                return 1;
+            } else if (d2 == null) {
+                return -1;
+            } else return Long.compare(d1.getTime(), d2.getTime());
+        }).collect(Collectors.toList());
+        List<UUID> complete = projects.keySet().stream().filter(p -> Objects.requireNonNull(projects.get(p)).getCompleteness() >= 1).sorted((p1, p2) -> {
+            // inverse for descending
+            Date d1 = Objects.requireNonNull(projects.get(p1)).getDueDate();
+            Date d2 = Objects.requireNonNull(projects.get(p2)).getDueDate();
+            if (d1 == null && d2 == null) {
+                return 0;
+            } else if (d1 == null) {
+                return 1;
+            } else if (d2 == null) {
+                return -1;
+            } else return Long.compare(d1.getTime(), d2.getTime());
         }).collect(Collectors.toList());
         incomplete.addAll(complete);
         return incomplete;
