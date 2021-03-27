@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.material.progressindicator.CircularProgressIndicator;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -22,9 +24,15 @@ public class ViewTaskActivity extends AppCompatActivity {
     public static String EDIT_TASK_ID = "com.example.planit.EDIT_TASK_ID";
 
     Task task;
+    UUID task_id;
     TextView title, projectTitle, text;
     RecyclerView recyclerView;
     List<UUID> blockers = new ArrayList<>();
+    CircularProgressIndicator indicator;
+    boolean completed;
+    boolean unblocked;
+    int completeThickness;
+    int incompleteThickness;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -37,19 +45,32 @@ public class ViewTaskActivity extends AppCompatActivity {
         toolbar.inflateMenu(R.menu.menu_toolbar_view);
 
         toolbar.setNavigationOnClickListener(view -> finish());
+        completeThickness = (int) getResources().getDimension(R.dimen.task_indicator_complete_thickness_large);
+        incompleteThickness = (int) getResources().getDimension(R.dimen.task_indicator_incomplete_thickness_large);
 
         Intent intent = getIntent();
-        UUID task_id = UUID.fromString(intent.getStringExtra(MainActivity.VIEW_TASK_ID));
-        task = Globals.getInstance().getTask(task_id);
+        Globals globals = Globals.getInstance();
+        task_id = UUID.fromString(intent.getStringExtra(MainActivity.VIEW_TASK_ID));
+        task = globals.getTask(task_id);
         blockers = task.getOrderedBlockers();
 
         title = findViewById(R.id.taskTitleTextView);
         projectTitle = findViewById(R.id.taskProjectTitleTextView);
         text = findViewById(R.id.taskDescriptionTextView);
+        indicator = findViewById(R.id.task_indicator);
 
         title.setText(task.getTitle());
         projectTitle.setText(Globals.getInstance().getParentProject(task.getUUID()).getTitle());
         text.setText(task.getText());
+        completed = task.getCompleteStatus();
+        unblocked = task.getBlockers().stream().allMatch(b -> globals.getTask(b).getCompleteStatus());
+        if (completed) {
+            setComplete();
+        } else if (unblocked) {
+            setIncomplete();
+        } else {
+            setBlocked();
+        }
 
         recyclerView = findViewById(R.id.tasksRecyclerView);
         recyclerView.setHasFixedSize(true);
@@ -57,6 +78,31 @@ public class ViewTaskActivity extends AppCompatActivity {
         TaskAdapter adapter = new TaskAdapter(this, blockers);
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
+
+        indicator.setOnClickListener(v -> {
+            int ret;
+            if (completed) {
+                ret = Globals.getInstance().setTaskCompleted(task_id, false);
+                if (ret == 0) {
+                    completed = false;
+                    setIncomplete();
+                } else if (ret == 3) {
+                    completed = false;
+                    unblocked = false;
+                    setBlocked();
+                }
+            } else {
+                ret = Globals.getInstance().setTaskCompleted(task_id, true);
+                if (ret == 0) {
+                    completed = true;
+                    setComplete();
+                } else if (ret == 2) {
+                    completed = false;
+                    unblocked = false;
+                    setBlocked();
+                }
+            }
+        });
     }
 
     @Override
@@ -78,5 +124,20 @@ public class ViewTaskActivity extends AppCompatActivity {
 
         // Invoke the superclass to handle it.
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setComplete() {
+        indicator.setProgress(100);
+        indicator.setTrackThickness(completeThickness);
+    }
+
+    public void setIncomplete() {
+        indicator.setProgress(100);
+        indicator.setTrackThickness(incompleteThickness);
+    }
+
+    public void setBlocked() {
+        indicator.setProgress(0);
+        indicator.setTrackThickness(incompleteThickness);
     }
 }

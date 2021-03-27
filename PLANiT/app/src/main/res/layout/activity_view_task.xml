@@ -32,7 +32,7 @@
 
                 <TextView
                     android:id="@+id/taskTitleTextView"
-                    android:layout_width="275dp"
+                    android:layout_width="@dimen/view_task_title_width"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/title_margin"
                     android:layout_marginLeft="@dimen/title_margin"

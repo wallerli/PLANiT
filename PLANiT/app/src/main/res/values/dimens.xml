@@ -13,10 +13,12 @@
     <dimen name="task_indicator_marginLeft">4dp</dimen>
     <dimen name="task_indicator_marginTop">24dp</dimen>
     <dimen name="task_indicator_size">36dp</dimen>
-    <dimen name="task_indicator_size_large">54dp</dimen>
+    <dimen name="task_indicator_size_large">60dp</dimen>
     <dimen name="task_indicator_complete_thickness">18dp</dimen>
-    <dimen name="task_indicator_complete_thickness_large">27dp</dimen>
+    <dimen name="task_indicator_complete_thickness_large">30dp</dimen>
     <dimen name="task_indicator_incomplete_thickness">4dp</dimen>
+    <dimen name="task_indicator_incomplete_thickness_large">8dp</dimen>
+    <dimen name="view_task_title_width">280dp</dimen>
 
     <dimen name="section_header_font_size">16sp</dimen>
     <dimen name="view_description_font_size">18sp</dimen>
