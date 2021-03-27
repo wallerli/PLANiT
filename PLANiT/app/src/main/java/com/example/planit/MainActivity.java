@@ -22,11 +22,8 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String EDIT_PROJECT_ID = "com.example.planit.EDIT_PROJECT_ID";
-    public static String EDIT_TASK_ID = "com.example.planit.EDIT_TASK_ID";
     public static String VIEW_PROJECT_ID = "com.example.planit.VIEW_PROJECT_ID";
     public static String VIEW_TASK_ID = "com.example.planit.VIEW_TASK_ID";
-    Globals globals = Globals.getInstance();
     FloatingActionButton fab;
     boolean fab_expanded = false;
     FragmentPagerAdapter FragmentPagerAdapter;
@@ -111,36 +108,6 @@ public class MainActivity extends AppCompatActivity {
 
         Objects.requireNonNull(tabLayout.getTabAt(0)).setText("Projects");
         Objects.requireNonNull(tabLayout.getTabAt(1)).setText("Tasks");
-    }
-
-    public void openAProject(View view) {
-        Intent intent = new Intent(this, ViewProjectActivity.class);
-        intent.putExtra(VIEW_PROJECT_ID, globals.demoProjectUUID.toString());
-        startActivity(intent);
-    }
-
-    public void openATask(View view) {
-        Intent intent = new Intent(this, ViewTaskActivity.class);
-        intent.putExtra(VIEW_TASK_ID, globals.demoTaskUUID.toString());
-        startActivity(intent);
-    }
-
-    public void openEditProject(View view){
-        Intent intent = new Intent(this, EditProjectActivity.class);
-        intent.putExtra(VIEW_PROJECT_ID, globals.demoProjectUUID.toString()); // pass array of contact in the future
-        startActivity(intent);
-        fab_expanded = false;
-        rotateFab();
-        fab.setExpanded(fab_expanded);
-    }
-
-    public void openEditTask(View view){
-        Intent intent = new Intent(this, EditTaskActivity.class);
-        intent.putExtra(EDIT_TASK_ID, globals.demoTaskUUID.toString()); // pass array of contact in the future
-        startActivity(intent);
-        fab_expanded = false;
-        rotateFab();
-        fab.setExpanded(fab_expanded);
     }
 
     public void openEditNewProject(View view){

@@ -28,9 +28,14 @@ public class Project {
     }
 
     public void setTitle(String title) {
-        if (title.length() == 0 || title.length() > R.dimen.max_title_length)
-            throw new IllegalArgumentException("Project title length not in range: " + 1 + "-" + R.dimen.max_title_length);
         this.title = title;
+    }
+
+    /**
+     * @return 0 for correct title; 1 for empty title; 2 for exceeding max length
+     */
+    public int validateTitle(String title) {
+        return (title.length() == 0) ? 1 : (title.length() > R.dimen.max_title_length) ? 2 : 0;
     }
 
     public UUID getUUID() {

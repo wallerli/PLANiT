@@ -69,34 +69,41 @@
                 android:id="@+id/size_chips"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/size_label">
+                android:layout_below="@id/size_label"
+                app:singleSelection="true"
+                app:selectionRequired="true">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/tiny_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tiny_text"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/small_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/small_text"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/medium_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/medium_text"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/large_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/large_text"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/huge_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/huge_text"/>
@@ -115,28 +122,34 @@
                 android:id="@+id/priority_chips"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/priority_label">
+                android:layout_below="@id/priority_label"
+                app:singleSelection="true"
+                app:selectionRequired="true">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/low_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/low_text"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/moderate_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/moderate_text"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/high_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/high_text"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/critical_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/critical_text"/>

@@ -56,20 +56,18 @@ public class EditProjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_project);
         Toolbar toolbar = findViewById(R.id.edit_toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.inflateMenu(R.menu.menu_toolbar_edit);
-        toolbar.setNavigationOnClickListener(view -> finish());
-
         Intent intent = getIntent();
-
         if (intent.getStringExtra(EDIT_PROJECT_ID) != null) {
             project = globals.getProject(UUID.fromString(intent.getStringExtra(EDIT_PROJECT_ID)));
             toolbar.setTitle("Edit Project");
         }
         else {
-            project = globals.getProject();
+            project = new Project("New Project");
             toolbar.setTitle("Add New Project");
         }
+        setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.menu_toolbar_edit);
+        toolbar.setNavigationOnClickListener(view -> finish());
 
         title = findViewById(R.id.project_title_text);
         text = findViewById(R.id.edit_description);

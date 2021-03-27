@@ -21,6 +21,10 @@ public class Task {
     private final Set<UUID> blockers = new HashSet<>();
     private String text = "";
 
+    public Task(String title) {
+        this.setTitle(title);
+    }
+
     public Task(String title, Size size, Priority priority) {
         this.setTitle(title);
         this.size = size;
@@ -32,9 +36,14 @@ public class Task {
     }
 
     public void setTitle(String title) {
-        if (title.length() == 0 || title.length() > R.dimen.max_title_length)
-            throw new IllegalArgumentException("Task title length not in range: " + 1 + "-" + R.dimen.max_title_length);
         this.title = title;
+    }
+
+    /**
+     * @return 0 for correct title; 1 for empty title; 2 for exceeding max length
+     */
+    public int validateTitle(String title) {
+        return (title.length() == 0) ? 1 : (title.length() > R.dimen.max_title_length) ? 2 : 0;
     }
 
     public UUID getUUID() {
