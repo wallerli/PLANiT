@@ -26,6 +26,7 @@ public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskVie
         this.tasks = tasks.stream().filter(Objects::nonNull).collect(Collectors.toList());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @NonNull
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

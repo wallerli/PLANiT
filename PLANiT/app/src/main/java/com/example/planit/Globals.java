@@ -96,8 +96,8 @@ public class Globals{
     /**
      * @return 0: successful;
      * 1: no change;
-     * 2: attempting to mark a blocked task as completed
-     * 3: marking a task as incomplete and the task has incomplete blockers
+     * 2: attempting to mark a blocked task as completed;
+     * 3: the task is marked incomplete and it has incomplete blockers
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public int setTaskCompleted(UUID taskUUID, boolean completeStatus) {
@@ -113,9 +113,10 @@ public class Globals{
         } else {
             if (!isCompleted)
                 return 1;
-            if (!isUnblocked)
+            if (!isUnblocked) {
+                task.setCompleteStatus(false);
                 return 3;
-            task.setCompleteStatus(false);
+            }
         }
         addTask(task);
         return 0;
