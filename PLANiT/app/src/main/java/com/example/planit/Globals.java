@@ -135,8 +135,10 @@ public class Globals{
                 return 1;
             if (!isUnblocked) {
                 task.setCompleteStatus(false);
+                addTask(task);
                 return 3;
             }
+            task.setCompleteStatus(false);
         }
         addTask(task);
         return 0;
