@@ -47,10 +47,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/projectDueTextView"
-                android:layout_marginTop="@dimen/project_recycler_large_margin"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:textColor="@color/custom_primary"
+                android:fontFamily="sans-serif-light"
                 android:text="100.00%"
                 android:maxLines="1"
-                android:gravity="center"
+                android:gravity="bottom"
                 android:textSize="@dimen/indicator_hint_font_size_large" />
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -58,7 +62,6 @@
                 android:layout_below="@id/projectDueTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/project_recycler_default_margin"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
