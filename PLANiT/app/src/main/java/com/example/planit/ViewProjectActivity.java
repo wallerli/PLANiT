@@ -1,11 +1,13 @@
 package com.example.planit;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,11 +28,13 @@ public class ViewProjectActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     List<UUID> tasks = new ArrayList<>();
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_project);
         Toolbar toolbar = findViewById(R.id.view_toolbar);
+        toolbar.setTitle("View Project");
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.menu_toolbar_view);
 
