@@ -37,28 +37,28 @@ public class EditTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_task);
         Toolbar toolbar = findViewById(R.id.edit_toolbar);
         Intent intent = getIntent();
-        if (intent.getStringExtra(EDIT_TASK_ID) != null) {
-            task = globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID)));
-            toolbar.setTitle("Edit Task");
-        }
-        else {
-            task = new Task("New Task");
-            toolbar.setTitle("Add New Task");
-        }
-
-        setSupportActionBar(toolbar);
-        toolbar.inflateMenu(R.menu.menu_toolbar_edit);
-        toolbar.setNavigationOnClickListener(view -> finish());
 
         titleEdit = findViewById(R.id.task_title_text);
         textEdit = findViewById(R.id.edit_description);
         sizeChips = findViewById(R.id.size_chips);
         priorityChips = findViewById(R.id.priority_chips);
 
+        if (intent.getStringExtra(EDIT_TASK_ID) != null) {
+            task = globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID)));
+            toolbar.setTitle("Edit Task");
+            textEdit.setText(task.getText());
+            sizeChips.check(sizeChipIDs[task.getSize().ordinal()]);
+            priorityChips.check(priorityChipIDs[task.getPriority().ordinal()]);
+        }
+        else {
+            task = new Task("New Task");
+            toolbar.setTitle("Add New Task");
+        }
         titleEdit.setText(task.getTitle());
-        textEdit.setText(task.getText());
-        sizeChips.check(sizeChipIDs[task.getSize().ordinal()]);
-        priorityChips.check(priorityChipIDs[task.getPriority().ordinal()]);
+
+        setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.menu_toolbar_edit);
+        toolbar.setNavigationOnClickListener(view -> finish());
 
         sizeChips.setOnCheckedChangeListener((group, checkedId) ->
                 size = Size.values()[Arrays.asList(sizeChipIDs).indexOf(checkedId)]);
