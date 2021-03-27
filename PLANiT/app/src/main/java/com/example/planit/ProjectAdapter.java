@@ -40,8 +40,8 @@ public class ProjectAdapter extends RecyclerView.Adapter<com.example.planit.Proj
     public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
         Project project = Globals.getInstance().getProject(projects.get(position));
         holder.title.setText(project.getTitle());
-        holder.description.setText(project.getText());
-//        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
+//        holder.description.setText(project.getText());
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
 //        holder.due.setText(df.format(project.getDueDate()));
 //        holder.completeness.setText(String.format(Locale.getDefault(), "%.2f %%", 100 * project.getCompleteness()));
         holder.projectUUID = project.getUUID();
