@@ -36,63 +36,65 @@ import java.util.UUID;
 public class EditProjectActivity extends AppCompatActivity {
 
     public static String EDIT_PROJECT_ID = "com.example.planit.EDIT_PROJECT_ID";
+    Globals globals = Globals.getInstance();
 
     Project project;
-    Globals globals = Globals.getInstance();
     TextInputEditText title, text;
-
     Button dueDate, dueTime;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-    SimpleDateFormat dateTimeFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
-    Date date = new Date(MaterialDatePicker.todayInUtcMilliseconds());
-    String strDate;
-    String strTime = "23:59";
     MaterialDatePicker<Long> datePicker;
     MaterialTimePicker timePicker;
 
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    SimpleDateFormat dateTimeFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
+    Date date;
+    String strDate;
+    String strTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Initializing xml structure
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_project);
         Toolbar toolbar = findViewById(R.id.edit_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.menu_toolbar_edit);
+
+        // Filling Content
         Intent intent = getIntent();
+
+        title = findViewById(R.id.project_title_text);
+        dueDate = findViewById(R.id.due_date_value);
+        dueTime = findViewById(R.id.due_time_value);
+        text = findViewById(R.id.edit_description);
+
         if (intent.getStringExtra(EDIT_PROJECT_ID) != null) {
-            project = globals.getProject(UUID.fromString(intent.getStringExtra(EDIT_PROJECT_ID)));
+            project = new Project(globals.getProject(UUID.fromString(intent.getStringExtra(EDIT_PROJECT_ID))));
             toolbar.setTitle("Edit Project");
+            text.setText(project.getText());
+            if (project.getDueDate() != null) {
+                date = project.getDueDate();
+                strDate = dateFormat.format(date);
+                strTime = timeFormat.format(date);
+                dueDate.setText(strDate);
+                dueTime.setText(strTime);
+            }
+            else {
+                date = new Date(MaterialDatePicker.todayInUtcMilliseconds());
+            }
         }
         else {
             project = new Project("New Project");
             toolbar.setTitle("Add New Project");
         }
-        setSupportActionBar(toolbar);
-        toolbar.inflateMenu(R.menu.menu_toolbar_edit);
-        toolbar.setNavigationOnClickListener(view -> finish());
-
-        title = findViewById(R.id.project_title_text);
-        text = findViewById(R.id.edit_description);
-        dueDate = findViewById(R.id.due_date_value);
-        dueTime = findViewById(R.id.due_time_value);
-
         title.setText(project.getTitle());
-        text.setText(project.getText());
+
+        toolbar.setNavigationOnClickListener(view -> finish());
         dueDate.setOnClickListener(this::showDatePickerDialog);
         dueTime.setOnClickListener(this::showTimePickerDialog);
-
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-        /**
-        Spinner spinner = (Spinner) findViewById(R.id.contacts_spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.planets_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-         */
     }
 
     @Override
@@ -105,8 +107,8 @@ public class EditProjectActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_done) {
-            // User chose the "Settings" item, show the app settings UI...
-            return true;
+            globals.addProject(project);
+            finish();
         }
 
         // Invoke the superclass to handle it.
@@ -116,7 +118,7 @@ public class EditProjectActivity extends AppCompatActivity {
     public void showTimePickerDialog(View v) {
          timePicker = new MaterialTimePicker.Builder()
                         .setTitleText("Select time")
-                        .setTimeFormat(TimeFormat.CLOCK_12H)
+                        .setTimeFormat(TimeFormat.CLOCK_24H)
                         .setHour(23)
                         .setMinute(59)
                         .build();
@@ -145,11 +147,16 @@ public class EditProjectActivity extends AppCompatActivity {
 
     private void updateDate() {
         try {
-            date = dateTimeFormat.parse(strDate+" "+strTime);
-        } catch (ParseException ignored) {}
-
-        // TODO: REMOVE THIS LATER
-        title.setHint(dateTimeFormat.format(date));
+            if (strTime != null && !strTime.equals("null")) {
+                date = dateTimeFormat.parse(strDate + " " + strTime);
+            }
+            else if (strDate != null && !strDate.equals("null")) {
+                date = dateFormat.parse(strDate);
+            }
+        } catch (ParseException e) {
+            System.out.println("Failed to parse: " + e);
+        }
+        project.setDueDate(date);
     }
 
     public class SpinnerActivity extends Activity implements AdapterView.OnItemSelectedListener {

@@ -155,28 +155,11 @@
                     android:text="@string/critical_text"/>
             </com.google.android.material.chip.ChipGroup>
 
-            <TextView
-                android:id="@+id/tags_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/priority_chips"
-                android:layout_marginTop="@dimen/title_margin"
-                android:text="@string/tag_text"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chips"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tags_label"
-                app:chipSpacing="10dp">
-            </com.google.android.material.chip.ChipGroup>
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/descriptionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/chips"
+                android:layout_below="@id/priority_chips"
                 android:layout_marginTop="@dimen/title_margin"
                 android:hint="@string/description_text">
 

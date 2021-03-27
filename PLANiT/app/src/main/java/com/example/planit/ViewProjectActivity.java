@@ -22,11 +22,19 @@ import java.util.UUID;
 public class ViewProjectActivity extends AppCompatActivity {
 
     public static String EDIT_PROJECT_ID = "com.example.planit.EDIT_PROJECT_ID";
+    UUID project_id;
+    Globals globals = Globals.getInstance();
 
     Project project;
     TextView title, due, text;
     RecyclerView recyclerView;
-    List<UUID> tasks = new ArrayList<>();
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onResume() {
+        super.onResume();
+        populate();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -41,25 +49,14 @@ public class ViewProjectActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(view -> finish());
 
         Intent intent = getIntent();
-        UUID project_id = UUID.fromString(intent.getStringExtra(MainActivity.VIEW_PROJECT_ID));
-        project = Globals.getInstance().getProject(project_id);
-        tasks = project.getOrderedTasks();
+        project_id = UUID.fromString(intent.getStringExtra(MainActivity.VIEW_PROJECT_ID));
 
         title = findViewById(R.id.projectTitleTextView);
         due = findViewById(R.id.projectDueTextView);
         text = findViewById(R.id.projectDescriptionTextView);
-
-        title.setText(project.getTitle());
-        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.getDefault());
-        if (project.getDueDate() != null)
-            due.setText(df.format(project.getDueDate()));
-        text.setText(project.getText());
-
         recyclerView = findViewById(R.id.tasksRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        TaskAdapter adapter = new TaskAdapter(this, tasks);
-        recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
     }
 
@@ -73,7 +70,6 @@ public class ViewProjectActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_edit) {
-
             Intent intent = new Intent(this, EditProjectActivity.class);
             intent.putExtra(EDIT_PROJECT_ID, project.getUUID().toString());
             startActivity(intent);
@@ -82,5 +78,22 @@ public class ViewProjectActivity extends AppCompatActivity {
 
         // Invoke the superclass to handle it.
         return super.onOptionsItemSelected(item);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void populate() {
+        project = globals.getProject(project_id);
+
+        title.setText(project.getTitle());
+        if (project.getDueDate() != null)
+            due.setText(
+                 new SimpleDateFormat(
+                     "MM/dd/yyyy hh:mm",
+                      Locale.getDefault()
+                 ).format(project.getDueDate())
+            );
+        text.setText(project.getText());
+
+        recyclerView.setAdapter(new TaskAdapter(this, project.getOrderedTasks()));
     }
 }

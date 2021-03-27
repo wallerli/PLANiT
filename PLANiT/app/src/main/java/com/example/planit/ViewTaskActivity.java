@@ -20,11 +20,19 @@ import java.util.UUID;
 public class ViewTaskActivity extends AppCompatActivity {
 
     public static String EDIT_TASK_ID = "com.example.planit.EDIT_TASK_ID";
+    UUID task_id;
+    Globals globals = Globals.getInstance();
 
     Task task;
     TextView title, projectTitle, text;
     RecyclerView recyclerView;
-    List<UUID> blockers = new ArrayList<>();
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onResume() {
+        super.onResume();
+        populate();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -39,24 +47,17 @@ public class ViewTaskActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(view -> finish());
 
         Intent intent = getIntent();
-        UUID task_id = UUID.fromString(intent.getStringExtra(MainActivity.VIEW_TASK_ID));
-        task = Globals.getInstance().getTask(task_id);
-        blockers = task.getOrderedBlockers();
+        task_id = UUID.fromString(intent.getStringExtra(MainActivity.VIEW_TASK_ID));
 
         title = findViewById(R.id.taskTitleTextView);
         projectTitle = findViewById(R.id.taskProjectTitleTextView);
         text = findViewById(R.id.taskDescriptionTextView);
-
-        title.setText(task.getTitle());
-        projectTitle.setText(Globals.getInstance().getParentProject(task.getUUID()).getTitle());
-        text.setText(task.getText());
-
         recyclerView = findViewById(R.id.tasksRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        TaskAdapter adapter = new TaskAdapter(this, blockers);
-        recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
+
+        populate();
     }
 
     @Override
@@ -69,7 +70,6 @@ public class ViewTaskActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_edit) {
-
             Intent intent = new Intent(this, EditTaskActivity.class);
             intent.putExtra(EDIT_TASK_ID, task.getUUID().toString());
             startActivity(intent);
@@ -78,5 +78,16 @@ public class ViewTaskActivity extends AppCompatActivity {
 
         // Invoke the superclass to handle it.
         return super.onOptionsItemSelected(item);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void populate() {
+        task = globals.getTask(task_id);
+
+        title.setText(task.getTitle());
+        projectTitle.setText(globals.getParentProject(task.getUUID()).getTitle());
+        text.setText(task.getText());
+
+        recyclerView.setAdapter(new TaskAdapter(this, task.getOrderedBlockers()));
     }
 }
