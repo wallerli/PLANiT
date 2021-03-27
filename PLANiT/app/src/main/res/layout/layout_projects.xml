@@ -28,6 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/title_margin"
+                android:textColor="@color/black"
                 android:text="Project Title"
                 android:maxLines="2"
                 android:textSize="@dimen/recycler_title_font_size" />
@@ -46,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/projectDueTextView"
-                android:layout_marginTop="@dimen/project_recycler_default_margin"
+                android:layout_marginTop="@dimen/project_recycler_large_margin"
                 android:text="100.00%"
                 android:maxLines="1"
                 android:gravity="center"

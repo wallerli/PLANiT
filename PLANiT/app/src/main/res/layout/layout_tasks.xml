@@ -21,6 +21,7 @@
             android:layout_marginStart="@dimen/task_indicator_marginLeft"
             android:layout_marginLeft="@dimen/task_indicator_marginLeft"
             android:layout_marginTop="@dimen/task_indicator_marginTop"
+            app:showAnimationBehavior="inward"
             app:trackColor="@color/custom_secondary_variant"
             app:indicatorSize="@dimen/task_indicator_size" />
 
@@ -63,6 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Blocker Task Title"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/recycler_title_font_size" />
 
                 <TextView

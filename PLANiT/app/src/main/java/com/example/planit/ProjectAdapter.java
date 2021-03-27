@@ -1,6 +1,7 @@
 package com.example.planit;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,10 +44,15 @@ public class ProjectAdapter extends RecyclerView.Adapter<com.example.planit.Proj
         holder.title.setText(project.getTitle());
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.getDefault());
         Date due = project.getDueDate();
-        if (due != null)
+        if (due != null) {
             holder.due.setText(df.format(project.getDueDate()));
-        else
+            if (due.getTime() < System.currentTimeMillis() && project.getCompleteness() < 1) {
+                holder.due.setTextColor(mCtx.getResources().getColor(R.color.orange_700));
+                holder.due.setTypeface(null, Typeface.BOLD);
+            }
+        } else {
             holder.due.setText(R.string.no_due_date);
+        }
         holder.completeness_text.setText(String.format(Locale.getDefault(), "%.2f %%", 100 * project.getCompleteness()));
         holder.projectUUID = project.getUUID();
         holder.completeness = (int) (100 * project.getCompleteness());
