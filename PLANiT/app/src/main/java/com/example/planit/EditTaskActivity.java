@@ -84,10 +84,9 @@ public class EditTaskActivity extends AppCompatActivity {
         }
         titleEdit.setText(task.getTitle());
 
-        if (PARENT_PROJECT_ID != null) {
-            parentProject = new Project(globals.getProject(UUID.fromString(intent.getStringExtra(PARENT_PROJECT_ID))));
-        }
-        if (parentProject != null) {
+        String strUUID = intent.getStringExtra(PARENT_PROJECT_ID);
+        if (strUUID != null) {
+            parentProject = globals.getProject(UUID.fromString(strUUID));
             act_projects.setText(parentProject.getTitle());
         }
 
