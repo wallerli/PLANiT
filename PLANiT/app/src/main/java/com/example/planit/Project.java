@@ -7,6 +7,7 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -84,8 +85,9 @@ public class Project {
         return this.tasks.contains(uuid);
     }
 
-    public Set<UUID> getTasks() {
-        return this.tasks;
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public List<UUID> getTasks() {
+        return new ArrayList<>(this.tasks);
     }
 
     public List<UUID> getTags() {
