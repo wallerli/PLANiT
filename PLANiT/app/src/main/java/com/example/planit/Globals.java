@@ -112,6 +112,7 @@ public class Globals{
         for (Task task : tasks.values()) {
             task.removeBlocker(taskUUID);
         }
+        getParentProject(taskUUID).removeTask(taskUUID);
         return tasks.remove(taskUUID);
     }
 

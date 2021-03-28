@@ -33,6 +33,8 @@ public class ViewProjectActivity extends AppCompatActivity {
 
     public static String EDIT_PROJECT_ID = "com.example.planit.EDIT_PROJECT_ID";
     public static String PARENT_PROJECT_ID = "com.example.planit.PARENT_PROJECT_ID";
+    Globals globals = Globals.getInstance();
+
     Project project;
     TextView title, due, text, completenessText, emptyRecyclerText;
     RecyclerView recyclerView;
@@ -46,7 +48,13 @@ public class ViewProjectActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        populate();
+        project = globals.getProject(project.getUUID());
+        if (project != null) {
+            populate();
+        }
+        else {
+            finish();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -101,8 +109,6 @@ public class ViewProjectActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void populate() {
-        Globals globals = Globals.getInstance();
-        project = globals.getProject(projectUUID);
         tasks = project.getOrderedTasks();
         tags = project.getTags();
         title.setText(project.getTitle());
@@ -144,7 +150,6 @@ public class ViewProjectActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void updateChips() {
-        Globals globals = Globals.getInstance();
         tagChips.removeAllViews();
         tags.forEach(t -> {
             Tag tag = globals.getTag(t);
