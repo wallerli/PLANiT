@@ -88,6 +88,7 @@ public class Globals {
 
 //    public List<UUID> getProjects() { return new ArrayList<>(projects.keySet()); }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void removeProject(UUID projectUUID) {
         Iterator iterator = getProject(projectUUID).getTasks().iterator();
         while (iterator.hasNext()) {

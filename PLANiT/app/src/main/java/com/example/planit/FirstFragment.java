@@ -47,6 +47,8 @@ public class FirstFragment extends Fragment {
             showAllProjects();
             if (searchView != null)
                 searchView.clearFocus();
+        } else {
+            showFilteredProjects();
         }
         if (fab != null && fab.getVisibility() != View.VISIBLE) {
             fab.show();

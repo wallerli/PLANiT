@@ -46,6 +46,8 @@ public class SecondFragment extends Fragment {
             showAllTasks();
             if (searchView != null)
                 searchView.clearFocus();
+        } else {
+            showFilteredTasks();
         }
         if (fab != null && fab.getVisibility() != View.VISIBLE) {
             fab.show();
