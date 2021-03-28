@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -261,5 +262,12 @@ public class EditTaskActivity extends AppCompatActivity {
         lChip.setTextColor(color);
         lChip.setText(R.string.create_tag);
         tagChips.addView(lChip);
+    }
+
+    private boolean isNightMode() {
+        int nightModeFlags =
+                getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
     }
 }

@@ -11,7 +11,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="a_project">A Project</string>
     <string name="a_task">A Task</string>
-    <string name="project_title">Project Title *</string>
+    <string name="project_title">Parent Project *</string>
     <string name="due_date">Due Date</string>
     <string name="due_time">Due Time</string>
     <string name="due_date_time">Due</string>
