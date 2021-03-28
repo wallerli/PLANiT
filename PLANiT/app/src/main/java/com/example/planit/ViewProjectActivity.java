@@ -52,6 +52,13 @@ public class ViewProjectActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
+    public void onStart() {
+        super.onStart();
+        populate();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_project);

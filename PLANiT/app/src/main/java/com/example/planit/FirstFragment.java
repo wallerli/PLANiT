@@ -55,6 +55,21 @@ public class FirstFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (searchItem != null && !searchItem.isActionViewExpanded()) {
+            filter = "";
+            showAllProjects();
+            if (searchView != null)
+                searchView.clearFocus();
+        }
+        if (fab != null && fab.getVisibility() != View.VISIBLE) {
+            fab.show();
+        }
+    }
+
     @Override
     public void onPause() {
         super.onPause();
