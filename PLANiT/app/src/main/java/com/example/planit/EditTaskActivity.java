@@ -83,6 +83,8 @@ public class EditTaskActivity extends AppCompatActivity {
         else {
             task = new Task("New Task");
             toolbar.setTitle("Add New Task");
+            sizeChips.check(sizeChipIDs[Size.MEDIUM.ordinal()]);
+            priorityChips.check(priorityChipIDs[Priority.MODERATE.ordinal()]);
         }
         titleEdit.setText(task.getTitle());
 
