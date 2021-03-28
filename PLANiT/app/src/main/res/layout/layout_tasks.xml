@@ -84,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/taskDescriptionTextView"
-                    android:layout_marginTop="@dimen/subtitle_margin"
+                    android:layout_marginTop="@dimen/chip_margin"
                     app:chipSpacingVertical="0dp">
 
                     <com.google.android.material.chip.Chip
@@ -110,8 +110,8 @@
                     android:id="@+id/taskTags"
                     android:layout_width="match_parent"
                     android:layout_below="@id/taskSizePriority"
-                    app:chipSpacingVertical="0dp"
-                    android:layout_marginTop="@dimen/subtitle_margin"
+                    app:chipSpacingVertical="@dimen/chip_margin"
+                    android:layout_marginTop="@dimen/chip_margin"
                     android:layout_height="wrap_content"/>
 
             </RelativeLayout>
