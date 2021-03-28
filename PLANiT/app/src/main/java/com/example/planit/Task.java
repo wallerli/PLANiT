@@ -1,5 +1,7 @@
 package com.example.planit;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
@@ -58,8 +60,8 @@ public class Task {
     /**
      * @return 0 for correct title; 1 for empty title; 2 for exceeding max length
      */
-    public int validateTitle(String title) {
-        return (title.length() == 0) ? 1 : (title.length() > R.dimen.max_title_length) ? 2 : 0;
+    public static int validateTitle(String title) {
+        return (title.length() == 0) ? 1 : title.length() > Globals.MAX_TITLE_LENGTH ? 2 : 0;
     }
 
     public UUID getUUID() {
@@ -169,8 +171,13 @@ public class Task {
     }
 
     public void setText(String text) {
-        if (text.length() == 0 || text.length() > R.dimen.max_text_length)
-            throw new IllegalArgumentException("Task text length not in range: " + 1 + "-" + R.dimen.max_text_length);
         this.text = text;
+    }
+
+    /**
+     * @return 0 for correct text; 1 for empty text; 2 for exceeding max length
+     */
+    public static int validateText(String text) {
+        return text.length() == 0 ? 1 : text.length() > Globals.MAX_TEXT_LENGTH ? 2 : 0;
     }
 }
