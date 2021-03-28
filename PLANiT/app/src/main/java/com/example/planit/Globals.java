@@ -11,10 +11,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.sql.Timestamp;
@@ -82,11 +84,12 @@ public class Globals{
 
 //    public List<UUID> getProjects() { return new ArrayList<>(projects.keySet()); }
 
-    public Project removeProject(UUID projectUUID) {
-        for (UUID taskUUID : this.getProject(projectUUID).getTasks()) {
-            this.removeTask(taskUUID);
+    public void removeProject(UUID projectUUID) {
+        Iterator iterator = getProject(projectUUID).getTasks().iterator();
+        while (iterator.hasNext()) {
+            this.removeTask((UUID) iterator.next());
         }
-        return projects.remove(projectUUID);
+        projects.remove(projectUUID);
     }
 
     public Project getParentProject(UUID taskUUID) {
