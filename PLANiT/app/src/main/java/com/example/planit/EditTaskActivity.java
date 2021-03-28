@@ -63,7 +63,6 @@ public class EditTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
         Toolbar toolbar = findViewById(R.id.edit_toolbar);
-        setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.menu_toolbar_edit);
 
         // Filling content
@@ -79,17 +78,19 @@ public class EditTaskActivity extends AppCompatActivity {
 
         if (intent.getStringExtra(EDIT_TASK_ID) != null) {
             task = new Task(globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID))));
-            toolbar.setTitle("Edit Task");
-            sizeChips.check(sizeChipIDs[task.getSize().ordinal()]);
-            priorityChips.check(priorityChipIDs[task.getPriority().ordinal()]);
+            toolbar.setTitle("");
             textEdit.setText(task.getText());
+            titleEdit.setText(task.getTitle());
         }
         else {
-            task = new Task("New Task");
+            task = new Task("");
             toolbar.setTitle("Add New Task");
             newTask = true;
+            titleEdit.requestFocus();
         }
-        titleEdit.setText(task.getTitle());
+        setSupportActionBar(toolbar);
+        sizeChips.check(sizeChipIDs[task.getSize().ordinal()]);
+        priorityChips.check(priorityChipIDs[task.getPriority().ordinal()]);
 
         if (intent.getStringExtra(PARENT_PROJECT_ID) != null) {
             parentProject = globals.getProject(UUID.fromString(intent.getStringExtra(PARENT_PROJECT_ID)));
@@ -160,49 +161,39 @@ public class EditTaskActivity extends AppCompatActivity {
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (task.getPriority() == null) {
-            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-            alertDialog.setTitle("Task Must Have a Priority");
-            alertDialog.setMessage("Please choose a priority for this task so we can help you get the most important things done first.");
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
-                    (dialog, which) -> dialog.dismiss());
-            alertDialog.show();
-        }
-        if (task.getSize() == null) {
-            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-            alertDialog.setTitle("Task Must Have a Size");
-            alertDialog.setMessage("Please choose a size for this task to represent how much effort it will take to complete.");
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
-                    (dialog, which) -> dialog.dismiss());
-            alertDialog.show();
-        }
-        if (parentProject == null) {
-            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-            alertDialog.setTitle("Task Must Belong to a Project");
-            alertDialog.setMessage("Please select a project to assign this task to so it doesn't get lost.");
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
-                    (dialog, which) -> dialog.dismiss());
-            alertDialog.show();
-        }
-        if (task.getTitle().equals("")) {
-            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-            alertDialog.setTitle("Task Must Have a Title");
-            alertDialog.setMessage("Please add a title to your task so it can be saved.");
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
-                    (dialog, which) -> dialog.dismiss());
-            alertDialog.show();
-        }
-        else if (item.getItemId() == R.id.action_done && parentProject != null) {
-            globals.addTask(task);
-            parentProject.addTask(task.getUUID());
-            globals.addProject(parentProject);
-            finish();
-            if (newTask) {
-                Intent intent = new Intent(this, ViewTaskActivity.class);
-                intent.putExtra(VIEW_TASK_ID, task.getUUID().toString());
-                startActivity(intent);
+        if (item.getItemId() == R.id.action_done) {
+            int v1 = Task.validateTitle(task.getTitle());
+            int v2 = Task.validateText(task.getText());
+            if (v1 != 0 || parentProject == null) {
+                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                alertDialog.setTitle("Please complete all required fields");
+                String message = "";
+                if (v1 == 1)
+                    message += "* The title cannot be empty.\n";
+                if (v1 == 2)
+                    message += "* This title is too long. Make sure your title is under " + Globals.MAX_TITLE_LENGTH + " characters.\n";
+                if (parentProject == null)
+                    message += "* Must select a project to assign this task to so it doesn't get lost.\n";
+                if (v2 == 2)
+                    message += "* The description is too long. Make sure your description is under " + Globals.MAX_TEXT_LENGTH + " characters.\n";
+                alertDialog.setMessage(message);
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
+                        (dialog, which) -> dialog.dismiss());
+                alertDialog.show();
+            }
+            else {
+                globals.addTask(task);
+                parentProject.addTask(task.getUUID());
+                globals.addProject(parentProject);
+                finish();
+                if (newTask) {
+                    Intent intent = new Intent(this, ViewTaskActivity.class);
+                    intent.putExtra(VIEW_TASK_ID, task.getUUID().toString());
+                    startActivity(intent);
+                }
             }
         }
 

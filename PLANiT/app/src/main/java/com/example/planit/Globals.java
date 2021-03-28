@@ -19,12 +19,16 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.sql.Timestamp;
 
-public class Globals{
+public class Globals {
 
     private static Globals globals_instance = null;
     private final Map<UUID, Project> projects = new HashMap<UUID, Project>();
     private final Map<UUID, Tag> tags = new HashMap<UUID, Tag>();
     private final Map<UUID, Task> tasks = new HashMap<UUID, Task>();
+
+    public static final int MAX_TITLE_LENGTH = 50;
+    public static final int MAX_TEXT_LENGTH = 500;
+    public static final int MAX_TAG_LENGTH = 20;
 
     private Globals() {
         setupDummyObjects();
