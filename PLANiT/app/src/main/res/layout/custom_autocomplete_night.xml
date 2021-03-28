@@ -4,6 +4,10 @@
     android:singleLine="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/autocomplete_text_view_padding"
+    android:paddingStart="@dimen/autocomplete_text_view_padding"
+    android:paddingRight="@dimen/autocomplete_text_view_padding"
+    android:paddingEnd="@dimen/autocomplete_text_view_padding"
     android:minHeight="@dimen/autocomplete_text_view_height"
     android:ellipsize="marquee"
-    android:textColor="#E0E0E0"/>
+    android:textColor="#B3B3B3" />
