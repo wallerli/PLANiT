@@ -92,4 +92,6 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="delete_task_button_text">DELETE TASK</string>
+    <string name="delete_project_button_text">DELETE PROJECT</string>
 </resources>

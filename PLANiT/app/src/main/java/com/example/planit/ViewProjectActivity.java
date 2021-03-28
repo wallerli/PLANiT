@@ -33,6 +33,7 @@ public class ViewProjectActivity extends AppCompatActivity {
 
     public static String EDIT_PROJECT_ID = "com.example.planit.EDIT_PROJECT_ID";
     public static String PARENT_PROJECT_ID = "com.example.planit.PARENT_PROJECT_ID";
+
     Project project;
     TextView title, due, text, completenessText, emptyRecyclerText;
     RecyclerView recyclerView;
@@ -46,6 +47,13 @@ public class ViewProjectActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        populate();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onStart() {
+        super.onStart();
         populate();
     }
 
@@ -103,6 +111,10 @@ public class ViewProjectActivity extends AppCompatActivity {
     public void populate() {
         Globals globals = Globals.getInstance();
         project = globals.getProject(projectUUID);
+        if (project == null) {
+            finish();
+            return;
+        }
         tasks = project.getOrderedTasks();
         tags = project.getTags();
         title.setText(project.getTitle());

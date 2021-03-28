@@ -7,10 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -33,6 +37,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.UUID;
 
+import static android.view.View.GONE;
 import static com.example.planit.MainActivity.VIEW_PROJECT_ID;
 
 public class EditProjectActivity extends AppCompatActivity {
@@ -42,7 +47,7 @@ public class EditProjectActivity extends AppCompatActivity {
 
     Project project;
     TextInputEditText title, text;
-    Button dueDate, dueTime, dueCLear;
+    Button dueDate, dueTime, dueCLear, delete;
     MaterialDatePicker<Long> datePicker;
     MaterialTimePicker timePicker;
     ChipGroup tagChips;
@@ -76,6 +81,7 @@ public class EditProjectActivity extends AppCompatActivity {
         tagChips = findViewById(R.id.tag_chips);
         emptyTagsText = findViewById(R.id.empty_tags_text);
         dueCLear = findViewById(R.id.clear_due);
+        delete = findViewById(R.id.delete_button);
 
         if (intent.getStringExtra(EDIT_PROJECT_ID) != null) {
             project = new Project(globals.getProject(UUID.fromString(intent.getStringExtra(EDIT_PROJECT_ID))));
@@ -93,6 +99,7 @@ public class EditProjectActivity extends AppCompatActivity {
         else {
             project = new Project("");
             toolbar.setTitle("Add New Project");
+            delete.setVisibility(GONE);
             newProject = true;
             title.requestFocus();
         }
@@ -107,10 +114,60 @@ public class EditProjectActivity extends AppCompatActivity {
         timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         updateChips();
-//        if (project.getTags().size() == 0)
-//            emptyTagsText.setVisibility(View.VISIBLE);
-//        else
-//            emptyTagsText.setVisibility(View.INVISIBLE);
+
+        // Listeners
+        title.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Add validation here
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                project.setTitle(s.toString());
+            }
+        });
+
+        text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Add validation here
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                project.setText(s.toString());
+            }
+        });
+
+        delete.setOnClickListener(v -> {
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Delete \"" + project.getTitle() + "\"?");
+            alertDialog.setMessage("Are you sure you want to delete this project? Deleting this project will also delete all of the tasks underneath it.\n\n This action cannot be undone!");
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                    (dialog, which) -> dialog.dismiss());
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DELETE",
+                    (dialog, which) -> {
+                        globals.removeProject(project.getUUID());
+                        dialog.dismiss();
+                        finish();
+                        Toast.makeText(getApplicationContext(),"Deleted",Toast.LENGTH_SHORT).show();
+                    });
+            alertDialog.show();
+            Button b = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            if (b != null) {
+                TypedValue typedValue = new TypedValue();
+                getTheme().resolveAttribute(R.attr.colorError, typedValue, true);
+                @ColorInt int color = typedValue.data;
+                b.setTextColor(color);
+            }
+        });
     }
 
     @Override
@@ -147,6 +204,7 @@ public class EditProjectActivity extends AppCompatActivity {
                     intent.putExtra(VIEW_PROJECT_ID, project.getUUID().toString());
                     startActivity(intent);
                 }
+                Toast.makeText(getApplicationContext(),"Saved",Toast.LENGTH_SHORT).show();
             }
         }
 

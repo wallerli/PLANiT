@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Build;
@@ -15,13 +16,16 @@ import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import java.util.ArrayList;
 import java.util.Map;
 
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -30,6 +34,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.Arrays;
 import java.util.UUID;
 
+import static android.view.View.GONE;
 import static com.example.planit.MainActivity.VIEW_TASK_ID;
 
 public class EditTaskActivity extends AppCompatActivity {
@@ -46,6 +51,7 @@ public class EditTaskActivity extends AppCompatActivity {
     ChipGroup priorityChips;
     ChipGroup tagChips;
     TextView emptyTagsText;
+    Button delete;
 
     final Integer[] sizeChipIDs = new Integer[] {R.id.tiny_chip, R.id.small_chip, R.id.medium_chip, R.id.large_chip, R.id.huge_chip};
     final Integer[] priorityChipIDs = new Integer[] {R.id.low_chip, R.id.moderate_chip, R.id.high_chip, R.id.critical_chip};
@@ -75,6 +81,7 @@ public class EditTaskActivity extends AppCompatActivity {
         tagChips = findViewById(R.id.tag_chips);
         textEdit = findViewById(R.id.edit_description);
         emptyTagsText = findViewById(R.id.empty_tags_text);
+        delete = findViewById(R.id.delete_button);
 
         if (intent.getStringExtra(EDIT_TASK_ID) != null) {
             task = new Task(globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID))));
@@ -85,6 +92,7 @@ public class EditTaskActivity extends AppCompatActivity {
         else {
             task = new Task("");
             toolbar.setTitle("Add New Task");
+            delete.setVisibility(GONE);
             newTask = true;
             titleEdit.requestFocus();
         }
@@ -152,6 +160,29 @@ public class EditTaskActivity extends AppCompatActivity {
 //            emptyTagsText.setVisibility(View.VISIBLE);
 //        else
 //            emptyTagsText.setVisibility(View.INVISIBLE);
+
+        delete.setOnClickListener(v -> {
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Delete \"" + task.getTitle() + "\"?");
+            alertDialog.setMessage("Are you sure you want to delete this task?\n\nThis action cannot be undone!");
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                    (dialog, which) -> dialog.dismiss());
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DELETE",
+                    (dialog, which) -> {
+                        globals.removeTask(task.getUUID());
+                        dialog.dismiss();
+                        finish();
+                        Toast.makeText(getApplicationContext(),"Deleted",Toast.LENGTH_SHORT).show();
+                    });
+            alertDialog.show();
+            Button b = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            if (b != null) {
+                TypedValue typedValue = new TypedValue();
+                getTheme().resolveAttribute(R.attr.colorError, typedValue, true);
+                @ColorInt int color = typedValue.data;
+                b.setTextColor(color);
+            }
+        });
     }
 
     @Override
@@ -194,6 +225,7 @@ public class EditTaskActivity extends AppCompatActivity {
                     intent.putExtra(VIEW_TASK_ID, task.getUUID().toString());
                     startActivity(intent);
                 }
+                Toast.makeText(getApplicationContext(),"Saved",Toast.LENGTH_SHORT).show();
             }
         }
 
