@@ -53,6 +53,6 @@
     <dimen name="max_tag_length">20</dimen>
     <dimen name="delete_margin">36dp</dimen>
     <dimen name="delete_button_font_size">18sp</dimen>
-    <dimen name="delete_button_font_padding_horizontal">36sp</dimen>
-    <dimen name="delete_button_font_padding_vertical">18sp</dimen>
+    <dimen name="delete_button_font_padding_horizontal">24sp</dimen>
+    <dimen name="delete_button_font_padding_vertical">12sp</dimen>
 </resources>

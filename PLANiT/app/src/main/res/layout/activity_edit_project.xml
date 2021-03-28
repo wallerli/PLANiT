@@ -143,7 +143,10 @@
                     android:paddingVertical="@dimen/delete_button_font_padding_vertical"
                     android:text="@string/delete_project_button_text"
                     android:textSize="@dimen/delete_button_font_size"
-                    app:backgroundTint="#960000" />
+                    android:textColor="?attr/colorError"
+                    app:strokeColor="?attr/colorError"
+                    app:rippleColor="?attr/colorError"
+                    style="?attr/materialButtonOutlinedStyle"/>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
