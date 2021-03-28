@@ -192,14 +192,16 @@ public class EditProjectActivity extends AppCompatActivity {
     }
 
     private void updateDate() {
-        if (strDate == null) {
+        if (strDate == null && strTime == null) {
             date = null;
         } else {
             try {
-                if (strTime != null && !strTime.equals("null")) {
+                if (strTime != null && strDate != null) {
                     date = dateTimeFormat.parse(strDate + " " + strTime);
-                } else if (strDate != null && !strDate.equals("null")) {
+                } else if (strDate != null) {
                     date = dateTimeFormat.parse(strDate + " 11:59 PM");
+                } else {
+                    date = dateTimeFormat.parse(dateFormat.format(date.getTime()) + " " + strTime);
                 }
             } catch (ParseException e) {
                 System.out.println("Failed to parse: " + e);
