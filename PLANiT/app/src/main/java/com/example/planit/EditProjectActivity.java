@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -127,6 +128,7 @@ public class EditProjectActivity extends AppCompatActivity {
                         globals.removeProject(project.getUUID());
                         dialog.dismiss();
                         finish();
+                        Toast.makeText(getApplicationContext(),"Deleted",Toast.LENGTH_SHORT).show();
                     });
             alertDialog.show();
             Button b = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
@@ -173,6 +175,7 @@ public class EditProjectActivity extends AppCompatActivity {
                     intent.putExtra(VIEW_PROJECT_ID, project.getUUID().toString());
                     startActivity(intent);
                 }
+                Toast.makeText(getApplicationContext(),"Saved",Toast.LENGTH_SHORT).show();
             }
         }
 

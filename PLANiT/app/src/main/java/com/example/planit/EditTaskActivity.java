@@ -25,6 +25,7 @@ import java.util.Map;
 
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -171,6 +172,7 @@ public class EditTaskActivity extends AppCompatActivity {
                         globals.removeTask(task.getUUID());
                         dialog.dismiss();
                         finish();
+                        Toast.makeText(getApplicationContext(),"Deleted",Toast.LENGTH_SHORT).show();
                     });
             alertDialog.show();
             Button b = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
@@ -223,6 +225,7 @@ public class EditTaskActivity extends AppCompatActivity {
                     intent.putExtra(VIEW_TASK_ID, task.getUUID().toString());
                     startActivity(intent);
                 }
+                Toast.makeText(getApplicationContext(),"Saved",Toast.LENGTH_SHORT).show();
             }
         }
 
