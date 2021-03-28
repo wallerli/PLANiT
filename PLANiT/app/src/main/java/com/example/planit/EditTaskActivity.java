@@ -174,11 +174,11 @@ public class EditTaskActivity extends AppCompatActivity {
                 if (v1 == 1)
                     message += "* The title cannot be empty.\n";
                 if (v1 == 2)
-                    message += "* The title is too long.\n";
+                    message += "* This title is too long. Make sure your title is under " + Globals.MAX_TITLE_LENGTH + " characters.\n";
                 if (parentProject == null)
                     message += "* Must select a project to assign this task to so it doesn't get lost.\n";
                 if (v2 == 2)
-                    message += "* The description is too long.\n";
+                    message += "* The description is too long. Make sure your description is under " + Globals.MAX_TEXT_LENGTH + " characters.\n";
                 alertDialog.setMessage(message);
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
                         (dialog, which) -> dialog.dismiss());
