@@ -39,7 +39,6 @@
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
                 android:lineSpacingMultiplier="1.2"
-                android:text="Project title project title project title"
                 android:textSize="@dimen/view_title_font_size" />
 
                 <RelativeLayout
@@ -84,7 +83,6 @@
                 android:layout_marginTop="@dimen/subtitle_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
-                android:text="0/0/0000 00:00 AM"
                 android:textSize="@dimen/view_subtitle_font_size" />
 
             <com.google.android.material.chip.ChipGroup
@@ -106,7 +104,6 @@
                 android:layout_marginTop="@dimen/description_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
-                android:text="djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl  beruv berfvb djfhbvlsdbvflsdbae bbsbo  rvuebvu efv beruv berfvb djfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvbdjfhbvlsdbvflsdbae bbsbo  aerligbael r balr blerigb lierbg earbvl abvlibe rvib erv beiorgb ierbverbie rbviber be vbevb ofbv uebrfv uebfr rvuebvu efv beruv berfvb"
                 android:textSize="@dimen/view_description_font_size" />
 
             <TextView

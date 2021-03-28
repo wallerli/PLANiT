@@ -211,6 +211,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/blockers_label"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/blockers"
+                android:layout_margin="@dimen/fab_margin">
+
+                <Button
+                    android:id="@+id/delete_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/delete_margin"
+                    android:paddingHorizontal="@dimen/delete_button_font_padding_horizontal"
+                    android:paddingVertical="@dimen/delete_button_font_padding_vertical"
+                    android:text="@string/delete_task_button_text"
+                    android:textSize="@dimen/delete_button_font_size"
+                    app:backgroundTint="#960000" />
+            </LinearLayout>
         </RelativeLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
