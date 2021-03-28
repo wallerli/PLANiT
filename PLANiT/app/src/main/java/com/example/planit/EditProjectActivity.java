@@ -168,7 +168,7 @@ public class EditProjectActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void clearDue(View v) {
-        date = null;
+        date = new Date(MaterialDatePicker.todayInUtcMilliseconds());
         strDate = null;
         strTime = null;
         dueDate.setText(R.string.no_due_date_selected_text);
@@ -193,7 +193,7 @@ public class EditProjectActivity extends AppCompatActivity {
 
     private void updateDate() {
         if (strDate == null && strTime == null) {
-            date = null;
+            project.setDueDate(null);
         } else {
             try {
                 if (strTime != null && strDate != null) {
@@ -201,13 +201,13 @@ public class EditProjectActivity extends AppCompatActivity {
                 } else if (strDate != null) {
                     date = dateTimeFormat.parse(strDate + " 11:59 PM");
                 } else {
-                    date = dateTimeFormat.parse(dateFormat.format(date.getTime()) + " " + strTime);
+                    date = dateTimeFormat.parse(dateFormat.format(date) + " " + strTime);
                 }
             } catch (ParseException e) {
                 System.out.println("Failed to parse: " + e);
             }
+            project.setDueDate(date);
         }
-        project.setDueDate(date);
         dueCLear.setEnabled(strTime != null || strDate != null);
     }
 
