@@ -1,0 +1,13 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    style="?android:attr/spinnerDropDownItemStyle"
+    android:singleLine="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/autocomplete_text_view_padding"
+    android:paddingStart="@dimen/autocomplete_text_view_padding"
+    android:paddingRight="@dimen/autocomplete_text_view_padding"
+    android:paddingEnd="@dimen/autocomplete_text_view_padding"
+    android:minHeight="@dimen/autocomplete_text_view_height"
+    android:ellipsize="marquee"
+    android:textColor="#767676"/>

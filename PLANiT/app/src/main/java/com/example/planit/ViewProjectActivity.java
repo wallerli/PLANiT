@@ -2,6 +2,7 @@ package com.example.planit;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -84,7 +85,17 @@ public class ViewProjectActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNestedScrollingEnabled(false);
         populate();
-        indicator.setOnClickListener(v -> populate());
+        indicator.setOnClickListener(v -> {
+            populate();
+            if (tasks.size() == 0) {
+                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                alertDialog.setTitle("This project is not completed");
+                alertDialog.setMessage("Create a task first. The project is complete when all its tasks are completed.");
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DISMISS",
+                        (dialog, which) -> dialog.dismiss());
+                alertDialog.show();
+            }
+        });
     }
 
     @Override

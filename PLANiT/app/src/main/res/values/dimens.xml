@@ -1,6 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="card_margin">8dp</dimen>
+    <dimen name="card_margin">0dp</dimen>
     <dimen name="card_elevation">2dp</dimen>
     <dimen name="title_margin">16dp</dimen>
     <dimen name="project_recycler_default_margin">6dp</dimen>
@@ -56,4 +56,7 @@
     <dimen name="delete_button_font_size">18sp</dimen>
     <dimen name="delete_button_font_padding_horizontal">24sp</dimen>
     <dimen name="delete_button_font_padding_vertical">12sp</dimen>
+
+    <dimen name="autocomplete_text_view_height">50dp</dimen>
+    <dimen name="autocomplete_text_view_padding">18dp</dimen>
 </resources>

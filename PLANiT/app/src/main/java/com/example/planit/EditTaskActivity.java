@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,7 +17,6 @@ import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
@@ -110,11 +110,9 @@ public class EditTaskActivity extends AppCompatActivity {
             arrayList_project.add(p.getValue().getTitle());
         }
         act_projects.setAdapter(
-            new ArrayAdapter<>(
-                getApplicationContext(),
-                R.layout.support_simple_spinner_dropdown_item,
-                arrayList_project
-            )
+            isNightMode()
+                    ? new ArrayAdapter<>(getApplicationContext(), R.layout.custom_autocomplete_night, arrayList_project)
+                    : new ArrayAdapter<>(getApplicationContext(), R.layout.custom_autocomplete, arrayList_project)
         );
         act_projects.setThreshold(4); // characters required to load suggestion for spinner
 
@@ -261,5 +259,12 @@ public class EditTaskActivity extends AppCompatActivity {
         lChip.setTextColor(color);
         lChip.setText(R.string.create_tag);
         tagChips.addView(lChip);
+    }
+
+    private boolean isNightMode() {
+        int nightModeFlags =
+                getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
     }
 }
