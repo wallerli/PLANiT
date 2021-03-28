@@ -75,8 +75,8 @@
     <string name="email_developer_title">Email feedback to developers</string>
     <string name="faq_settings_summary">FAQ</string>
     <string name="faq_settings_title">Frequently Asked Questions</string>
-    <string name="empty_project_recycler">Nothing to show here.</string>
-    <string name="empty_task_recycler">This task has no blockers 🎊</string>
+    <string name="empty_recycler">Nothing to show here 🎐</string>
+    <string name="empty_blocker_recycler">This task has no blocker 🎊</string>
     <string name="empty_tags_edit">No tag has been selected.</string>
 
     <!-- Preference Titles -->

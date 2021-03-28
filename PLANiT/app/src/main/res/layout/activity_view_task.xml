@@ -183,7 +183,7 @@
                 android:layout_marginTop="@dimen/description_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
-                android:text="@string/empty_task_recycler"
+                android:text="@string/empty_blocker_recycler"
                 android:textSize="@dimen/empty_recycler_hint" />
         </RelativeLayout>
     </ScrollView>
