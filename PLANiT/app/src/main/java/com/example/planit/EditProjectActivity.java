@@ -7,9 +7,6 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.os.Build;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,7 +20,6 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
@@ -32,8 +28,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.Calendar;
 import java.util.UUID;
+
+import static com.example.planit.MainActivity.VIEW_PROJECT_ID;
 
 public class EditProjectActivity extends AppCompatActivity {
 
@@ -54,6 +51,8 @@ public class EditProjectActivity extends AppCompatActivity {
     Date date = new Date(MaterialDatePicker.todayInUtcMilliseconds());
     String strDate;
     String strTime;
+
+    boolean newProject = false;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -90,6 +89,7 @@ public class EditProjectActivity extends AppCompatActivity {
         else {
             project = new Project("New Project");
             toolbar.setTitle("Add New Project");
+            newProject = true;
         }
         title.setText(project.getTitle());
 
@@ -131,6 +131,11 @@ public class EditProjectActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_done) {
             globals.addProject(project);
             finish();
+            if (newProject) {
+                Intent intent = new Intent(this, ViewProjectActivity.class);
+                intent.putExtra(VIEW_PROJECT_ID, project.getUUID().toString());
+                startActivity(intent);
+            }
         }
 
         // Invoke the superclass to handle it.
@@ -179,7 +184,7 @@ public class EditProjectActivity extends AppCompatActivity {
                 date = dateTimeFormat.parse(strDate + " " + strTime);
             }
             else if (strDate != null && !strDate.equals("null")) {
-                date = dateFormat.parse(strDate);
+                date = dateTimeFormat.parse(strDate + " 11:59 PM");
             }
         } catch (ParseException e) {
             System.out.println("Failed to parse: " + e);

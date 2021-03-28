@@ -28,6 +28,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.Arrays;
 import java.util.UUID;
 
+import static com.example.planit.MainActivity.VIEW_TASK_ID;
+
 public class EditTaskActivity extends AppCompatActivity {
 
     public static String EDIT_TASK_ID = "com.example.planit.EDIT_TASK_ID";
@@ -49,6 +51,8 @@ public class EditTaskActivity extends AppCompatActivity {
     // Project menu
     ArrayList<String> arrayList_project = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter_project;
+
+    boolean newTask = false;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -81,6 +85,7 @@ public class EditTaskActivity extends AppCompatActivity {
         else {
             task = new Task("New Task");
             toolbar.setTitle("Add New Task");
+            newTask = true;
         }
         titleEdit.setText(task.getTitle());
 
@@ -174,6 +179,11 @@ public class EditTaskActivity extends AppCompatActivity {
             parentProject.addTask(task.getUUID());
             globals.addProject(parentProject);
             finish();
+            if (newTask) {
+                Intent intent = new Intent(this, ViewTaskActivity.class);
+                intent.putExtra(VIEW_TASK_ID, task.getUUID().toString());
+                startActivity(intent);
+            }
         }
 
         // Invoke the superclass to handle it.
