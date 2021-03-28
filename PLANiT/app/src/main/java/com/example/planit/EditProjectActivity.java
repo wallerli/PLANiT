@@ -49,8 +49,8 @@ public class EditProjectActivity extends AppCompatActivity {
     TextView emptyTagsText;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-    SimpleDateFormat dateTimeFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
+    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+    SimpleDateFormat dateTimeFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.getDefault());
     Date date = new Date(MaterialDatePicker.todayInUtcMilliseconds());
     String strDate;
     String strTime;
@@ -140,13 +140,19 @@ public class EditProjectActivity extends AppCompatActivity {
     public void showTimePickerDialog(View v) {
          timePicker = new MaterialTimePicker.Builder()
                         .setTitleText("Select time")
-                        .setTimeFormat(TimeFormat.CLOCK_24H)
+                        .setTimeFormat(TimeFormat.CLOCK_12H)
                         .setHour(23)
                         .setMinute(59)
                         .build();
         timePicker.show(getSupportFragmentManager(), timePicker.toString());
         timePicker.addOnPositiveButtonClickListener(t -> {
-            strTime = String.format(Locale.getDefault(), "%02d:%02d", timePicker.getHour(), timePicker.getMinute());
+            int hour = timePicker.getHour();
+            String AMPM = "AM";
+            if (hour >= 12) {
+                hour -= 12;
+                AMPM = "PM";
+            }
+            strTime = String.format(Locale.getDefault(), "%02d:%02d %s", hour, timePicker.getMinute(), AMPM);
             dueTime.setText(strTime);
             updateDate();
         });
