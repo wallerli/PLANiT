@@ -53,12 +53,9 @@ public class EditTaskActivity extends AppCompatActivity {
     TextView emptyTagsText;
     Button delete;
 
+    ArrayList<String> arrayList_project = new ArrayList<>();
     final Integer[] sizeChipIDs = new Integer[] {R.id.tiny_chip, R.id.small_chip, R.id.medium_chip, R.id.large_chip, R.id.huge_chip};
     final Integer[] priorityChipIDs = new Integer[] {R.id.low_chip, R.id.moderate_chip, R.id.high_chip, R.id.critical_chip};
-
-    // Project menu
-    ArrayList<String> arrayList_project = new ArrayList<>();
-    ArrayAdapter<String> arrayAdapter_project;
 
     boolean newTask = false;
 
@@ -85,12 +82,16 @@ public class EditTaskActivity extends AppCompatActivity {
 
         if (intent.getStringExtra(EDIT_TASK_ID) != null) {
             task = new Task(globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID))));
+            parentProject = globals.getParentProject(task.getUUID());
             toolbar.setTitle("");
             textEdit.setText(task.getText());
             titleEdit.setText(task.getTitle());
         }
         else {
             task = new Task("");
+            if (intent.getStringExtra(PARENT_PROJECT_ID) != null) {
+                parentProject = globals.getProject(UUID.fromString(intent.getStringExtra(PARENT_PROJECT_ID)));
+            }
             toolbar.setTitle("Add New Task");
             delete.setVisibility(GONE);
             newTask = true;
@@ -100,8 +101,7 @@ public class EditTaskActivity extends AppCompatActivity {
         sizeChips.check(sizeChipIDs[task.getSize().ordinal()]);
         priorityChips.check(priorityChipIDs[task.getPriority().ordinal()]);
 
-        if (intent.getStringExtra(PARENT_PROJECT_ID) != null) {
-            parentProject = globals.getProject(UUID.fromString(intent.getStringExtra(PARENT_PROJECT_ID)));
+        if (parentProject != null) {
             act_projects.setText(parentProject.getTitle());
         }
 
@@ -109,8 +109,13 @@ public class EditTaskActivity extends AppCompatActivity {
         for (Map.Entry<UUID, Project> p : globals.getProjects().entrySet()) {
             arrayList_project.add(p.getValue().getTitle());
         }
-        arrayAdapter_project = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayList_project);
-        act_projects.setAdapter(arrayAdapter_project);
+        act_projects.setAdapter(
+            new ArrayAdapter<>(
+                getApplicationContext(),
+                R.layout.support_simple_spinner_dropdown_item,
+                arrayList_project
+            )
+        );
         act_projects.setThreshold(4); // characters required to load suggestion for spinner
 
         // Activating listeners
