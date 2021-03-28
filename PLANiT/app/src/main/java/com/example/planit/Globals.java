@@ -55,6 +55,11 @@ public class Globals{
         return projects.get(projectUUID);
     }
 
+    public Map<UUID, Project> getProjects()
+    {
+        return projects;
+    }
+
     public Tag getTag(UUID tagUUID) {
         return tags.get(tagUUID);
     }
@@ -115,7 +120,7 @@ public class Globals{
         return incomplete;
     }
 
-    public List<UUID> getProjects() { return new ArrayList<>(projects.keySet()); }
+//    public List<UUID> getProjects() { return new ArrayList<>(projects.keySet()); }
 
     public Project removeProject(UUID projectUUID) {
         for (UUID taskUUID : this.getProject(projectUUID).getTasks()) {
