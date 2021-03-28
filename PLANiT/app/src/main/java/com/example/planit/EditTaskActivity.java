@@ -2,6 +2,7 @@ package com.example.planit;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -14,7 +15,6 @@ import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
@@ -29,6 +29,8 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Arrays;
 import java.util.UUID;
+
+import static com.example.planit.MainActivity.VIEW_TASK_ID;
 
 public class EditTaskActivity extends AppCompatActivity {
 
@@ -51,6 +53,8 @@ public class EditTaskActivity extends AppCompatActivity {
     // Project menu
     ArrayList<String> arrayList_project = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter_project;
+
+    boolean newTask = false;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -83,14 +87,12 @@ public class EditTaskActivity extends AppCompatActivity {
         else {
             task = new Task("New Task");
             toolbar.setTitle("Add New Task");
-            sizeChips.check(sizeChipIDs[Size.MEDIUM.ordinal()]);
-            priorityChips.check(priorityChipIDs[Priority.MODERATE.ordinal()]);
+            newTask = true;
         }
         titleEdit.setText(task.getTitle());
 
-        String strUUID = intent.getStringExtra(PARENT_PROJECT_ID);
-        if (strUUID != null) {
-            parentProject = globals.getProject(UUID.fromString(strUUID));
+        if (intent.getStringExtra(PARENT_PROJECT_ID) != null) {
+            parentProject = globals.getProject(UUID.fromString(intent.getStringExtra(PARENT_PROJECT_ID)));
             act_projects.setText(parentProject.getTitle());
         }
 
@@ -160,11 +162,48 @@ public class EditTaskActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_done) {
+        if (task.getPriority() == null) {
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Task Must Have a Priority");
+            alertDialog.setMessage("Please choose a priority for this task so we can help you get the most important things done first.");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
+                    (dialog, which) -> dialog.dismiss());
+            alertDialog.show();
+        }
+        if (task.getSize() == null) {
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Task Must Have a Size");
+            alertDialog.setMessage("Please choose a size for this task to represent how much effort it will take to complete.");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
+                    (dialog, which) -> dialog.dismiss());
+            alertDialog.show();
+        }
+        if (parentProject == null) {
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Task Must Belong to a Project");
+            alertDialog.setMessage("Please select a project to assign this task to so it doesn't get lost.");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
+                    (dialog, which) -> dialog.dismiss());
+            alertDialog.show();
+        }
+        if (task.getTitle().equals("")) {
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Task Must Have a Title");
+            alertDialog.setMessage("Please add a title to your task so it can be saved.");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
+                    (dialog, which) -> dialog.dismiss());
+            alertDialog.show();
+        }
+        else if (item.getItemId() == R.id.action_done && parentProject != null) {
             globals.addTask(task);
             parentProject.addTask(task.getUUID());
             globals.addProject(parentProject);
             finish();
+            if (newTask) {
+                Intent intent = new Intent(this, ViewTaskActivity.class);
+                intent.putExtra(VIEW_TASK_ID, task.getUUID().toString());
+                startActivity(intent);
+            }
         }
 
         // Invoke the superclass to handle it.
