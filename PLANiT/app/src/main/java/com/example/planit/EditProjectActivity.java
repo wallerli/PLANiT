@@ -65,7 +65,6 @@ public class EditProjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_project);
         Toolbar toolbar = findViewById(R.id.edit_toolbar);
-        setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.menu_toolbar_edit);
 
         // Filling Content
@@ -91,14 +90,16 @@ public class EditProjectActivity extends AppCompatActivity {
                 dueDate.setText(strDate);
                 dueTime.setText(strTime);
             }
+            title.setText(project.getTitle());
         }
         else {
-            project = new Project("New Project");
+            project = new Project("");
             toolbar.setTitle("Add New Project");
             delete.setVisibility(GONE);
             newProject = true;
+            title.requestFocus();
         }
-        title.setText(project.getTitle());
+        setSupportActionBar(toolbar);
         dueCLear.setEnabled(project.getDueDate() != null);
 
         toolbar.setNavigationOnClickListener(view -> finish());
@@ -139,13 +140,31 @@ public class EditProjectActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        globals.addProject(project);
         if (item.getItemId() == R.id.action_done) {
-            finish();
-            if (newProject) {
-                Intent intent = new Intent(this, ViewProjectActivity.class);
-                intent.putExtra(VIEW_PROJECT_ID, project.getUUID().toString());
-                startActivity(intent);
+            int v1 = Project.validateTitle(project.getTitle());
+            int v2 = Project.validateText(project.getText());
+            if (v1 != 0 || v2 != 0) {
+                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                alertDialog.setTitle("Please complete all required fields");
+                String message = "";
+                if (v1 == 1)
+                    message += "* The title cannot be empty.\n";
+                if (v1 == 2)
+                    message += "* This title is too long. Make sure your title is under " + Globals.MAX_TITLE_LENGTH + " characters.\n";
+                if (v2 == 2)
+                    message += "* The description is too long. Make sure your description is under " + Globals.MAX_TEXT_LENGTH + " characters.\n";
+                alertDialog.setMessage(message);
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
+                        (dialog, which) -> dialog.dismiss());
+                alertDialog.show();
+            } else {
+                globals.addProject(project);
+                finish();
+                if (newProject) {
+                    Intent intent = new Intent(this, ViewProjectActivity.class);
+                    intent.putExtra(VIEW_PROJECT_ID, project.getUUID().toString());
+                    startActivity(intent);
+                }
             }
         }
 
