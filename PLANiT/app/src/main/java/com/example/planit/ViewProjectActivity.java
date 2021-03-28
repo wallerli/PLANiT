@@ -107,7 +107,7 @@ public class ViewProjectActivity extends AppCompatActivity {
         tags = project.getTags();
         title.setText(project.getTitle());
         updateChips();
-        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy h:mm a", Locale.getDefault());
         Date dd = project.getDueDate();
         if (dd != null) {
             this.due.setText(df.format(project.getDueDate()));
