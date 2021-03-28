@@ -369,6 +369,211 @@ public class Globals{
         addProject(project4);
         addTask(task8);
         addTask(task9);
+
+        Project project5 = new Project("Prepare for An Exam");
+        project5.setText(""+"Prepare for an exam on this Friday"+"");
+        try{
+            project5.setDueDate(df.parse("4/2/2021 13:00"));
+        }
+        catch (ParseException ignored){}
+
+        Task task10 = new Task("Review Lecture Notes", Size.LARGE, Priority.HIGH);
+        task10.setCompleteStatus(true);
+        task10.setText("Review lecture notes from January to March");
+
+        Task task11 = new Task("Finish practice exam", Size.SMALL, Priority.MODERATE);
+        task11.setCompleteStatus(false);
+        task11.setText("Not so hard but need to complete before exam");
+        task11.addBlocker(task10.getUUID());
+
+        project5.addTask(task10.getUUID());
+        project5.addTask(task11.getUUID());
+        addProject(project5);
+        addTask(task10);
+        addTask(task11);
+
+        Project project6 = new Project("Draw a Bear");
+        project6.setText("" +"Draw a bear on a piece of paper\n"+
+                            "Our bear does not have a nose!!!" + "");
+
+        Task task12 = new Task("Draw Head", Size.TINY, Priority.CRITICAL);
+        task12.setCompleteStatus(true);
+        task12.setText("Draw a round head for our bear");
+
+        Task task13 = new Task("Draw Eyes", Size.SMALL, Priority.LOW);
+        task13.setCompleteStatus(false);
+        task13.setText("Draw a pair of eyes for our bear");
+        task13.addBlocker(task12.getUUID());
+
+        Task task14 = new Task("Draw Mouth", Size.TINY, Priority.LOW);
+        task14.setCompleteStatus(false);
+        task14.setText("Draw a mouth for our bear");
+        task14.addBlocker(task12.getUUID());
+        task14.addBlocker(task13.getUUID());
+
+        Task task15 = new Task("Draw Left Ear", Size.TINY, Priority.LOW);
+        task15.setCompleteStatus(true);
+        task15.setText("Draw one ear for our bear");
+        task15.addBlocker(task12.getUUID());
+
+        Task task16 = new Task("Draw Right Ear", Size.TINY, Priority.LOW);
+        task16.setCompleteStatus(false);
+        task16.setText("Draw another ear for our bear");
+        task16.addBlocker(task12.getUUID());
+
+        Task task17 = new Task("Draw Body", Size.SMALL, Priority.HIGH);
+        task17.setCompleteStatus(true);
+        task17.setText("Draw the body for our bear");
+        task17.addBlocker(task12.getUUID());
+
+        Task task18 = new Task("Draw Left Arm", Size.TINY, Priority.LOW);
+        task18.setCompleteStatus(false);
+        task18.setText("Draw the left arm for our bear");
+        task18.addBlocker(task12.getUUID());
+        task18.addBlocker(task17.getUUID());
+
+        Task task19 = new Task("Draw Right Arm", Size.TINY, Priority.LOW);
+        task19.setCompleteStatus(false);
+        task19.setText("Draw the right arm for our bear");
+        task19.addBlocker(task12.getUUID());
+        task19.addBlocker(task17.getUUID());
+
+        Task task20 = new Task("Draw Left Leg", Size.TINY, Priority.LOW);
+        task20.setCompleteStatus(false);
+        task20.setText("Draw the left leg for our bear");
+        task20.addBlocker(task12.getUUID());
+        task20.addBlocker(task17.getUUID());
+
+        Task task21 = new Task("Draw Right Leg", Size.TINY, Priority.LOW);
+        task21.setCompleteStatus(true);
+        task21.setText("Draw the right leg for our bear");
+        task21.addBlocker(task12.getUUID());
+        task21.addBlocker(task17.getUUID());
+
+        project6.addTask(task12.getUUID());
+        project6.addTask(task13.getUUID());
+        project6.addTask(task14.getUUID());
+        project6.addTask(task15.getUUID());
+        project6.addTask(task16.getUUID());
+        project6.addTask(task17.getUUID());
+        project6.addTask(task18.getUUID());
+        project6.addTask(task19.getUUID());
+        project6.addTask(task20.getUUID());
+        project6.addTask(task21.getUUID());
+        addProject(project6);
+        addTask(task12);
+        addTask(task13);
+        addTask(task14);
+        addTask(task15);
+        addTask(task16);
+        addTask(task17);
+        addTask(task18);
+        addTask(task19);
+        addTask(task20);
+        addTask(task21);
+
+        Project project7 = new Project("Buy an Umbrella on Amazon");
+        project7.setText("" +
+                "Buy an umbrella with a moderate price on Amazon" +
+                "");
+        try {
+            project7.setDueDate(df.parse("04/15/2021 23:59"));
+        } catch (ParseException ignored) {}
+
+        Task task22 = new Task("Download Amazon", Size.TINY, Priority.CRITICAL);
+        task22.setCompleteStatus(true);
+        task22.setText("Download amazon on app store");
+
+        Task task23 = new Task("Search Umbrella", Size.SMALL, Priority.MODERATE);
+        task23.setCompleteStatus(true);
+        task23.setText("Search a list of umbrella using the keyword: \"umbrella\"");
+        task23.addBlocker(task22.getUUID());
+
+        Task task24 = new Task("Compare Prices among Umbrellas", Size.HUGE, Priority.CRITICAL);
+        task24.setCompleteStatus(true);
+        task24.setText("Select and compare the price of several umbrellas");
+        task24.addBlocker(task23.getUUID());
+
+        Task task25 = new Task("Add Umbrella to Cart", Size.SMALL, Priority.LOW);
+        task25.setCompleteStatus(true);
+        task25.setText("Add the one with fair price and good reviews to shopping cart");
+        task25.addBlocker(task24.getUUID());
+
+        Task task26 = new Task("Pay for the Umbrella", Size.TINY, Priority.LOW);
+        task26.setCompleteStatus(false);
+        task26.addBlocker(task25.getUUID());
+
+        project7.addTask(task22.getUUID());
+        project7.addTask(task23.getUUID());
+        project7.addTask(task24.getUUID());
+        project7.addTask(task25.getUUID());
+        project7.addTask(task26.getUUID());
+        addProject(project7);
+        addTask(task22);
+        addTask(task23);
+        addTask(task24);
+        addTask(task25);
+        addTask(task26);
+
+        Project project8 = new Project("Do the Laundry");
+        project8.setText("Do the laundry before the end of this week!" +
+                "" +
+                "");
+        try {
+            project8.setDueDate(df.parse("04/04/2021 23:59"));
+        } catch (ParseException ignored) {}
+
+        Task task27 = new Task("Open the Lid of Washer", Size.TINY, Priority.LOW);
+        task27.setCompleteStatus(true);
+
+        Task task28 = new Task("Put Delicate Clothes into Laundry Bags", Size.MEDIUM, Priority.HIGH);
+        task28.setCompleteStatus(false);
+        task28.setText("Put delicate clothes into laundry bags");
+
+        Task task29 = new Task("Put All Clothes into Washer", Size.HUGE, Priority.LOW);
+        task29.setCompleteStatus(false);
+
+        Task task30 = new Task("Add detergent", Size.SMALL, Priority.LOW);
+        task30.setCompleteStatus(false);
+        task30.addBlocker(task29.getUUID());
+
+        Task task31 = new Task("Set the timer for washer", Size.SMALL, Priority.LOW);
+        task31.setText("Set the timer of washer based on the conditions");
+        task31.addBlocker(task30.getUUID());
+        task31.setCompleteStatus(false);
+
+        Task task32 = new Task("Put Everything into Dryer", Size.HUGE, Priority.LOW);
+        task32.setText("Place all clothes into dryer after washer stopping");
+        task32.setCompleteStatus(false);
+        task32.addBlocker(task31.getUUID());
+
+        Task task33 = new Task("Set the timer for Dryer", Size.SMALL, Priority.LOW);
+        task33.setText("Set the timer of dryer based on the conditions");
+        task33.setCompleteStatus(false);
+        task33.addBlocker(task32.getUUID());
+
+        Task task34 = new Task("Take everything out of the dryer", Size.HUGE, Priority.LOW);
+        task34.setText("Take everything out of the dryer once it is done");
+        task34.setCompleteStatus(false);
+        task34.addBlocker(task33.getUUID());
+
+        project8.addTask(task27.getUUID());
+        project8.addTask(task28.getUUID());
+        project8.addTask(task29.getUUID());
+        project8.addTask(task30.getUUID());
+        project8.addTask(task31.getUUID());
+        project8.addTask(task32.getUUID());
+        project8.addTask(task33.getUUID());
+        project8.addTask(task34.getUUID());
+        addProject(project8);
+        addTask(task27);
+        addTask(task28);
+        addTask(task29);
+        addTask(task30);
+        addTask(task31);
+        addTask(task32);
+        addTask(task33);
+        addTask(task34);
     }
 
     // Format: // 2021-03-24 17:12:03.311
