@@ -51,7 +51,7 @@ public class EditProjectActivity extends AppCompatActivity {
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
     SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
     SimpleDateFormat dateTimeFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
-    Date date;
+    Date date = new Date(MaterialDatePicker.todayInUtcMilliseconds());
     String strDate;
     String strTime;
 
@@ -85,9 +85,6 @@ public class EditProjectActivity extends AppCompatActivity {
                 strTime = timeFormat.format(date);
                 dueDate.setText(strDate);
                 dueTime.setText(strTime);
-            }
-            else {
-                date = new Date(MaterialDatePicker.todayInUtcMilliseconds());
             }
         }
         else {
