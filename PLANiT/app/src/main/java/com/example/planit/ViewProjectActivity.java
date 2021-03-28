@@ -107,7 +107,7 @@ public class ViewProjectActivity extends AppCompatActivity {
         tags = project.getTags();
         title.setText(project.getTitle());
         updateChips();
-        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy h:mm a", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat("M/d/yyyy h:mm a", Locale.getDefault());
         Date dd = project.getDueDate();
         if (dd != null) {
             this.due.setText(df.format(project.getDueDate()));
@@ -125,6 +125,12 @@ public class ViewProjectActivity extends AppCompatActivity {
             }
         } else {
             due.setText(R.string.no_due_date);
+            TypedValue typedValue = new TypedValue();
+            getTheme().resolveAttribute(R.attr.colorOnBackground, typedValue, true);
+            @ColorInt int color = typedValue.data;
+            due.setTextColor(color);
+            due.setAlpha(0.7f);
+            due.setTypeface(null);
         }
         text.setText(project.getText());
         completenessText.setText(String.format(Locale.getDefault(), "%.1f%%", 100 * project.getCompleteness()));
