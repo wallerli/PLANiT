@@ -5,12 +5,9 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -93,9 +90,6 @@ public class Project {
         return new ArrayList<>(tags);
     }
 
-    /**
-     * Ordered by number of blockers, largest first
-     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public List<UUID> getOrderedTasks() {
         Globals globals = Globals.getInstance();

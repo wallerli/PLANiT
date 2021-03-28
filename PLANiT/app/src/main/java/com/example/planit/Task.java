@@ -158,9 +158,6 @@ public class Task {
         return new ArrayList<>(tags);
     }
 
-    /**
-     * Ordered by number of blockers, largest first
-     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public List<UUID> getOrderedBlockers() {
         Globals globals = Globals.getInstance();
