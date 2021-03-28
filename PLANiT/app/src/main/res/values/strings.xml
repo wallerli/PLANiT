@@ -35,6 +35,7 @@
     <string name="select_due_time_button_text">Select Due Time</string>
     <string name="no_due_date_selected_text">Select Date</string>
     <string name="no_due_time_selected_text">Select Time</string>
+    <string name="clear_due_text">Clear</string>
     <string name="task_title">Task Title *</string>
     <string name="size_label_text">Size of Task *</string>
     <string name="tiny_text">Tiny</string>

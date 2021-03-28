@@ -174,10 +174,10 @@ public class EditTaskActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        globals.addTask(task);
+        parentProject.addTask(task.getUUID());
+        globals.addProject(parentProject);
         if (item.getItemId() == R.id.action_done) {
-            globals.addTask(task);
-            parentProject.addTask(task.getUUID());
-            globals.addProject(parentProject);
             finish();
             if (newTask) {
                 Intent intent = new Intent(this, ViewTaskActivity.class);

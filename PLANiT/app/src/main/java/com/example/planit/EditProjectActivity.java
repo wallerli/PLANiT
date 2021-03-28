@@ -39,7 +39,7 @@ public class EditProjectActivity extends AppCompatActivity {
 
     Project project;
     TextInputEditText title, text;
-    Button dueDate, dueTime;
+    Button dueDate, dueTime, dueCLear;
     MaterialDatePicker<Long> datePicker;
     MaterialTimePicker timePicker;
     ChipGroup tagChips;
@@ -73,6 +73,7 @@ public class EditProjectActivity extends AppCompatActivity {
         text = findViewById(R.id.edit_description);
         tagChips = findViewById(R.id.tag_chips);
         emptyTagsText = findViewById(R.id.empty_tags_text);
+        dueCLear = findViewById(R.id.clear_due);
 
         if (intent.getStringExtra(EDIT_PROJECT_ID) != null) {
             project = new Project(globals.getProject(UUID.fromString(intent.getStringExtra(EDIT_PROJECT_ID))));
@@ -92,8 +93,10 @@ public class EditProjectActivity extends AppCompatActivity {
             newProject = true;
         }
         title.setText(project.getTitle());
+        dueCLear.setEnabled(project.getDueDate() != null);
 
         toolbar.setNavigationOnClickListener(view -> finish());
+        dueCLear.setOnClickListener(this::clearDue);
         dueDate.setOnClickListener(this::showDatePickerDialog);
         dueTime.setOnClickListener(this::showTimePickerDialog);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -128,8 +131,8 @@ public class EditProjectActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        globals.addProject(project);
         if (item.getItemId() == R.id.action_done) {
-            globals.addProject(project);
             finish();
             if (newProject) {
                 Intent intent = new Intent(this, ViewProjectActivity.class);
@@ -164,6 +167,16 @@ public class EditProjectActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
+    public void clearDue(View v) {
+        date = null;
+        strDate = null;
+        strTime = null;
+        dueDate.setText(R.string.no_due_date_selected_text);
+        dueTime.setText(R.string.no_due_time_selected_text);
+        updateDate();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void showDatePickerDialog(View v) {
         datePicker =
                 MaterialDatePicker.Builder.datePicker()
@@ -179,17 +192,21 @@ public class EditProjectActivity extends AppCompatActivity {
     }
 
     private void updateDate() {
-        try {
-            if (strTime != null && !strTime.equals("null")) {
-                date = dateTimeFormat.parse(strDate + " " + strTime);
+        if (strDate == null) {
+            date = null;
+        } else {
+            try {
+                if (strTime != null && !strTime.equals("null")) {
+                    date = dateTimeFormat.parse(strDate + " " + strTime);
+                } else if (strDate != null && !strDate.equals("null")) {
+                    date = dateTimeFormat.parse(strDate + " 11:59 PM");
+                }
+            } catch (ParseException e) {
+                System.out.println("Failed to parse: " + e);
             }
-            else if (strDate != null && !strDate.equals("null")) {
-                date = dateTimeFormat.parse(strDate + " 11:59 PM");
-            }
-        } catch (ParseException e) {
-            System.out.println("Failed to parse: " + e);
         }
         project.setDueDate(date);
+        dueCLear.setEnabled(strTime != null || strDate != null);
     }
 
     public class SpinnerActivity extends Activity implements AdapterView.OnItemSelectedListener {
