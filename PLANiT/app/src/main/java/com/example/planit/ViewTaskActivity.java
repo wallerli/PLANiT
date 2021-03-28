@@ -27,7 +27,6 @@ import java.util.UUID;
 public class ViewTaskActivity extends AppCompatActivity {
 
     public static String EDIT_TASK_ID = "com.example.planit.EDIT_TASK_ID";
-    Globals globals = Globals.getInstance();
 
     UUID task_id;
     Task task;
@@ -47,13 +46,7 @@ public class ViewTaskActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        task = globals.getTask(task_id);
-        if (task != null) {
-            populate();
-        }
-        else {
-            finish();
-        }
+        populate();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -142,6 +135,12 @@ public class ViewTaskActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void populate() {
+        Globals globals = Globals.getInstance();
+        task = globals.getTask(task_id);
+        if (task == null) {
+            finish();
+            return;
+        }
         blockers = task.getOrderedBlockers();
         tags = task.getTags();
         title.setText(task.getTitle());
