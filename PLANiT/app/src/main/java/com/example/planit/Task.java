@@ -20,8 +20,8 @@ public class Task {
     private String title;
     private UUID uuid = UUID.randomUUID();
     private boolean complete = false;
-    private Size size;
-    private Priority priority;
+    private Size size = Size.MEDIUM;
+    private Priority priority = Priority.MODERATE;
     private Set<UUID> tags = new HashSet<>();
     private Set<UUID> blockers = new HashSet<>();
     private String text = "";

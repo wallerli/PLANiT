@@ -63,7 +63,6 @@ public class EditTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
         Toolbar toolbar = findViewById(R.id.edit_toolbar);
-        setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.menu_toolbar_edit);
 
         // Filling content
@@ -80,16 +79,18 @@ public class EditTaskActivity extends AppCompatActivity {
         if (intent.getStringExtra(EDIT_TASK_ID) != null) {
             task = new Task(globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID))));
             toolbar.setTitle("Edit Task");
-            sizeChips.check(sizeChipIDs[task.getSize().ordinal()]);
-            priorityChips.check(priorityChipIDs[task.getPriority().ordinal()]);
             textEdit.setText(task.getText());
+            titleEdit.setText(task.getTitle());
         }
         else {
-            task = new Task("New Task");
+            task = new Task("");
             toolbar.setTitle("Add New Task");
             newTask = true;
+            titleEdit.requestFocus();
         }
-        titleEdit.setText(task.getTitle());
+        setSupportActionBar(toolbar);
+        sizeChips.check(sizeChipIDs[task.getSize().ordinal()]);
+        priorityChips.check(priorityChipIDs[task.getPriority().ordinal()]);
 
         if (intent.getStringExtra(PARENT_PROJECT_ID) != null) {
             parentProject = globals.getProject(UUID.fromString(intent.getStringExtra(PARENT_PROJECT_ID)));

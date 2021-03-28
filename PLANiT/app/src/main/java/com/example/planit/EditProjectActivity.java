@@ -63,7 +63,6 @@ public class EditProjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_project);
         Toolbar toolbar = findViewById(R.id.edit_toolbar);
-        setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.menu_toolbar_edit);
 
         // Filling Content
@@ -88,13 +87,15 @@ public class EditProjectActivity extends AppCompatActivity {
                 dueDate.setText(strDate);
                 dueTime.setText(strTime);
             }
+            title.setText(project.getTitle());
         }
         else {
-            project = new Project("New Project");
+            project = new Project("");
             toolbar.setTitle("Add New Project");
             newProject = true;
+            title.requestFocus();
         }
-        title.setText(project.getTitle());
+        setSupportActionBar(toolbar);
         dueCLear.setEnabled(project.getDueDate() != null);
 
         toolbar.setNavigationOnClickListener(view -> finish());
