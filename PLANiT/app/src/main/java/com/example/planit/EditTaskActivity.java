@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Build;
@@ -172,6 +173,13 @@ public class EditTaskActivity extends AppCompatActivity {
                         finish();
                     });
             alertDialog.show();
+            Button b = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            if (b != null) {
+                TypedValue typedValue = new TypedValue();
+                getTheme().resolveAttribute(R.attr.colorError, typedValue, true);
+                @ColorInt int color = typedValue.data;
+                b.setTextColor(color);
+            }
         });
     }
 
