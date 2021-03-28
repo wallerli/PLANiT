@@ -1,5 +1,9 @@
 package com.example.planit;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,6 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Project {
     private String title;
@@ -91,14 +96,10 @@ public class Project {
     /**
      * Ordered by number of blockers, largest first
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public List<UUID> getOrderedTasks() {
         Globals globals = Globals.getInstance();
-        List<UUID> sortedTasks = new ArrayList<>(tasks);
-        Collections.sort(sortedTasks, (task1, task2) -> {
-            // inverse for descending
-            return globals.getTask(task2).getBlockers().size() - globals.getTask(task1).getBlockers().size();
-        });
-        return sortedTasks;
+        return tasks.stream().map(globals::getTask).sorted(new Globals.TaskComparator()).map(Task::getUUID).collect(Collectors.toList());
     }
 
     public boolean removeTask(UUID uuid) {

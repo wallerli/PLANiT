@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -70,21 +71,9 @@ public class Globals{
 
     public List<UUID> getTasks() { return new ArrayList<>(tasks.keySet()); }
 
-    /**
-     * Ordered by number of blockers, largest first
-     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public List<UUID> getOrderedTasks() {
-        List<UUID> incomplete = tasks.keySet().stream().filter(t -> !tasks.get(t).getCompleteStatus()).sorted((task1, task2) -> {
-            // inverse for descending
-            return tasks.get(task2).getBlockers().size() - tasks.get(task1).getBlockers().size();
-        }).collect(Collectors.toList());
-        List<UUID> complete = tasks.keySet().stream().filter(t -> tasks.get(t).getCompleteStatus()).sorted((task1, task2) -> {
-            // inverse for descending
-            return tasks.get(task2).getBlockers().size() - tasks.get(task1).getBlockers().size();
-        }).collect(Collectors.toList());
-        incomplete.addAll(complete);
-        return incomplete;
+        return tasks.values().stream().sorted(new TaskComparator()).map(Task::getUUID).collect(Collectors.toList());
     }
 
     /**
@@ -92,32 +81,7 @@ public class Globals{
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public List<UUID> getOrderedProjects() {
-        List<UUID> incomplete = projects.keySet().stream().filter(p -> Objects.requireNonNull(projects.get(p)).getCompleteness() < 1).sorted((p1, p2) -> {
-            // inverse for descending
-            Date d1 = Objects.requireNonNull(projects.get(p1)).getDueDate();
-            Date d2 = Objects.requireNonNull(projects.get(p2)).getDueDate();
-            if (d1 == null && d2 == null) {
-                return 0;
-            } else if (d1 == null) {
-                return 1;
-            } else if (d2 == null) {
-                return -1;
-            } else return Long.compare(d1.getTime(), d2.getTime());
-        }).collect(Collectors.toList());
-        List<UUID> complete = projects.keySet().stream().filter(p -> Objects.requireNonNull(projects.get(p)).getCompleteness() >= 1).sorted((p1, p2) -> {
-            // inverse for descending
-            Date d1 = Objects.requireNonNull(projects.get(p1)).getDueDate();
-            Date d2 = Objects.requireNonNull(projects.get(p2)).getDueDate();
-            if (d1 == null && d2 == null) {
-                return 0;
-            } else if (d1 == null) {
-                return 1;
-            } else if (d2 == null) {
-                return -1;
-            } else return Long.compare(d1.getTime(), d2.getTime());
-        }).collect(Collectors.toList());
-        incomplete.addAll(complete);
-        return incomplete;
+        return projects.values().stream().sorted(new ProjectComparator()).map(Project::getUUID).collect(Collectors.toList());
     }
 
 //    public List<UUID> getProjects() { return new ArrayList<>(projects.keySet()); }
@@ -186,9 +150,6 @@ public class Globals{
         return 0;
     }
 
-    /**
-     * Title and Text are generated from https://www.blindtextgenerator.com/lorem-ipsum
-     */
     public void setupDummyObjects() {
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.getDefault());
         Tag tag0 = new Tag("Work", Color.rgb(112, 87, 255));
@@ -586,6 +547,38 @@ public class Globals{
     {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return timestamp;
+    }
+
+    static class TaskComparator implements Comparator<Task> {
+        /**
+         * Reversed ordered by number of completeness, priority, # of blockers, size
+         */
+        public int compare(Task t1, Task t2) {
+            if (t1.getCompleteStatus() != t2.getCompleteStatus())
+                return t1.getCompleteStatus() ? 1 : -1;
+            if (t1.getPriority().ordinal() != t2.getPriority().ordinal())
+                return t2.getPriority().ordinal() - t1.getPriority().ordinal();
+            if (t1.getSize().ordinal() != t2.getSize().ordinal())
+                return t2.getSize().ordinal() - t1.getSize().ordinal();
+            return t1.getBlockersSize() - t1.getBlockersSize();
+        }
+    }
+
+    static class ProjectComparator implements Comparator<Project> {
+        /**
+         * Reversed ordered completeness, completeness
+         */
+        public int compare(Project p1, Project p2) {
+            if (p1.getCompleteness() >= 1 && p2.getCompleteness() < 1)
+                return 1;
+            if (p1.getCompleteness() < 1 && p2.getCompleteness() >= 1)
+                return -1;
+            Date d1 = p1.getDueDate();
+            Date d2 = p2.getDueDate();
+            if (d1 == null || d2 == null)
+                return d1 == null ? 1 : d2 == null ? -1 : 0;
+            return Long.compare(d1.getTime(), d2.getTime());
+        }
     }
 }
 
