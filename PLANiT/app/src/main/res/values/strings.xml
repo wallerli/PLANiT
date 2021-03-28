@@ -50,6 +50,7 @@
     <string name="project_associated_label">Project *</string>
     <string name="create_project">New Project</string>
     <string name="create_task">New Task</string>
+    <string name="create_tag">+ Add Tags</string>
     <string name="priority_label_text">Task Priority *</string>
     <string name="tags_label_text">Tags</string>
     <string name="indicator_hint">DONE?</string>

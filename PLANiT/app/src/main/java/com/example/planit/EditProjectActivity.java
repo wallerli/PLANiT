@@ -1,5 +1,6 @@
 package com.example.planit;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,6 +10,7 @@ import android.content.res.ColorStateList;
 import android.os.Build;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -102,24 +104,11 @@ public class EditProjectActivity extends AppCompatActivity {
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-        project.getTags().forEach(t -> {
-            Tag tag = globals.getTag(t);
-            Chip lChip = new Chip(this);
-            lChip.setText(tag.getName());
-            if (tag.getHexColor() != -1) {
-                lChip.setTextColor(getResources().getColor(R.color.white));
-                lChip.setChipBackgroundColor(ColorStateList.valueOf(tag.getHexColor()));
-            }
-            lChip.setClickable(false);
-            lChip.setFocusable(false);
-            tagChips.addView(lChip);
-        });
-
-        if (project.getTags().size() == 0)
-            emptyTagsText.setVisibility(View.VISIBLE);
-        else
-            emptyTagsText.setVisibility(View.INVISIBLE);
+        updateChips();
+//        if (project.getTags().size() == 0)
+//            emptyTagsText.setVisibility(View.VISIBLE);
+//        else
+//            emptyTagsText.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -209,6 +198,31 @@ public class EditProjectActivity extends AppCompatActivity {
             project.setDueDate(date);
         }
         dueCLear.setEnabled(strTime != null || strDate != null);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void updateChips() {
+        tagChips.removeAllViews();
+        project.getTags().forEach(t -> {
+            Tag tag = globals.getTag(t);
+            Chip lChip = new Chip(this);
+            lChip.setText(tag.getName());
+            if (tag.getHexColor() != -1) {
+                lChip.setTextColor(getResources().getColor(R.color.white));
+                lChip.setChipBackgroundColor(ColorStateList.valueOf(tag.getHexColor()));
+            }
+            lChip.setClickable(false);
+            lChip.setFocusable(false);
+            lChip.setCloseIconVisible(true);
+            tagChips.addView(lChip);
+        });
+        Chip lChip = new Chip(this);
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
+        @ColorInt int color = typedValue.data;
+        lChip.setTextColor(color);
+        lChip.setText(R.string.create_tag);
+        tagChips.addView(lChip);
     }
 
     public class SpinnerActivity extends Activity implements AdapterView.OnItemSelectedListener {
