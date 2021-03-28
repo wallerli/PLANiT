@@ -6,6 +6,7 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -45,6 +46,13 @@ public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskVie
         Globals globals = Globals.getInstance();
         Task task = globals.getTask(tasks.get(position));
         holder.title.setText(task.getTitle());
+        String text = task.getText();
+        if (text.length() == 0) {
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.description.getLayoutParams();
+            params.setMargins(params.leftMargin, 0, params.rightMargin, params.bottomMargin);
+            params.height = 0;
+            holder.description.setLayoutParams(params);
+        }
         holder.description.setText(task.getText());
         holder.taskUUID = task.getUUID();
         holder.completed = task.getCompleteStatus();
@@ -64,18 +72,24 @@ public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskVie
         holder.priorityChip.setText(String.format("%s%s", taskPriority.charAt(0), taskPriority.substring(1).toLowerCase()));
         holder.priorityChip.setChecked(true);
         holder.chips.removeAllViews();
-        task.getTags().forEach(t -> {
-            Tag tag = globals.getTag(t);
-            Chip lChip = new Chip(mCtx);
-            lChip.setText(tag.getName());
-            if (tag.getHexColor() != -1) {
-                lChip.setTextColor(mCtx.getResources().getColor(R.color.white));
-                lChip.setChipBackgroundColor(ColorStateList.valueOf(tag.getHexColor()));
-            }
-            lChip.setEnsureMinTouchTargetSize(false);
-            lChip.setClickable(false);
-            holder.chips.addView(lChip);
-        });
+        List<UUID> tags = task.getTags();
+        if (tags.size() == 0)
+            holder.chips.setVisibility(View.GONE);
+        else {
+            holder.chips.setVisibility(View.VISIBLE);
+            task.getTags().forEach(t -> {
+                Tag tag = globals.getTag(t);
+                Chip lChip = new Chip(mCtx);
+                lChip.setText(tag.getName());
+                if (tag.getHexColor() != -1) {
+                    lChip.setTextColor(mCtx.getResources().getColor(R.color.white));
+                    lChip.setChipBackgroundColor(ColorStateList.valueOf(tag.getHexColor()));
+                }
+                lChip.setEnsureMinTouchTargetSize(false);
+                lChip.setClickable(false);
+                holder.chips.addView(lChip);
+            });
+        }
 
         holder.indicator.setOnClickListener(v -> {
             int ret;

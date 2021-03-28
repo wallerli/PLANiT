@@ -134,10 +134,10 @@
                 android:id="@+id/taskTags"
                 android:layout_width="match_parent"
                 android:layout_below="@id/taskSizePriority"
-                android:layout_marginTop="@dimen/subtitle_margin"
+                android:layout_marginTop="@dimen/chip_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
-                app:chipSpacingVertical="2dp"
+                app:chipSpacingVertical="@dimen/chip_margin"
                 android:layout_height="wrap_content"/>
 
             <TextView
