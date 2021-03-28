@@ -18,6 +18,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -33,6 +35,7 @@ public class SecondFragment extends Fragment {
     List<UUID> allTasks;
     MenuItem searchItem;
     SearchView searchView;
+    FloatingActionButton fab;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -43,6 +46,9 @@ public class SecondFragment extends Fragment {
             showAllTasks();
             if (searchView != null)
                 searchView.clearFocus();
+        }
+        if (fab != null && fab.getVisibility() != View.VISIBLE) {
+            fab.show();
         }
     }
 
@@ -67,10 +73,23 @@ public class SecondFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         emptyRecyclerText = view.findViewById(R.id.empty_recycler_text);
+        fab = getActivity().findViewById(R.id.fab);
         showAllTasks();
 
         handler = new Handler();
         setHasOptionsMenu(true);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0 && fab.getVisibility() == View.VISIBLE && !fab.isExpanded()) {
+                    fab.hide();
+                } else if (dy < 0 && fab.getVisibility() != View.VISIBLE) {
+                    fab.show();
+                }
+            }
+        });
         return view;
     }
 
