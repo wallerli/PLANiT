@@ -176,6 +176,7 @@
                 android:id="@+id/empty_tags_text"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/empty_tags_hint_height"
+                android:visibility="invisible"
                 android:layout_below="@id/tags_label"
                 android:gravity="center"
                 android:text="@string/empty_tags_edit"
