@@ -175,9 +175,9 @@ public class Task {
     }
 
     /**
-     * @return 0 for correct text; 1 for empty text; 2 for exceeding max length
+     * @return 0 for correct text; 2 for exceeding max length
      */
     public static int validateText(String text) {
-        return text.length() == 0 ? 1 : text.length() > Globals.MAX_TEXT_LENGTH ? 2 : 0;
+        return text.length() > Globals.MAX_TEXT_LENGTH ? 2 : 0;
     }
 }

@@ -165,17 +165,20 @@ public class EditTaskActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_done) {
-            int ret = Task.validateTitle(task.getTitle());
-            if (ret != 0 || parentProject == null) {
+            int v1 = Task.validateTitle(task.getTitle());
+            int v2 = Task.validateText(task.getText());
+            if (v1 != 0 || parentProject == null) {
                 AlertDialog alertDialog = new AlertDialog.Builder(this).create();
                 alertDialog.setTitle("Please complete all required fields");
                 String message = "";
-                if (ret == 1)
+                if (v1 == 1)
                     message += "* The title cannot be empty.\n";
-                if (ret == 2)
-                    message += "* This title is too long.\n";
+                if (v1 == 2)
+                    message += "* The title is too long.\n";
                 if (parentProject == null)
                     message += "* Must select a project to assign this task to so it doesn't get lost.\n";
+                if (v2 == 2)
+                    message += "* The description is too long.\n";
                 alertDialog.setMessage(message);
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
                         (dialog, which) -> dialog.dismiss());
