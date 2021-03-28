@@ -1,11 +1,16 @@
 package com.example.planit;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 enum Size { TINY, SMALL, MEDIUM, LARGE, HUGE }
 
@@ -145,23 +150,18 @@ public class Task {
         return blockers;
     }
 
+    public int getBlockersSize() {
+        return blockers.size();
+    }
+
     public List<UUID> getTags() {
         return new ArrayList<>(tags);
     }
 
-    /**
-     * Ordered by number of blockers, largest first
-     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public List<UUID> getOrderedBlockers() {
         Globals globals = Globals.getInstance();
-        List<UUID> sortedBlockers = new ArrayList<>(blockers);
-        Collections.sort(sortedBlockers, (blocker1, blocker2) -> {
-            int b1 = globals.getTask(blocker1).getBlockers().size();
-            int b2 = globals.getTask(blocker2).getBlockers().size();
-            // inverse for descending
-            return globals.getTask(blocker2).getBlockers().size() - globals.getTask(blocker1).getBlockers().size();
-        });
-        return sortedBlockers;
+        return blockers.stream().map(globals::getTask).sorted(new Globals.TaskComparator()).map(Task::getUUID).collect(Collectors.toList());
     }
 
     public String getText() {
