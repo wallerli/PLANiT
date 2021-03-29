@@ -62,6 +62,7 @@ public class EditTaskActivity extends AppCompatActivity {
     ArrayList<String> arrayList_project = new ArrayList<>();
     final Integer[] sizeChipIDs = new Integer[] {R.id.tiny_chip, R.id.small_chip, R.id.medium_chip, R.id.large_chip, R.id.huge_chip};
     final Integer[] priorityChipIDs = new Integer[] {R.id.low_chip, R.id.moderate_chip, R.id.high_chip, R.id.critical_chip};
+    BlockerAdapter blockerAdapter;
 
     boolean newTask = false;
 
@@ -115,6 +116,9 @@ public class EditTaskActivity extends AppCompatActivity {
         if (parentProject != null) {
             act_projects.setText(parentProject.getTitle());
             blockersRecycler.setAdapter(new BlockerAdapter(this, globals.getValidBlockers(task.getUUID())));
+        }
+        else {
+            blockersRecycler.setAdapter(new BlockerAdapter(this, new ArrayList<>()));
         }
 
         // Get all project names to fill in menu
