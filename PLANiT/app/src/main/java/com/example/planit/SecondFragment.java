@@ -80,8 +80,6 @@ public class SecondFragment extends Fragment {
         if (searchItem == null || !searchItem.isActionViewExpanded()) {
             filter = "";
             showAllTasks();
-            if (searchView != null)
-                searchView.clearFocus();
         } else {
             showFilteredTasks();
         }
