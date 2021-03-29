@@ -1,7 +1,6 @@
 package com.example.planit;
 
 import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +19,6 @@ import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
@@ -37,7 +35,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.UUID;
 
 import static android.view.View.GONE;
@@ -64,7 +61,6 @@ public class EditTaskActivity extends AppCompatActivity {
     ArrayList<String> arrayList_project = new ArrayList<>();
     final Integer[] sizeChipIDs = new Integer[] {R.id.tiny_chip, R.id.small_chip, R.id.medium_chip, R.id.large_chip, R.id.huge_chip};
     final Integer[] priorityChipIDs = new Integer[] {R.id.low_chip, R.id.moderate_chip, R.id.high_chip, R.id.critical_chip};
-    BlockerAdapter blockerAdapter;
 
     boolean newTask = false;
 
@@ -122,10 +118,10 @@ public class EditTaskActivity extends AppCompatActivity {
 
         if (parentProject != null) {
             act_projects.setText(parentProject.getTitle());
-            blockersRecycler.setAdapter(new BlockerAdapter(this, globals.getValidBlockers(task.getUUID())));
+            blockersRecycler.setAdapter(new BlockerAdapter(this, globals.getValidBlockers(task.getUUID()), task.getUUID()));
         }
         else {
-            blockersRecycler.setAdapter(new BlockerAdapter(this, new ArrayList<>()));
+            blockersRecycler.setAdapter(new BlockerAdapter(this, new ArrayList<>(), task.getUUID()));
         }
 
         // Get all project names to fill in menu
@@ -184,7 +180,7 @@ public class EditTaskActivity extends AppCompatActivity {
         act_projects.setOnItemClickListener((parent, view, position, id) -> {
             parentProject = new Project((Project) globals.getProjects().values().toArray()[arrayList_project.indexOf(act_projects.getAdapter().getItem(position))]);
             act_projects.setText(parentProject.getTitle());
-            blockersRecycler.setAdapter(new BlockerAdapter(this, globals.getValidBlockers(task.getUUID())));
+            blockersRecycler.setAdapter(new BlockerAdapter(this, globals.getValidBlockers(task.getUUID()), task.getUUID()));
             parentInput.setError(null);
         });
 
