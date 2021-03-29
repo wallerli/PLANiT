@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,12 +78,7 @@ public class SecondFragment extends Fragment {
         super.onPause();
         if (searchView != null)
             searchView.clearFocus();
-        if (searchItem == null || !searchItem.isActionViewExpanded()) {
-            filter = "";
-            showAllTasks();
-        } else {
-            showFilteredTasks();
-        }
+        if (((TabLayout)getActivity().findViewById(R.id.tabLayout)).getSelectedTabPosition() == 0) onResume();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
