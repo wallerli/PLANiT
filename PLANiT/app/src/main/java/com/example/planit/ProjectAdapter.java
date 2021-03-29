@@ -62,6 +62,12 @@ public class ProjectAdapter extends RecyclerView.Adapter<com.example.planit.Proj
             }
         } else {
             holder.due.setText(R.string.no_due_date);
+            TypedValue typedValue = new TypedValue();
+            mCtx.getTheme().resolveAttribute(R.attr.colorOnBackground, typedValue, true);
+            @ColorInt int color = typedValue.data;
+            holder.due.setTextColor(color);
+            holder.due.setAlpha(0.7f);
+            holder.due.setTypeface(null);
         }
         if (project.getCompleteness() < 1)
             holder.completeness_text.setText(String.format(Locale.getDefault(), "%.1f%%", 100 * project.getCompleteness()));
