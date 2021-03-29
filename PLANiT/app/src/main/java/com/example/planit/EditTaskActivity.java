@@ -281,23 +281,44 @@ public class EditTaskActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_done) {
             int v1 = Task.validateTitle(task.getTitle());
             int v2 = Task.validateText(task.getText());
-            if (v1 != 0 || parentProject == null) {
+            if (v1 != 0 || parentProject == null || !act_projects.getText().toString().equals(parentProject.getTitle())) {
+                int problemCode = -1;
                 AlertDialog alertDialog = new AlertDialog.Builder(this).create();
                 alertDialog.setTitle("Please complete all required fields");
                 String message = "";
-                if (v1 == 1)
+                if (v1 == 1) {
                     message += "* The title cannot be empty.\n";
-                if (v1 == 2)
+                    problemCode = 1;
+                }
+                if (v1 == 2) {
                     message += "* This title is too long. Make sure your title is under " + Globals.MAX_TITLE_LENGTH + " characters.\n";
-                if (parentProject == null)
+                    problemCode = 1;
+                }
+                if (parentProject == null || !act_projects.getText().toString().equals(parentProject.getTitle())) {
                     message += "* Must select a project to assign this task to so it doesn't get lost.\n";
-                if (parentProject != null && !act_projects.getText().toString().equals(parentProject.getTitle()))
-                    message += "* Must select a project from the parent project drop down menu.\n";
-                if (v2 == 2)
+                    if (problemCode == -1) problemCode = 2;
+                }
+                if (v2 == 2) {
                     message += "* The description is too long. Make sure your description is under " + Globals.MAX_TEXT_LENGTH + " characters.\n";
+                    if (problemCode == -1) problemCode = 3;
+                }
                 alertDialog.setMessage(message);
+                int finalProblemCode = problemCode;
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
-                        (dialog, which) -> dialog.dismiss());
+                        (dialog, which) -> {
+                            dialog.dismiss();
+                            switch (finalProblemCode) {
+                                case 1:
+                                    titleEdit.requestFocus();
+                                    break;
+                                case 2:
+                                    act_projects.requestFocus();
+                                    break;
+                                case 3:
+                                    textEdit.requestFocus();
+                                    break;
+                            }
+                        });
                 alertDialog.show();
             }
             else {

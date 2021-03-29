@@ -231,18 +231,36 @@ public class EditProjectActivity extends AppCompatActivity {
             int v1 = Project.validateTitle(project.getTitle());
             int v2 = Project.validateText(project.getText());
             if (v1 != 0 || v2 != 0) {
+                int problemCode = -1;
                 AlertDialog alertDialog = new AlertDialog.Builder(this).create();
                 alertDialog.setTitle("Please complete all required fields");
                 String message = "";
-                if (v1 == 1)
+                if (v1 == 1) {
                     message += "* The title cannot be empty.\n";
-                if (v1 == 2)
+                    problemCode = 1;
+                }
+                if (v1 == 2) {
                     message += "* This title is too long. Make sure your title is under " + Globals.MAX_TITLE_LENGTH + " characters.\n";
-                if (v2 == 2)
+                    problemCode = 1;
+                }
+                if (v2 == 2) {
                     message += "* The description is too long. Make sure your description is under " + Globals.MAX_TEXT_LENGTH + " characters.\n";
+                    problemCode = 2;
+                }
                 alertDialog.setMessage(message);
+                int finalProblemCode = problemCode;
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
-                        (dialog, which) -> dialog.dismiss());
+                        (dialog, which) -> {
+                            dialog.dismiss();
+                            switch (finalProblemCode) {
+                                case 1:
+                                    title.requestFocus();
+                                    break;
+                                case 2:
+                                    text.requestFocus();
+                                    break;
+                            }
+                        });
                 alertDialog.show();
             } else {
                 globals.addProject(project);
