@@ -1,6 +1,7 @@
 package com.example.planit;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
@@ -30,8 +32,10 @@ import android.widget.Toast;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.UUID;
 
 import static android.view.View.GONE;
@@ -46,6 +50,7 @@ public class EditTaskActivity extends AppCompatActivity {
     Task task;
     Project parentProject;
     TextInputEditText titleEdit, textEdit;
+    TextInputLayout titleInput, textInput, parentInput;
     AutoCompleteTextView act_projects;
     ChipGroup sizeChips;
     ChipGroup priorityChips;
@@ -79,6 +84,11 @@ public class EditTaskActivity extends AppCompatActivity {
         textEdit = findViewById(R.id.edit_description);
         emptyTagsText = findViewById(R.id.empty_tags_text);
         delete = findViewById(R.id.delete_button);
+        titleInput = findViewById(R.id.edit_task_title);
+        textInput = findViewById(R.id.descriptionText);
+        parentInput = findViewById(R.id.til_project);
+        titleInput.setCounterMaxLength(Globals.MAX_TITLE_LENGTH);
+        textInput.setCounterMaxLength(Globals.MAX_TEXT_LENGTH);
 
         if (intent.getStringExtra(EDIT_TASK_ID) != null) {
             task = new Task(globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID))));
@@ -125,7 +135,16 @@ public class EditTaskActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Add validation here
+                switch (Task.validateTitle(s.toString())) {
+                    case 1:
+                        titleInput.setError("The title cannot be empty");
+                        break;
+                    case 2:
+                        titleInput.setError("This title is too long");
+                        break;
+                    default:
+                        titleInput.setError(null);
+                }
             }
 
             @Override
@@ -134,9 +153,50 @@ public class EditTaskActivity extends AppCompatActivity {
             }
         });
 
+        titleEdit.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                switch (Task.validateTitle(task.getTitle())) {
+                    case 1:
+                        titleInput.setError("The title cannot be empty");
+                        break;
+                    case 2:
+                        titleInput.setError("This title is too long");
+                        break;
+                    default:
+                        titleInput.setError(null);
+                }
+            }
+        });
+
         act_projects.setOnItemClickListener((parent, view, position, id) -> {
             parentProject = new Project((Project) globals.getProjects().values().toArray()[position]);
             act_projects.setText(parentProject.getTitle());
+            parentInput.setError(null);
+        });
+
+        act_projects.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                if (act_projects.getText().toString().length() == 0)
+                    parentInput.setError("Select a project to assign this task to");
+            }
+        });
+
+        act_projects.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (act_projects.getText().toString().length() == 0)
+                    parentInput.setError("Select a project to assign this task to");
+                else if (parentProject == null || !act_projects.getText().toString().equals(parentProject.getTitle()))
+                    parentInput.setError("Select a project from the drop down menu");
+                else
+                    parentInput.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
         });
 
         sizeChips.setOnCheckedChangeListener((group, checkedId) ->
@@ -151,7 +211,13 @@ public class EditTaskActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Add validation here
+                switch (Task.validateText(s.toString())) {
+                    case 2:
+                        textInput.setError("This description is too long");
+                        break;
+                    default:
+                        textInput.setError(null);
+                }
             }
 
             @Override
@@ -159,6 +225,19 @@ public class EditTaskActivity extends AppCompatActivity {
                 task.setText(s.toString());
             }
         });
+
+        textEdit.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                switch (Task.validateTitle(task.getText())) {
+                    case 2:
+                        textInput.setError("This description is too long");
+                        break;
+                    default:
+                        textInput.setError(null);
+                }
+            }
+        });
+
         updateChips();
 //        if (task.getTags().size() == 0)
 //            emptyTagsText.setVisibility(View.VISIBLE);
@@ -202,21 +281,44 @@ public class EditTaskActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_done) {
             int v1 = Task.validateTitle(task.getTitle());
             int v2 = Task.validateText(task.getText());
-            if (v1 != 0 || parentProject == null) {
+            if (v1 != 0 || parentProject == null || !act_projects.getText().toString().equals(parentProject.getTitle())) {
+                int problemCode = -1;
                 AlertDialog alertDialog = new AlertDialog.Builder(this).create();
                 alertDialog.setTitle("Please complete all required fields");
                 String message = "";
-                if (v1 == 1)
+                if (v1 == 1) {
                     message += "* The title cannot be empty.\n";
-                if (v1 == 2)
+                    problemCode = 1;
+                }
+                if (v1 == 2) {
                     message += "* This title is too long. Make sure your title is under " + Globals.MAX_TITLE_LENGTH + " characters.\n";
-                if (parentProject == null)
+                    problemCode = 1;
+                }
+                if (parentProject == null || !act_projects.getText().toString().equals(parentProject.getTitle())) {
                     message += "* Must select a project to assign this task to so it doesn't get lost.\n";
-                if (v2 == 2)
+                    if (problemCode == -1) problemCode = 2;
+                }
+                if (v2 == 2) {
                     message += "* The description is too long. Make sure your description is under " + Globals.MAX_TEXT_LENGTH + " characters.\n";
+                    if (problemCode == -1) problemCode = 3;
+                }
                 alertDialog.setMessage(message);
+                int finalProblemCode = problemCode;
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
-                        (dialog, which) -> dialog.dismiss());
+                        (dialog, which) -> {
+                            dialog.dismiss();
+                            switch (finalProblemCode) {
+                                case 1:
+                                    titleEdit.requestFocus();
+                                    break;
+                                case 2:
+                                    act_projects.requestFocus();
+                                    break;
+                                case 3:
+                                    textEdit.requestFocus();
+                                    break;
+                            }
+                        });
                 alertDialog.show();
             }
             else {

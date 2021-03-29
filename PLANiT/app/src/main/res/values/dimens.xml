@@ -49,9 +49,9 @@
     <dimen name="empty_recycler_hint">14sp</dimen>
     <dimen name="empty_tags_hint">12sp</dimen>
 
-    <dimen name="max_title_length">50</dimen>
-    <dimen name="max_text_length">500</dimen>
-    <dimen name="max_tag_length">20</dimen>
+<!--    <dimen name="max_title_length">100</dimen>-->
+<!--    <dimen name="max_text_length">500</dimen>-->
+<!--    <dimen name="max_tag_length">20</dimen>-->
     <dimen name="delete_margin">36dp</dimen>
     <dimen name="delete_button_font_size">18sp</dimen>
     <dimen name="delete_button_font_padding_horizontal">24sp</dimen>
