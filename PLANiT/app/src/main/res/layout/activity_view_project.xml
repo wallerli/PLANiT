@@ -39,7 +39,8 @@
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
                 android:lineSpacingMultiplier="1.2"
-                android:textSize="@dimen/view_title_font_size" />
+                android:textSize="@dimen/view_title_font_size"
+                android:textIsSelectable="true" />
 
                 <RelativeLayout
                     android:id="@+id/project_progress"
@@ -107,7 +108,8 @@
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
                 android:textSize="@dimen/view_description_font_size"
-                android:autoLink="all" />
+                android:autoLink="all"
+                android:textIsSelectable="true" />
 
             <TextView
                 android:id="@+id/projectTasksTextView"
