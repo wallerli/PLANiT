@@ -84,7 +84,7 @@
                         android:layout_below="@id/task_indicator"
                         android:layout_alignStart="@id/task_indicator"
                         android:layout_alignLeft="@id/task_indicator"
-                        android:text="@string/indicator_hint"
+                        android:text="@string/done_question_mark"
                         android:gravity="center"
                         android:textSize="@dimen/indicator_hint_font_size" />
                 </RelativeLayout>

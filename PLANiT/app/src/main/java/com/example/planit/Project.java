@@ -90,6 +90,10 @@ public class Project {
         return new ArrayList<>(this.tasks);
     }
 
+    public int getTasksSize() {
+        return tasks.size();
+    }
+
     public List<UUID> getTags() {
         return new ArrayList<>(tags);
     }

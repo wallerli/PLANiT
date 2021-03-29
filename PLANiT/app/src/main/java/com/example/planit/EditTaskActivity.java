@@ -182,7 +182,7 @@ public class EditTaskActivity extends AppCompatActivity {
         });
 
         act_projects.setOnItemClickListener((parent, view, position, id) -> {
-            parentProject = new Project((Project) globals.getProjects().values().toArray()[position]);
+            parentProject = new Project((Project) globals.getProjects().values().toArray()[arrayList_project.indexOf(act_projects.getAdapter().getItem(position))]);
             act_projects.setText(parentProject.getTitle());
             blockersRecycler.setAdapter(new BlockerAdapter(this, globals.getValidBlockers(task.getUUID())));
             parentInput.setError(null);

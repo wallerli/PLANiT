@@ -32,7 +32,7 @@ public class ViewTaskActivity extends AppCompatActivity {
 
     UUID task_id;
     Task task;
-    TextView title, projectTitle, text, emptyRecyclerText;
+    TextView title, projectTitle, text, emptyRecyclerText, indicatorText;
     RecyclerView recyclerView;
     List<UUID> blockers = new ArrayList<>();
     List<UUID> tags = new ArrayList<>();
@@ -83,6 +83,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         indicator = findViewById(R.id.task_indicator);
         sizeChip = findViewById(R.id.sizeChip);
         priorityChip = findViewById(R.id.priorityChip);
+        indicatorText = findViewById(R.id.task_indicator_text);
         recyclerView = findViewById(R.id.tasksRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -186,16 +187,19 @@ public class ViewTaskActivity extends AppCompatActivity {
     public void setComplete() {
         indicator.setProgress(100);
         indicator.setTrackThickness(completeThickness);
+        indicatorText.setText(R.string.done_period);
     }
 
     public void setIncomplete() {
         indicator.setProgress(100);
         indicator.setTrackThickness(incompleteThickness);
+        indicatorText.setText(R.string.done_question_mark);
     }
 
     public void setBlocked() {
         indicator.setProgress(0);
         indicator.setTrackThickness(incompleteThickness);
+        indicatorText.setText(R.string.blocked);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
