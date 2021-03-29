@@ -28,7 +28,7 @@ public class Globals {
     private final Map<UUID, Tag> tags = new HashMap<UUID, Tag>();
     private final Map<UUID, Task> tasks = new HashMap<UUID, Task>();
 
-    public static final int MAX_TITLE_LENGTH = 50;
+    public static final int MAX_TITLE_LENGTH = 100;
     public static final int MAX_TEXT_LENGTH = 500;
     public static final int MAX_TAG_LENGTH = 20;
 
@@ -250,7 +250,7 @@ public class Globals {
         addTask(task3);
 
 
-        Project project2 = new Project("Plan for graduation!!!");
+        Project project2 = new Project("Plan for graduation!!! 🎓");
         project2.setText("" +
                 "The time has come, make sure you’re prepared!" +
                 "");
@@ -356,6 +356,7 @@ public class Globals {
         task11.setCompleteStatus(false);
         task11.setText("Not so hard but need to complete before exam");
         task11.addBlocker(task10.getUUID());
+        task11.addTag(tag2.getUUID());
 
         project5.addTask(task10.getUUID());
         project5.addTask(task11.getUUID());
@@ -363,7 +364,7 @@ public class Globals {
         addTask(task10);
         addTask(task11);
 
-        Project project6 = new Project("Draw a Bear");
+        Project project6 = new Project("🐻 Draw a Bear");
         project6.setText("" +"Draw a bear on a piece of paper\n"+
                             "Our bear does not have a nose!!!" + "");
 
@@ -443,7 +444,7 @@ public class Globals {
         addTask(task20);
         addTask(task21);
 
-        Project project7 = new Project("Buy an Umbrella on Amazon");
+        Project project7 = new Project("Buy an Umbrella on Amazon 🌂");
         project7.setText("" +
                 "Buy an umbrella with a moderate price on Amazon" +
                 "");
