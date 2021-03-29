@@ -35,6 +35,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.UUID;
 
 import static android.view.View.GONE;
@@ -49,7 +50,7 @@ public class EditTaskActivity extends AppCompatActivity {
     Task task;
     Project parentProject;
     TextInputEditText titleEdit, textEdit;
-    TextInputLayout titleInput, textInput;
+    TextInputLayout titleInput, textInput, parentInput;
     AutoCompleteTextView act_projects;
     ChipGroup sizeChips;
     ChipGroup priorityChips;
@@ -85,6 +86,7 @@ public class EditTaskActivity extends AppCompatActivity {
         delete = findViewById(R.id.delete_button);
         titleInput = findViewById(R.id.edit_task_title);
         textInput = findViewById(R.id.descriptionText);
+        parentInput = findViewById(R.id.til_project);
         titleInput.setCounterMaxLength(Globals.MAX_TITLE_LENGTH);
         textInput.setCounterMaxLength(Globals.MAX_TEXT_LENGTH);
 
@@ -169,15 +171,19 @@ public class EditTaskActivity extends AppCompatActivity {
         act_projects.setOnItemClickListener((parent, view, position, id) -> {
             parentProject = new Project((Project) globals.getProjects().values().toArray()[position]);
             act_projects.setText(parentProject.getTitle());
+            parentInput.setError(null);
         });
 
-//        act_projects.setOnFocusChangeListener((v, hasFocus) -> {
-//            if (!hasFocus) {
-//                if (parentProject == null) {
-//                    act_projects.setError("Please select a project to assign this task to.");
-//                }
-//            }
-//        });
+        act_projects.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                if (act_projects.getText().toString().length() == 0)
+                    parentInput.setError("Select a project to assign this task to.");
+                else if (parentProject == null || !act_projects.getText().toString().equals(parentProject.getTitle()))
+                    parentInput.setError("Select a project from the drop down menu.");
+                else
+                    parentInput.setError(null);
+            }
+        });
 
         sizeChips.setOnCheckedChangeListener((group, checkedId) ->
             task.setSize(Size.values()[Arrays.asList(sizeChipIDs).indexOf(checkedId)]));
