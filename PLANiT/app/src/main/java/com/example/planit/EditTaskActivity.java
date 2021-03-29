@@ -277,6 +277,8 @@ public class EditTaskActivity extends AppCompatActivity {
                     message += "* This title is too long. Make sure your title is under " + Globals.MAX_TITLE_LENGTH + " characters.\n";
                 if (parentProject == null)
                     message += "* Must select a project to assign this task to so it doesn't get lost.\n";
+                if (parentProject != null && !act_projects.getText().toString().equals(parentProject.getTitle()))
+                    message += "* Must select a project from the parent project drop down menu.\n";
                 if (v2 == 2)
                     message += "* The description is too long. Make sure your description is under " + Globals.MAX_TEXT_LENGTH + " characters.\n";
                 alertDialog.setMessage(message);
