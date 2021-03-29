@@ -166,7 +166,8 @@ public class ViewTaskActivity extends AppCompatActivity {
     public void updateCompleteness() {
         Globals globals = Globals.getInstance();
         task = globals.getTask(task_id);
-        if (task.getCompleteStatus()) {
+        completed = task.getCompleteStatus();
+        if (completed) {
             setComplete();
         } else if (task.getBlockers().stream().allMatch(b -> globals.getTask(b).getCompleteStatus())) {
             setIncomplete();

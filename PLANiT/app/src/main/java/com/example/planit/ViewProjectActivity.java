@@ -193,5 +193,4 @@ public class ViewProjectActivity extends AppCompatActivity {
         indicator.setProgress((int) (100 * project.getCompleteness()));
         completenessText.setText(String.format(Locale.getDefault(), "%.1f%%", 100 * project.getCompleteness()));
     }
-
 }
