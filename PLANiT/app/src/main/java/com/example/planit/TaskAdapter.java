@@ -52,6 +52,11 @@ public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskVie
             params.setMargins(params.leftMargin, 0, params.rightMargin, params.bottomMargin);
             params.height = 0;
             holder.description.setLayoutParams(params);
+        } else {
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.description.getLayoutParams();
+            params.setMargins(params.leftMargin, mCtx.getResources().getDimensionPixelSize(R.dimen.subtitle_margin), params.rightMargin, params.bottomMargin);
+            params.height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+            holder.description.setLayoutParams(params);
         }
         holder.description.setText(task.getText());
         holder.taskUUID = task.getUUID();
@@ -128,6 +133,13 @@ public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskVie
                     alertDialog.show();
                 }
             }
+            if (mCtx instanceof ViewProjectActivity) {
+                ((ViewProjectActivity) mCtx).updateProgress();
+            }
+            else if (mCtx instanceof ViewTaskActivity) {
+                ((ViewTaskActivity) mCtx).updateCompleteness();
+            }
+            notifyDataSetChanged();
         });
     }
 

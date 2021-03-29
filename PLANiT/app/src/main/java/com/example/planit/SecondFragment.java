@@ -20,7 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -41,7 +43,7 @@ public class SecondFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (searchItem != null && !searchItem.isActionViewExpanded()) {
+        if (searchItem == null || !searchItem.isActionViewExpanded()) {
             filter = "";
             showAllTasks();
             if (searchView != null)
@@ -161,8 +163,16 @@ public class SecondFragment extends Fragment {
             showAllTasks();
         else {
             Globals globals = Globals.getInstance();
-            filteredTasks = globals.getOrderedTasks().stream().filter(t ->
+            List<UUID> newFilteredTasks = globals.getOrderedTasks().stream().filter(t ->
                     globals.getTask(t).getTitle().toLowerCase().contains(filter.toLowerCase())).collect(Collectors.toList());
+            if (filteredTasks != null && recyclerView.getAdapter().getItemCount() == newFilteredTasks.size()
+                    && filteredTasks.size() == newFilteredTasks.size() && filteredTasks.containsAll(newFilteredTasks)) {
+                filteredTasks = newFilteredTasks;
+                recyclerView.getAdapter().notifyDataSetChanged();
+            } else {
+                filteredTasks = newFilteredTasks;
+                recyclerView.setAdapter(new ProjectAdapter(view.getContext(), filteredTasks));
+            }
             recyclerView.setAdapter(new TaskAdapter(view.getContext(), filteredTasks));
             if (filteredTasks.size() == 0)
                 emptyRecyclerText.setVisibility(View.VISIBLE);
@@ -173,8 +183,16 @@ public class SecondFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void showAllTasks() {
-        allTasks= Globals.getInstance().getOrderedTasks();
-        recyclerView.setAdapter(new TaskAdapter(view.getContext(), allTasks));
+        filteredTasks = null;
+        List<UUID> newTasks = Globals.getInstance().getOrderedTasks();
+        if (allTasks != null && Objects.requireNonNull(recyclerView.getAdapter()).getItemCount() == newTasks.size()
+                && allTasks.equals(newTasks)) {
+            allTasks = newTasks;
+            recyclerView.getAdapter().notifyDataSetChanged();
+        } else {
+            allTasks = newTasks;
+            recyclerView.setAdapter(new TaskAdapter(view.getContext(), allTasks));
+        }
         if (allTasks.size() == 0)
             emptyRecyclerText.setVisibility(View.VISIBLE);
         else

@@ -156,13 +156,12 @@ public class ViewProjectActivity extends AppCompatActivity {
             due.setTypeface(null);
         }
         text.setText(project.getText());
-        completenessText.setText(String.format(Locale.getDefault(), "%.1f%%", 100 * project.getCompleteness()));
-        indicator.setProgress((int) (100 * project.getCompleteness()));
         recyclerView.setAdapter(new TaskAdapter(this, project.getOrderedTasks()));
         if (project.getOrderedTasks().size() == 0)
             emptyRecyclerText.setVisibility(View.VISIBLE);
         else
             emptyRecyclerText.setVisibility(View.INVISIBLE);
+        updateProgress();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -187,5 +186,11 @@ public class ViewProjectActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EditTaskActivity.class);
         intent.putExtra(PARENT_PROJECT_ID, project.getUUID().toString());
         startActivity(intent);
+    }
+
+    public void updateProgress() {
+        project = Globals.getInstance().getProject(projectUUID);
+        indicator.setProgress((int) (100 * project.getCompleteness()));
+        completenessText.setText(String.format(Locale.getDefault(), "%.1f%%", 100 * project.getCompleteness()));
     }
 }
