@@ -54,7 +54,7 @@
                     android:id="@+id/act_projects"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/project_title" />
+                    android:hint="@string/parent_project" />
         </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
