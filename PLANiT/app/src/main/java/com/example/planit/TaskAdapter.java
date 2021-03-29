@@ -3,6 +3,7 @@ package com.example.planit;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Build;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,11 @@ public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskVie
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.description.getLayoutParams();
             params.setMargins(params.leftMargin, 0, params.rightMargin, params.bottomMargin);
             params.height = 0;
+            holder.description.setLayoutParams(params);
+        } else {
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.description.getLayoutParams();
+            params.setMargins(params.leftMargin, mCtx.getResources().getDimensionPixelSize(R.dimen.subtitle_margin), params.rightMargin, params.bottomMargin);
+            params.height = RelativeLayout.LayoutParams.WRAP_CONTENT;
             holder.description.setLayoutParams(params);
         }
         holder.description.setText(task.getText());
