@@ -83,7 +83,7 @@ public class EditTaskActivity extends AppCompatActivity {
         if (intent.getStringExtra(EDIT_TASK_ID) != null) {
             task = new Task(globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID))));
             parentProject = globals.getParentProject(task.getUUID());
-            toolbar.setTitle("");
+            toolbar.setTitle("Edit Task");
             textEdit.setText(task.getText());
             titleEdit.setText(task.getTitle());
         }
@@ -136,6 +136,7 @@ public class EditTaskActivity extends AppCompatActivity {
 
         act_projects.setOnItemClickListener((parent, view, position, id) -> {
             parentProject = (Project) globals.getProjects().values().toArray()[position];
+            act_projects.setText(parentProject.getTitle());
         });
 
         sizeChips.setOnCheckedChangeListener((group, checkedId) ->
