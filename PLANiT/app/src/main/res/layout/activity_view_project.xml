@@ -77,9 +77,11 @@
 
             <TextView
                 android:id="@+id/projectDueTextView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/projectTitles"
+                android:paddingBottom="@dimen/sub_title_padding"
+                android:paddingTop="@dimen/sub_title_padding"
                 android:layout_marginTop="@dimen/subtitle_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
@@ -114,7 +116,6 @@
                 android:layout_marginTop="@dimen/blocked_by_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
-                android:textColor="?colorPrimary"
                 android:text="@string/tasks"
                 android:textSize="@dimen/view_description_font_size" />
 
