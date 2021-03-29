@@ -71,11 +71,20 @@ public class SecondFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onPause() {
         super.onPause();
         if (searchView != null)
             searchView.clearFocus();
+        if (searchItem == null || !searchItem.isActionViewExpanded()) {
+            filter = "";
+            showAllTasks();
+            if (searchView != null)
+                searchView.clearFocus();
+        } else {
+            showFilteredTasks();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
