@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -75,13 +76,21 @@ public class Globals {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public List<UUID> getValidBlockers(UUID taskUUID) {
         Set<UUID> retSet = new HashSet<>(getParentProject(taskUUID).getTasks());
-        Task task = getTask(taskUUID);
-        for (UUID otherTaskUUID : getParentProject(taskUUID).getTasks()) {
-            if (task.verifyBlocker(otherTaskUUID) != 0) {
-                retSet.remove(otherTaskUUID);
+        retSet.remove(taskUUID);
+        retSet.removeAll(getAllDependants(taskUUID));
+        return new ArrayList<>(retSet);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public Set<UUID> getAllDependants(UUID taskUUID) {
+        Set<UUID> allDependants = new HashSet<>();
+        for (UUID id : getParentProject(taskUUID).getTasks()) {
+            if (getTask(id).getBlockers().contains(taskUUID)) {
+                allDependants.add(id);
+                allDependants.addAll(getAllDependants(id));
             }
         }
-        return new ArrayList<>(retSet);
+        return allDependants;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
