@@ -220,7 +220,9 @@ public class EditTaskActivity extends AppCompatActivity {
                 alertDialog.show();
             }
             else {
-                globals.getParentProject(task.getUUID()).removeTask(task.getUUID());
+                if (!newTask) {
+                    globals.getParentProject(task.getUUID()).removeTask(task.getUUID());
+                }
                 globals.addTask(task);
                 parentProject.addTask(task.getUUID());
                 globals.addProject(parentProject);
