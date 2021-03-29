@@ -5,6 +5,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,7 +22,10 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 import android.widget.Button;
@@ -51,6 +56,7 @@ public class EditTaskActivity extends AppCompatActivity {
     ChipGroup priorityChips;
     ChipGroup tagChips;
     TextView emptyTagsText;
+    RecyclerView blockersRecycler;
     Button delete;
 
     ArrayList<String> arrayList_project = new ArrayList<>();
@@ -78,6 +84,10 @@ public class EditTaskActivity extends AppCompatActivity {
         tagChips = findViewById(R.id.tag_chips);
         textEdit = findViewById(R.id.edit_description);
         emptyTagsText = findViewById(R.id.empty_tags_text);
+        blockersRecycler = findViewById(R.id.blockers);
+        blockersRecycler.setHasFixedSize(true);
+        blockersRecycler.setLayoutManager(new LinearLayoutManager(this));
+        blockersRecycler.setNestedScrollingEnabled(false);
         delete = findViewById(R.id.delete_button);
 
         if (intent.getStringExtra(EDIT_TASK_ID) != null) {
@@ -100,9 +110,11 @@ public class EditTaskActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         sizeChips.check(sizeChipIDs[task.getSize().ordinal()]);
         priorityChips.check(priorityChipIDs[task.getPriority().ordinal()]);
+        updateTagChips();
 
         if (parentProject != null) {
             act_projects.setText(parentProject.getTitle());
+            blockersRecycler.setAdapter(new BlockerAdapter(this, globals.getValidBlockers(task.getUUID())));
         }
 
         // Get all project names to fill in menu
@@ -136,6 +148,7 @@ public class EditTaskActivity extends AppCompatActivity {
 
         act_projects.setOnItemClickListener((parent, view, position, id) -> {
             parentProject = (Project) globals.getProjects().values().toArray()[position];
+            blockersRecycler.setAdapter(new BlockerAdapter(this, globals.getValidBlockers(task.getUUID())));
         });
 
         sizeChips.setOnCheckedChangeListener((group, checkedId) ->
@@ -158,11 +171,6 @@ public class EditTaskActivity extends AppCompatActivity {
                 task.setText(s.toString());
             }
         });
-        updateChips();
-//        if (task.getTags().size() == 0)
-//            emptyTagsText.setVisibility(View.VISIBLE);
-//        else
-//            emptyTagsText.setVisibility(View.INVISIBLE);
 
         delete.setOnClickListener(v -> {
             AlertDialog alertDialog = new AlertDialog.Builder(this).create();
@@ -237,7 +245,7 @@ public class EditTaskActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void updateChips() {
+    private void updateTagChips() {
         tagChips.removeAllViews();
         task.getTags().forEach(t -> {
             Tag tag = globals.getTag(t);

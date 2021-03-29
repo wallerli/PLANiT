@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -71,7 +72,17 @@ public class Globals {
         return tasks.get(taskUUID);
     }
 
-    public List<UUID> getTasks() { return new ArrayList<>(tasks.keySet()); }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public List<UUID> getValidBlockers(UUID taskUUID) {
+        Set<UUID> retSet = new HashSet<>(getParentProject(taskUUID).getTasks());
+        Task task = getTask(taskUUID);
+        for (UUID otherTaskUUID : getParentProject(taskUUID).getTasks()) {
+            if (task.verifyBlocker(otherTaskUUID) != 0) {
+                retSet.remove(otherTaskUUID);
+            }
+        }
+        return new ArrayList<>(retSet);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public List<UUID> getOrderedTasks() {

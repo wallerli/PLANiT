@@ -120,34 +120,6 @@ public class Task {
         return this.blockers.remove(uuid);
     }
 
-    /**
-     * @param uuid the uuid of new blocker
-     * @return 0 if new blocker is legitimate;
-     *          1 if new blocker is the same as current task;
-     *          2 if new blocker is blocked by current task
-     */
-    public int verifyBlocker(UUID uuid) {
-        Globals globals = Globals.getInstance();
-        if (uuid.equals(this.uuid))
-            return 1;
-        if (globals.getTask(uuid).allBlockers().contains(this.uuid))
-            return 2;
-        return 0;
-    }
-
-    /**
-     * @return recursively all blockers of the current task
-     */
-    public Set<UUID> allBlockers() {
-        Set<UUID> allBlockers = Collections.emptySet();
-        Globals globals = Globals.getInstance();
-        for (UUID blocker : this.blockers) {
-            allBlockers.add(blocker);
-            allBlockers.addAll(globals.getTask(blocker).allBlockers());
-        }
-        return allBlockers;
-    }
-
     public Set<UUID> getBlockers() {
         return blockers;
     }
