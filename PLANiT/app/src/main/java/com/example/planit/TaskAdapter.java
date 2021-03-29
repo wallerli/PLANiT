@@ -128,6 +128,13 @@ public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskVie
                     alertDialog.show();
                 }
             }
+            if (mCtx instanceof ViewProjectActivity) {
+                ((ViewProjectActivity) mCtx).updateProgress();
+            }
+            else if (mCtx instanceof ViewTaskActivity) {
+                ((ViewTaskActivity) mCtx).updateCompleteness();
+            }
+            notifyDataSetChanged();
         });
     }
 

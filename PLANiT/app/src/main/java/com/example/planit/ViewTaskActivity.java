@@ -153,21 +153,25 @@ public class ViewTaskActivity extends AppCompatActivity {
         title.setText(task.getTitle());
         projectTitle.setText(globals.getParentProject(task.getUUID()).getTitle());
         text.setText(task.getText());
-        completed = task.getCompleteStatus();
-        unblocked = task.getBlockers().stream().allMatch(b -> globals.getTask(b).getCompleteStatus());
-        updateChips();
-        if (completed) {
-            setComplete();
-        } else if (unblocked) {
-            setIncomplete();
-        } else {
-            setBlocked();
-        }
         recyclerView.setAdapter(new TaskAdapter(this, task.getOrderedBlockers()));
         if (task.getOrderedBlockers().size() == 0)
             emptyRecyclerText.setVisibility(View.VISIBLE);
         else
             emptyRecyclerText.setVisibility(View.INVISIBLE);
+        updateCompleteness();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void updateCompleteness() {
+        Globals globals = Globals.getInstance();
+        task = globals.getTask(task_id);
+        if (task.getCompleteStatus()) {
+            setComplete();
+        } else if (task.getBlockers().stream().allMatch(b -> globals.getTask(b).getCompleteStatus())) {
+            setIncomplete();
+        } else {
+            setBlocked();
+        }
     }
 
     public void setComplete() {
