@@ -153,6 +153,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         title.setText(task.getTitle());
         projectTitle.setText(globals.getParentProject(task.getUUID()).getTitle());
         text.setText(task.getText());
+        updateChips();
         recyclerView.setAdapter(new TaskAdapter(this, task.getOrderedBlockers()));
         if (task.getOrderedBlockers().size() == 0)
             emptyRecyclerText.setVisibility(View.VISIBLE);

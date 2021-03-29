@@ -3,7 +3,6 @@ package com.example.planit;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Build;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
