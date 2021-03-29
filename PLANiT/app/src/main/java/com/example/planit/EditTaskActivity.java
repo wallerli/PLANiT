@@ -82,7 +82,7 @@ public class EditTaskActivity extends AppCompatActivity {
 
         if (intent.getStringExtra(EDIT_TASK_ID) != null) {
             task = new Task(globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID))));
-            parentProject = globals.getParentProject(task.getUUID());
+            parentProject = new Project(globals.getParentProject(task.getUUID()));
             toolbar.setTitle("Edit Task");
             textEdit.setText(task.getText());
             titleEdit.setText(task.getTitle());
@@ -90,7 +90,7 @@ public class EditTaskActivity extends AppCompatActivity {
         else {
             task = new Task("");
             if (intent.getStringExtra(PARENT_PROJECT_ID) != null) {
-                parentProject = globals.getProject(UUID.fromString(intent.getStringExtra(PARENT_PROJECT_ID)));
+                parentProject = new Project(globals.getProject(UUID.fromString(intent.getStringExtra(PARENT_PROJECT_ID))));
             }
             toolbar.setTitle("Add New Task");
             delete.setVisibility(GONE);
@@ -114,7 +114,7 @@ public class EditTaskActivity extends AppCompatActivity {
                     ? new ArrayAdapter<>(getApplicationContext(), R.layout.custom_autocomplete_night, arrayList_project)
                     : new ArrayAdapter<>(getApplicationContext(), R.layout.custom_autocomplete, arrayList_project)
         );
-        act_projects.setThreshold(4); // characters required to load suggestion for spinner
+        act_projects.setThreshold(0); // characters required to load suggestion for spinner
 
         // Activating listeners
         toolbar.setNavigationOnClickListener(view -> finish());
@@ -135,7 +135,7 @@ public class EditTaskActivity extends AppCompatActivity {
         });
 
         act_projects.setOnItemClickListener((parent, view, position, id) -> {
-            parentProject = (Project) globals.getProjects().values().toArray()[position];
+            parentProject = new Project((Project) globals.getProjects().values().toArray()[position]);
             act_projects.setText(parentProject.getTitle());
         });
 
@@ -220,6 +220,7 @@ public class EditTaskActivity extends AppCompatActivity {
                 alertDialog.show();
             }
             else {
+                globals.getParentProject(task.getUUID()).removeTask(task.getUUID());
                 globals.addTask(task);
                 parentProject.addTask(task.getUUID());
                 globals.addProject(parentProject);
