@@ -1,6 +1,7 @@
 package com.example.planit;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
@@ -30,6 +32,7 @@ import android.widget.Toast;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Arrays;
 import java.util.UUID;
@@ -46,6 +49,7 @@ public class EditTaskActivity extends AppCompatActivity {
     Task task;
     Project parentProject;
     TextInputEditText titleEdit, textEdit;
+    TextInputLayout titleInput, textInput;
     AutoCompleteTextView act_projects;
     ChipGroup sizeChips;
     ChipGroup priorityChips;
@@ -79,6 +83,10 @@ public class EditTaskActivity extends AppCompatActivity {
         textEdit = findViewById(R.id.edit_description);
         emptyTagsText = findViewById(R.id.empty_tags_text);
         delete = findViewById(R.id.delete_button);
+        titleInput = findViewById(R.id.edit_task_title);
+        textInput = findViewById(R.id.descriptionText);
+        titleInput.setCounterMaxLength(Globals.MAX_TITLE_LENGTH);
+        textInput.setCounterMaxLength(Globals.MAX_TEXT_LENGTH);
 
         if (intent.getStringExtra(EDIT_TASK_ID) != null) {
             task = new Task(globals.getTask(UUID.fromString(intent.getStringExtra(EDIT_TASK_ID))));
@@ -125,7 +133,16 @@ public class EditTaskActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Add validation here
+                switch (Task.validateTitle(s.toString())) {
+                    case 1:
+                        titleInput.setError("The title cannot be empty.");
+                        break;
+                    case 2:
+                        titleInput.setError("This title is too long.");
+                        break;
+                    default:
+                        titleInput.setError(null);
+                }
             }
 
             @Override
@@ -134,10 +151,33 @@ public class EditTaskActivity extends AppCompatActivity {
             }
         });
 
+        titleEdit.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                switch (Task.validateTitle(task.getTitle())) {
+                    case 1:
+                        titleInput.setError("The title cannot be empty.");
+                        break;
+                    case 2:
+                        titleInput.setError("This title is too long.");
+                        break;
+                    default:
+                        titleInput.setError(null);
+                }
+            }
+        });
+
         act_projects.setOnItemClickListener((parent, view, position, id) -> {
             parentProject = new Project((Project) globals.getProjects().values().toArray()[position]);
             act_projects.setText(parentProject.getTitle());
         });
+
+//        act_projects.setOnFocusChangeListener((v, hasFocus) -> {
+//            if (!hasFocus) {
+//                if (parentProject == null) {
+//                    act_projects.setError("Please select a project to assign this task to.");
+//                }
+//            }
+//        });
 
         sizeChips.setOnCheckedChangeListener((group, checkedId) ->
             task.setSize(Size.values()[Arrays.asList(sizeChipIDs).indexOf(checkedId)]));
@@ -151,7 +191,13 @@ public class EditTaskActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Add validation here
+                switch (Task.validateText(s.toString())) {
+                    case 2:
+                        titleInput.setError("This description is too long.");
+                        break;
+                    default:
+                        titleInput.setError(null);
+                }
             }
 
             @Override
@@ -159,6 +205,19 @@ public class EditTaskActivity extends AppCompatActivity {
                 task.setText(s.toString());
             }
         });
+
+        textEdit.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                switch (Task.validateTitle(task.getText())) {
+                    case 2:
+                        titleInput.setError("This description is too long.");
+                        break;
+                    default:
+                        titleInput.setError(null);
+                }
+            }
+        });
+
         updateChips();
 //        if (task.getTags().size() == 0)
 //            emptyTagsText.setVisibility(View.VISIBLE);

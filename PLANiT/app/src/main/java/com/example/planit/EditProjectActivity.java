@@ -27,6 +27,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
@@ -47,6 +48,7 @@ public class EditProjectActivity extends AppCompatActivity {
 
     Project project;
     TextInputEditText title, text;
+    TextInputLayout titleInput, textInput;
     Button dueDate, dueTime, dueCLear, delete;
     MaterialDatePicker<Long> datePicker;
     MaterialTimePicker timePicker;
@@ -82,6 +84,10 @@ public class EditProjectActivity extends AppCompatActivity {
         emptyTagsText = findViewById(R.id.empty_tags_text);
         dueCLear = findViewById(R.id.clear_due);
         delete = findViewById(R.id.delete_button);
+        titleInput = findViewById(R.id.edit_project_title);
+        textInput = findViewById(R.id.descriptionText);
+        titleInput.setCounterMaxLength(Globals.MAX_TITLE_LENGTH);
+        textInput.setCounterMaxLength(Globals.MAX_TEXT_LENGTH);
 
         if (intent.getStringExtra(EDIT_PROJECT_ID) != null) {
             project = new Project(globals.getProject(UUID.fromString(intent.getStringExtra(EDIT_PROJECT_ID))));
@@ -122,12 +128,36 @@ public class EditProjectActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Add validation here
+                switch (Project.validateTitle(s.toString())) {
+                    case 1:
+                        titleInput.setError("The title cannot be empty.");
+                        break;
+                    case 2:
+                        titleInput.setError("This title is too long.");
+                        break;
+                    default:
+                        titleInput.setError(null);
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 project.setTitle(s.toString());
+            }
+        });
+
+        title.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                switch (Task.validateTitle(project.getTitle())) {
+                    case 1:
+                        titleInput.setError("The title cannot be empty.");
+                        break;
+                    case 2:
+                        titleInput.setError("This title is too long.");
+                        break;
+                    default:
+                        titleInput.setError(null);
+                }
             }
         });
 
@@ -137,12 +167,30 @@ public class EditProjectActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Add validation here
+                switch (Project.validateText(s.toString())) {
+                    case 2:
+                        titleInput.setError("This description is too long.");
+                        break;
+                    default:
+                        titleInput.setError(null);
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 project.setText(s.toString());
+            }
+        });
+
+        text.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                switch (Task.validateTitle(project.getText())) {
+                    case 2:
+                        titleInput.setError("This description is too long.");
+                        break;
+                    default:
+                        titleInput.setError(null);
+                }
             }
         });
 
