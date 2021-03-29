@@ -193,10 +193,10 @@ public class EditTaskActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 switch (Task.validateText(s.toString())) {
                     case 2:
-                        titleInput.setError("This description is too long.");
+                        textInput.setError("This description is too long.");
                         break;
                     default:
-                        titleInput.setError(null);
+                        textInput.setError(null);
                 }
             }
 
@@ -210,10 +210,10 @@ public class EditTaskActivity extends AppCompatActivity {
             if (!hasFocus) {
                 switch (Task.validateTitle(task.getText())) {
                     case 2:
-                        titleInput.setError("This description is too long.");
+                        textInput.setError("This description is too long.");
                         break;
                     default:
-                        titleInput.setError(null);
+                        textInput.setError(null);
                 }
             }
         });
