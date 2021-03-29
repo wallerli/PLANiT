@@ -254,6 +254,8 @@ public class EditTaskActivity extends AppCompatActivity {
             lChip.setClickable(false);
             lChip.setFocusable(false);
             lChip.setCloseIconVisible(true);
+            lChip.setOnCloseIconClickListener(v ->
+                    Toast.makeText(getApplicationContext(),R.string.to_be_implemented,Toast.LENGTH_SHORT).show());
             tagChips.addView(lChip);
         });
         Chip lChip = new Chip(this);
@@ -262,6 +264,8 @@ public class EditTaskActivity extends AppCompatActivity {
         @ColorInt int color = typedValue.data;
         lChip.setTextColor(color);
         lChip.setText(R.string.create_tag);
+        lChip.setOnClickListener(v ->
+                Toast.makeText(getApplicationContext(),R.string.to_be_implemented,Toast.LENGTH_SHORT).show());
         tagChips.addView(lChip);
     }
 

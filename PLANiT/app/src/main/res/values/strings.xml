@@ -61,38 +61,28 @@
     <string name="settings_text">Settings</string>
     <string name="notification_header">Notifications</string>
     <string name="due_date_alert">Receive due date alerts</string>
-    <string name="due_alert_on">Notifications for upcoming due dates is on</string>
-    <string name="due_alert_off">Notifications for upcoming due dates is off</string>
+    <string name="due_alert_on">Notifications for upcoming due dates is on (to be implemented)</string>
+    <string name="due_alert_off">Notifications for upcoming due dates is off (to be implemented)</string>
     <string name="concentrate_remind">Receive concentrate on task reminders</string>
-    <string name="concentrate_alert_on">Reminders to concentrate on tasks is on</string>
-    <string name="concentrate_alert_off">Reminders to concentrate on tasks is off</string>
+    <string name="concentrate_alert_on">Reminders to concentrate on tasks is on (to be implemented)</string>
+    <string name="concentrate_alert_off">Reminders to concentrate on tasks is off (to be implemented)</string>
 
     <string name="tags_header">Tags</string>
-    <string name="tags_settings_summary">Add \/ edit \/ delete tags</string>
+    <string name="tags_settings_summary">Add \/ edit \/ delete tags (to be implemented)</string>
     <string name="tags_settings_title">Manage Tags</string>
     <string name="help_header">Help</string>
-    <string name="email_developer_summary">Thanks for trying out 💖</string>
+    <string name="email_developer_summary">Thanks for trying out 💖 (to be implemented)</string>
     <string name="email_developer_title">Email feedback to developers</string>
-    <string name="faq_settings_summary">FAQ</string>
+    <string name="faq_settings_summary">FAQ (to be implemented)</string>
     <string name="faq_settings_title">Frequently Asked Questions</string>
     <string name="empty_recycler">Nothing to show here 🎐</string>
     <string name="empty_tasks_recycler">Create a task first 🎯</string>
     <string name="empty_blocker_recycler">This task has no blocker 🎊</string>
     <string name="empty_tags_edit">No tag has been selected.</string>
 
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <string name="sync_title">Sync email periodically</string>
-    <!-- Sync Preferences -->
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="delete_task_button_text">DELETE TASK</string>
     <string name="delete_project_button_text">DELETE PROJECT</string>
+
+    <string name="to_be_implemented">This function will be implemented in future.</string>
 </resources>
