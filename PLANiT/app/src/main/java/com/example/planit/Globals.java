@@ -243,7 +243,7 @@ public class Globals {
         task3.addTag(tag0.getUUID());
         task3.addTag(tag4.getUUID());
         task3.setText("" +
-                "www.mycompanyweb/about/us.com" +
+                "umn.edu" +
                 "");
         project1.addTask(task3.getUUID());
         addProject(project1);

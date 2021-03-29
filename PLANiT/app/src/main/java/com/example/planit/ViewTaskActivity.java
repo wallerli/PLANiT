@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static com.example.planit.MainActivity.VIEW_PROJECT_ID;
+
 public class ViewTaskActivity extends AppCompatActivity {
 
     public static String EDIT_TASK_ID = "com.example.planit.EDIT_TASK_ID";
@@ -152,6 +154,11 @@ public class ViewTaskActivity extends AppCompatActivity {
         tags = task.getTags();
         title.setText(task.getTitle());
         projectTitle.setText(globals.getParentProject(task.getUUID()).getTitle());
+        projectTitle.setOnClickListener(v -> {
+            Intent intentNew = new Intent(this, ViewProjectActivity.class);
+            intentNew.putExtra(VIEW_PROJECT_ID, Globals.getInstance().getParentProject(task_id).getUUID().toString());
+            startActivity(intentNew);
+        });
         text.setText(task.getText());
         completed = task.getCompleteStatus();
         unblocked = task.getBlockers().stream().allMatch(b -> globals.getTask(b).getCompleteStatus());
