@@ -21,7 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -42,7 +44,7 @@ public class FirstFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (searchItem != null && !searchItem.isActionViewExpanded()) {
+        if (searchItem == null || !searchItem.isActionViewExpanded()) {
             filter = "";
             showAllProjects();
             if (searchView != null)
@@ -59,7 +61,7 @@ public class FirstFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (searchItem != null && !searchItem.isActionViewExpanded()) {
+        if (allProjects != null && searchItem != null && !searchItem.isActionViewExpanded()) {
             filter = "";
             showAllProjects();
             if (searchView != null)
@@ -163,9 +165,16 @@ public class FirstFragment extends Fragment {
             showAllProjects();
         else {
             Globals globals = Globals.getInstance();
-            filteredProjects = globals.getOrderedProjects().stream().filter(p ->
+            List<UUID> newFilteredProjects = globals.getOrderedProjects().stream().filter(p ->
                     globals.getProject(p).getTitle().toLowerCase().contains(filter.toLowerCase())).collect(Collectors.toList());
-            recyclerView.setAdapter(new ProjectAdapter(view.getContext(),filteredProjects));
+            if (filteredProjects != null && recyclerView.getAdapter().getItemCount() == newFilteredProjects.size()
+                    && filteredProjects.size() == newFilteredProjects.size() && filteredProjects.containsAll(newFilteredProjects)) {
+                filteredProjects = newFilteredProjects;
+                recyclerView.getAdapter().notifyDataSetChanged();
+            } else {
+                filteredProjects = newFilteredProjects;
+                recyclerView.setAdapter(new ProjectAdapter(view.getContext(), filteredProjects));
+            }
             if (filteredProjects.size() == 0)
                 emptyRecyclerText.setVisibility(View.VISIBLE);
             else
@@ -175,8 +184,16 @@ public class FirstFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void showAllProjects() {
-        allProjects = Globals.getInstance().getOrderedProjects();
-        recyclerView.setAdapter(new ProjectAdapter(view.getContext(), allProjects));
+        filteredProjects = null;
+        List<UUID> newProjects = Globals.getInstance().getOrderedProjects();
+        if (allProjects != null && Objects.requireNonNull(recyclerView.getAdapter()).getItemCount() == newProjects.size()
+                && allProjects.equals(newProjects)) {
+            allProjects = newProjects;
+            recyclerView.getAdapter().notifyDataSetChanged();
+        } else {
+            allProjects = newProjects;
+            recyclerView.setAdapter(new ProjectAdapter(view.getContext(), allProjects));
+        }
         if (allProjects.size() == 0)
             emptyRecyclerText.setVisibility(View.VISIBLE);
         else

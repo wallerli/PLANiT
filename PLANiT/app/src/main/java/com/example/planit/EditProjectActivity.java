@@ -27,6 +27,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
@@ -47,6 +48,7 @@ public class EditProjectActivity extends AppCompatActivity {
 
     Project project;
     TextInputEditText title, text;
+    TextInputLayout titleInput, textInput;
     Button dueDate, dueTime, dueCLear, delete;
     MaterialDatePicker<Long> datePicker;
     MaterialTimePicker timePicker;
@@ -82,6 +84,10 @@ public class EditProjectActivity extends AppCompatActivity {
         emptyTagsText = findViewById(R.id.empty_tags_text);
         dueCLear = findViewById(R.id.clear_due);
         delete = findViewById(R.id.delete_button);
+        titleInput = findViewById(R.id.edit_project_title);
+        textInput = findViewById(R.id.descriptionText);
+        titleInput.setCounterMaxLength(Globals.MAX_TITLE_LENGTH);
+        textInput.setCounterMaxLength(Globals.MAX_TEXT_LENGTH);
 
         if (intent.getStringExtra(EDIT_PROJECT_ID) != null) {
             project = new Project(globals.getProject(UUID.fromString(intent.getStringExtra(EDIT_PROJECT_ID))));
@@ -122,12 +128,36 @@ public class EditProjectActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Add validation here
+                switch (Project.validateTitle(s.toString())) {
+                    case 1:
+                        titleInput.setError("The title cannot be empty");
+                        break;
+                    case 2:
+                        titleInput.setError("This title is too long");
+                        break;
+                    default:
+                        titleInput.setError(null);
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 project.setTitle(s.toString());
+            }
+        });
+
+        title.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                switch (Task.validateTitle(project.getTitle())) {
+                    case 1:
+                        titleInput.setError("The title cannot be empty");
+                        break;
+                    case 2:
+                        titleInput.setError("This title is too long");
+                        break;
+                    default:
+                        titleInput.setError(null);
+                }
             }
         });
 
@@ -137,12 +167,30 @@ public class EditProjectActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Add validation here
+                switch (Project.validateText(s.toString())) {
+                    case 2:
+                        textInput.setError("This description is too long");
+                        break;
+                    default:
+                        textInput.setError(null);
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 project.setText(s.toString());
+            }
+        });
+
+        text.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                switch (Task.validateTitle(project.getText())) {
+                    case 2:
+                        textInput.setError("This description is too long");
+                        break;
+                    default:
+                        textInput.setError(null);
+                }
             }
         });
 
@@ -183,18 +231,36 @@ public class EditProjectActivity extends AppCompatActivity {
             int v1 = Project.validateTitle(project.getTitle());
             int v2 = Project.validateText(project.getText());
             if (v1 != 0 || v2 != 0) {
+                int problemCode = -1;
                 AlertDialog alertDialog = new AlertDialog.Builder(this).create();
                 alertDialog.setTitle("Please complete all required fields");
                 String message = "";
-                if (v1 == 1)
+                if (v1 == 1) {
                     message += "* The title cannot be empty.\n";
-                if (v1 == 2)
+                    problemCode = 1;
+                }
+                if (v1 == 2) {
                     message += "* This title is too long. Make sure your title is under " + Globals.MAX_TITLE_LENGTH + " characters.\n";
-                if (v2 == 2)
+                    problemCode = 1;
+                }
+                if (v2 == 2) {
                     message += "* The description is too long. Make sure your description is under " + Globals.MAX_TEXT_LENGTH + " characters.\n";
+                    problemCode = 2;
+                }
                 alertDialog.setMessage(message);
+                int finalProblemCode = problemCode;
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
-                        (dialog, which) -> dialog.dismiss());
+                        (dialog, which) -> {
+                            dialog.dismiss();
+                            switch (finalProblemCode) {
+                                case 1:
+                                    title.requestFocus();
+                                    break;
+                                case 2:
+                                    text.requestFocus();
+                                    break;
+                            }
+                        });
                 alertDialog.show();
             } else {
                 globals.addProject(project);
@@ -292,6 +358,8 @@ public class EditProjectActivity extends AppCompatActivity {
             lChip.setClickable(false);
             lChip.setFocusable(false);
             lChip.setCloseIconVisible(true);
+            lChip.setOnCloseIconClickListener(v ->
+                    Toast.makeText(getApplicationContext(),R.string.to_be_implemented,Toast.LENGTH_SHORT).show());
             tagChips.addView(lChip);
         });
         Chip lChip = new Chip(this);
@@ -300,6 +368,8 @@ public class EditProjectActivity extends AppCompatActivity {
         @ColorInt int color = typedValue.data;
         lChip.setTextColor(color);
         lChip.setText(R.string.create_tag);
+        lChip.setOnClickListener(v ->
+                Toast.makeText(getApplicationContext(),R.string.to_be_implemented,Toast.LENGTH_SHORT).show());
         tagChips.addView(lChip);
     }
 
