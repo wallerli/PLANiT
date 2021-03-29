@@ -572,7 +572,7 @@ public class Globals {
 
     static class ProjectComparator implements Comparator<Project> {
         /**
-         * Reversed ordered completeness, completeness
+         * Reversed ordered completeness, due date
          */
         public int compare(Project p1, Project p2) {
             if (p1.getCompleteness() >= 1 && p2.getCompleteness() < 1)
@@ -582,7 +582,9 @@ public class Globals {
             Date d1 = p1.getDueDate();
             Date d2 = p2.getDueDate();
             if (d1 == null || d2 == null)
-                return d1 == null ? 1 : d2 == null ? -1 : 0;
+                return d1 == null && d2 == null
+                        ? Integer.compare(p2.getTasksSize(), p1.getTasksSize())
+                        : d1 == null ? 1 : -1;
             return Long.compare(d1.getTime(), d2.getTime());
         }
     }
