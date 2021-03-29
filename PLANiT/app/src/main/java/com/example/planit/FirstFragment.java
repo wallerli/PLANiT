@@ -23,6 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -185,8 +186,8 @@ public class FirstFragment extends Fragment {
     private void showAllProjects() {
         filteredProjects = null;
         List<UUID> newProjects = Globals.getInstance().getOrderedProjects();
-        if (allProjects != null && recyclerView.getAdapter().getItemCount() == newProjects.size()
-                && newProjects.size() == allProjects.size() && allProjects.containsAll(newProjects)) {
+        if (allProjects != null && Objects.requireNonNull(recyclerView.getAdapter()).getItemCount() == newProjects.size()
+                && allProjects.equals(newProjects)) {
             allProjects = newProjects;
             recyclerView.getAdapter().notifyDataSetChanged();
         } else {
