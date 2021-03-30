@@ -236,7 +236,7 @@ public class Globals {
                 "");
         project1.addTag(tag0.getUUID());
         try {
-            project1.setDueDate(df.parse("03/01/2021 23:59"));
+            project1.setDueDate(df.parse("04/30/2021 23:59"));
         } catch (ParseException ignored) {}
 
         Task task3 = new Task("Make a list of employees missing from “About us” page", Size.MEDIUM, Priority.LOW);
@@ -341,7 +341,7 @@ public class Globals {
         addTask(task8);
         addTask(task9);
 
-        Project project5 = new Project("Prepare for An Exam");
+        Project project5 = new Project("Prepare for My Exam");
         project5.setText(""+"Prepare for an exam on this Friday"+"");
         try{
             project5.setDueDate(df.parse("4/2/2021 13:00"));
@@ -487,8 +487,8 @@ public class Globals {
         addTask(task25);
         addTask(task26);
 
-        Project project8 = new Project("Do the Laundry");
-        project8.setText("Do the laundry before the end of this week!" +
+        Project project8 = new Project("Do Laundry");
+        project8.setText("Do laundry before the end of this week!" +
                 "" +
                 "");
         try {

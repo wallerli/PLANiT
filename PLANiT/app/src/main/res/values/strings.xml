@@ -55,7 +55,6 @@
     <string name="priority_label_text">Priority</string>
     <string name="tags_label_text">Tags</string>
     <string name="done_question_mark">Done?</string>
-    <string name="done_period">Done.</string>
     <string name="blocked">Blocked</string>
     <string name="indicator_progress">0.0%</string>
     <string name="no_due_date">No Due Date</string>
