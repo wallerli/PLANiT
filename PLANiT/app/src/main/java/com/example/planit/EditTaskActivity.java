@@ -1,11 +1,12 @@
 package com.example.planit;
 
 import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import android.widget.Button;
@@ -35,7 +37,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.UUID;
 
 import static android.view.View.GONE;
@@ -55,7 +56,8 @@ public class EditTaskActivity extends AppCompatActivity {
     ChipGroup sizeChips;
     ChipGroup priorityChips;
     ChipGroup tagChips;
-    TextView emptyTagsText;
+    TextView emptyTagsText, emptyBlockersText;
+    RecyclerView blockersRecycler;
     Button delete;
 
     ArrayList<String> arrayList_project = new ArrayList<>();
@@ -83,6 +85,11 @@ public class EditTaskActivity extends AppCompatActivity {
         tagChips = findViewById(R.id.tag_chips);
         textEdit = findViewById(R.id.edit_description);
         emptyTagsText = findViewById(R.id.empty_tags_text);
+        emptyBlockersText = findViewById(R.id.empty_blockers_text);
+        blockersRecycler = findViewById(R.id.blockers);
+        blockersRecycler.setHasFixedSize(true);
+        blockersRecycler.setLayoutManager(new LinearLayoutManager(this));
+        blockersRecycler.setNestedScrollingEnabled(false);
         delete = findViewById(R.id.delete_button);
         titleInput = findViewById(R.id.edit_task_title);
         textInput = findViewById(R.id.descriptionText);
@@ -110,6 +117,8 @@ public class EditTaskActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         sizeChips.check(sizeChipIDs[task.getSize().ordinal()]);
         priorityChips.check(priorityChipIDs[task.getPriority().ordinal()]);
+        updateTagChips();
+        resetBlockersList();
 
         if (parentProject != null) {
             act_projects.setText(parentProject.getTitle());
@@ -171,6 +180,8 @@ public class EditTaskActivity extends AppCompatActivity {
         act_projects.setOnItemClickListener((parent, view, position, id) -> {
             parentProject = new Project((Project) globals.getProjects().values().toArray()[arrayList_project.indexOf(act_projects.getAdapter().getItem(position))]);
             act_projects.setText(parentProject.getTitle());
+            task.removeAllBlockers();
+            resetBlockersList();
             parentInput.setError(null);
         });
 
@@ -187,10 +198,16 @@ public class EditTaskActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (act_projects.getText().toString().length() == 0)
+                if (act_projects.getText().toString().length() == 0) {
                     parentInput.setError("Select a project to assign this task to");
-                else if (parentProject == null || !act_projects.getText().toString().equals(parentProject.getTitle()))
+                    parentProject = null;
+                    resetBlockersList();
+                }
+                else if (parentProject == null || !act_projects.getText().toString().equals(parentProject.getTitle())) {
                     parentInput.setError("Select a project from the drop down menu");
+                    parentProject = null;
+                    resetBlockersList();
+                }
                 else
                     parentInput.setError(null);
             }
@@ -237,12 +254,6 @@ public class EditTaskActivity extends AppCompatActivity {
                 }
             }
         });
-
-        updateChips();
-//        if (task.getTags().size() == 0)
-//            emptyTagsText.setVisibility(View.VISIBLE);
-//        else
-//            emptyTagsText.setVisibility(View.INVISIBLE);
 
         delete.setOnClickListener(v -> {
             AlertDialog alertDialog = new AlertDialog.Builder(this).create();
@@ -343,7 +354,7 @@ public class EditTaskActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void updateChips() {
+    private void updateTagChips() {
         tagChips.removeAllViews();
         task.getTags().forEach(t -> {
             Tag tag = globals.getTag(t);
@@ -376,5 +387,21 @@ public class EditTaskActivity extends AppCompatActivity {
                 getResources().getConfiguration().uiMode &
                         Configuration.UI_MODE_NIGHT_MASK;
         return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void resetBlockersList() {
+        List<UUID> blockers =
+                (parentProject != null) ?
+                        (parentProject.containsTask(task.getUUID()) ?
+                                globals.getValidBlockers(task.getUUID()) :
+                                parentProject.getTasks()
+                        ) :
+                        new ArrayList<UUID>();
+        if (blockers.size() == 0)
+            emptyBlockersText.setVisibility(View.VISIBLE);
+        else
+            emptyBlockersText.setVisibility(View.INVISIBLE);
+        blockersRecycler.setAdapter(new BlockerAdapter(this, blockers, task));
     }
 }

@@ -8,9 +8,11 @@ import androidx.annotation.RequiresApi;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -71,7 +73,38 @@ public class Globals {
         return tasks.get(taskUUID);
     }
 
-    public List<UUID> getTasks() { return new ArrayList<>(tasks.keySet()); }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public List<UUID> getValidBlockers(UUID taskUUID) {
+        Set<UUID> retSet = new HashSet<>(getParentProject(taskUUID).getTasks());
+        retSet.remove(taskUUID);
+        retSet.removeAll(getAllDependants(taskUUID));
+        return retSet.stream().map(this::getTask).sorted((b1, b2) -> b1.getTitle().compareTo(b2.getTitle()))
+                .map(Task::getUUID).collect(Collectors.toList());
+    }
+//    public List<UUID> getValidBlockers(UUID taskUUID) {
+//        Set<UUID> retSet = new HashSet<>(getParentProject(taskUUID).getTasks());
+//        retSet.remove(taskUUID);
+//        retSet.removeAll(getAllDependants(taskUUID));
+//        return tasks.entrySet()
+//                .stream()
+//                .filter(t -> retSet.contains(t.getKey()))
+//                .map(Map.Entry::getValue)
+//                .sorted(new TaskAlphabetizer())
+//                .map(Task::getUUID)
+//                .collect(Collectors.toList());
+//    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public Set<UUID> getAllDependants(UUID taskUUID) {
+        Set<UUID> allDependants = new HashSet<>();
+        for (UUID id : getParentProject(taskUUID).getTasks()) {
+            if (getTask(id).getBlockers().contains(taskUUID)) {
+                allDependants.add(id);
+                allDependants.addAll(getAllDependants(id));
+            }
+        }
+        return allDependants;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public List<UUID> getOrderedTasks() {
@@ -554,6 +587,12 @@ public class Globals {
     {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return timestamp;
+    }
+
+    static class TaskAlphabetizer implements Comparator<Task> {
+        public int compare(Task t1, Task t2) {
+            return t1.getTitle().compareTo(t2.getTitle());
+        }
     }
 
     static class TaskComparator implements Comparator<Task> {

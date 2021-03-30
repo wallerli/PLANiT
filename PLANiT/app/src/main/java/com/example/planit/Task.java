@@ -1,13 +1,10 @@
 package com.example.planit;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -96,57 +93,31 @@ public class Task {
         this.priority = priority;
     }
 
-    public boolean addTag(UUID uuid) {
-        return this.tags.add(uuid);
+    public void addTag(UUID uuid) {
+        this.tags.add(uuid);
     }
 
     public boolean containsTag(UUID uuid) {
         return this.tags.contains(uuid);
     }
 
-    public boolean removeTag(UUID uuid) {
-        return this.tags.remove(uuid);
+    public void removeTag(UUID uuid) {
+        this.tags.remove(uuid);
     }
 
-    public boolean addBlocker(UUID uuid) {
-        return this.blockers.add(uuid);
+    public void addBlocker(UUID uuid) {
+        this.blockers.add(uuid);
     }
 
     public boolean containsBlocker(UUID uuid) {
         return this.blockers.contains(uuid);
     }
 
-    public boolean removeBlocker(UUID uuid) {
-        return this.blockers.remove(uuid);
+    public void removeBlocker(UUID uuid) {
+        this.blockers.remove(uuid);
     }
 
-    /**
-     * @param uuid the uuid of new blocker
-     * @return 0 if new blocker is legitimate;
-     *          1 if new blocker is the same as current task;
-     *          2 if new blocker is blocked by current task
-     */
-    public int verifyBlocker(UUID uuid) {
-        Globals globals = Globals.getInstance();
-        if (uuid.equals(this.uuid))
-            return 1;
-        if (globals.getTask(uuid).allBlockers().contains(this.uuid))
-            return 2;
-        return 0;
-    }
-
-    /**
-     * @return recursively all blockers of the current task
-     */
-    public Set<UUID> allBlockers() {
-        Set<UUID> allBlockers = Collections.emptySet();
-        Globals globals = Globals.getInstance();
-        for (UUID blocker : this.blockers) {
-            allBlockers.add(blocker);
-            allBlockers.addAll(globals.getTask(blocker).allBlockers());
-        }
-        return allBlockers;
-    }
+    public void removeAllBlockers() { this.blockers = new HashSet<>(); }
 
     public Set<UUID> getBlockers() {
         return blockers;
