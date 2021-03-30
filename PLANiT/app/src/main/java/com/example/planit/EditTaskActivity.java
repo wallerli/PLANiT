@@ -198,10 +198,16 @@ public class EditTaskActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (act_projects.getText().toString().length() == 0)
+                if (act_projects.getText().toString().length() == 0) {
                     parentInput.setError("Select a project to assign this task to");
-                else if (parentProject == null || !act_projects.getText().toString().equals(parentProject.getTitle()))
+                    parentProject = null;
+                    resetBlockersList();
+                }
+                else if (parentProject == null || !act_projects.getText().toString().equals(parentProject.getTitle())) {
                     parentInput.setError("Select a project from the drop down menu");
+                    parentProject = null;
+                    resetBlockersList();
+                }
                 else
                     parentInput.setError(null);
             }
@@ -392,12 +398,10 @@ public class EditTaskActivity extends AppCompatActivity {
                                 parentProject.getTasks()
                         ) :
                         new ArrayList<UUID>();
-        if (blockers.size() == 0) {
+        if (blockers.size() == 0)
             emptyBlockersText.setVisibility(View.VISIBLE);
-        }
-        else {
+        else
             emptyBlockersText.setVisibility(View.INVISIBLE);
-            blockersRecycler.setAdapter(new BlockerAdapter(this, blockers, task));
-        }
+        blockersRecycler.setAdapter(new BlockerAdapter(this, blockers, task));
     }
 }
