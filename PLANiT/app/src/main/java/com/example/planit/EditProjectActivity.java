@@ -130,10 +130,10 @@ public class EditProjectActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 switch (Project.validateTitle(s.toString())) {
                     case 1:
-                        titleInput.setError("The title cannot be empty");
+                        titleInput.setError("The title cannot be empty.");
                         break;
                     case 2:
-                        titleInput.setError("This title is too long");
+                        titleInput.setError("This title is too long.");
                         break;
                     default:
                         titleInput.setError(null);
@@ -150,10 +150,10 @@ public class EditProjectActivity extends AppCompatActivity {
             if (!hasFocus) {
                 switch (Task.validateTitle(project.getTitle())) {
                     case 1:
-                        titleInput.setError("The title cannot be empty");
+                        titleInput.setError("The title cannot be empty.");
                         break;
                     case 2:
-                        titleInput.setError("This title is too long");
+                        titleInput.setError("This title is too long.");
                         break;
                     default:
                         titleInput.setError(null);
@@ -169,7 +169,7 @@ public class EditProjectActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 switch (Project.validateText(s.toString())) {
                     case 2:
-                        textInput.setError("This description is too long");
+                        textInput.setError("This description is too long.");
                         break;
                     default:
                         textInput.setError(null);
@@ -184,9 +184,9 @@ public class EditProjectActivity extends AppCompatActivity {
 
         text.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
-                switch (Task.validateTitle(project.getText())) {
+                switch (Task.validateText(project.getText())) {
                     case 2:
-                        textInput.setError("This description is too long");
+                        textInput.setError("This description is too long.");
                         break;
                     default:
                         textInput.setError(null);

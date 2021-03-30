@@ -147,10 +147,10 @@ public class EditTaskActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 switch (Task.validateTitle(s.toString())) {
                     case 1:
-                        titleInput.setError("The title cannot be empty");
+                        titleInput.setError("The title cannot be empty.");
                         break;
                     case 2:
-                        titleInput.setError("This title is too long");
+                        titleInput.setError("This title is too long.");
                         break;
                     default:
                         titleInput.setError(null);
@@ -167,10 +167,10 @@ public class EditTaskActivity extends AppCompatActivity {
             if (!hasFocus) {
                 switch (Task.validateTitle(task.getTitle())) {
                     case 1:
-                        titleInput.setError("The title cannot be empty");
+                        titleInput.setError("The title cannot be empty.");
                         break;
                     case 2:
-                        titleInput.setError("This title is too long");
+                        titleInput.setError("This title is too long.");
                         break;
                     default:
                         titleInput.setError(null);
@@ -189,7 +189,7 @@ public class EditTaskActivity extends AppCompatActivity {
         act_projects.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 if (act_projects.getText().toString().length() == 0)
-                    parentInput.setError("Select a project to assign this task to");
+                    parentInput.setError("Select a project to assign this task to.");
             }
         });
 
@@ -200,12 +200,12 @@ public class EditTaskActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (act_projects.getText().toString().length() == 0) {
-                    parentInput.setError("Select a project to assign this task to");
+                    parentInput.setError("Select a project to assign this task to.");
                     parentProject = null;
                     resetBlockersList();
                 }
                 else if (parentProject == null || !act_projects.getText().toString().equals(parentProject.getTitle())) {
-                    parentInput.setError("Select a project from the drop down menu");
+                    parentInput.setError("Select a project from the drop down menu.");
                     parentProject = null;
                     resetBlockersList();
                 }
@@ -231,7 +231,7 @@ public class EditTaskActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 switch (Task.validateText(s.toString())) {
                     case 2:
-                        textInput.setError("This description is too long");
+                        textInput.setError("This description is too long.");
                         break;
                     default:
                         textInput.setError(null);
@@ -246,9 +246,9 @@ public class EditTaskActivity extends AppCompatActivity {
 
         textEdit.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
-                switch (Task.validateTitle(task.getText())) {
+                switch (Task.validateText(task.getText())) {
                     case 2:
-                        textInput.setError("This description is too long");
+                        textInput.setError("This description is too long.");
                         break;
                     default:
                         textInput.setError(null);
