@@ -233,7 +233,7 @@ public class Globals {
 
         Task task2 = new Task("Milestone 2 Demonstration", Size.HUGE, Priority.HIGH);
         task2.addTag(tag3.getUUID());
-        task2.addTag(tag4.getUUID());
+        task2.addTag(tag1.getUUID());
         task2.setText("" +
                 "A functional prototype of our app, PLANit, needs to be complete for a demonstration. See Github for to-dos and to keep on track. \n" +
                 "Key grading points:\n" +
@@ -262,7 +262,7 @@ public class Globals {
                 "");
         project1.addTag(tag0.getUUID());
         try {
-            project1.setDueDate(df.parse("03/01/2021 23:59"));
+            project1.setDueDate(df.parse("04/30/2021 23:59"));
         } catch (ParseException ignored) {}
 
         Task task3 = new Task("Make a list of employees missing from “About us” page", Size.MEDIUM, Priority.LOW);
@@ -367,7 +367,7 @@ public class Globals {
         addTask(task8);
         addTask(task9);
 
-        Project project5 = new Project("Prepare for An Exam");
+        Project project5 = new Project("Prepare for My Exam");
         project5.setText(""+"Prepare for an exam on this Friday"+"");
         try{
             project5.setDueDate(df.parse("4/2/2021 13:00"));
@@ -513,8 +513,8 @@ public class Globals {
         addTask(task25);
         addTask(task26);
 
-        Project project8 = new Project("Do the Laundry");
-        project8.setText("Do the laundry before the end of this week!" +
+        Project project8 = new Project("Do Laundry");
+        project8.setText("Do laundry before the end of this week!" +
                 "" +
                 "");
         try {
@@ -527,6 +527,7 @@ public class Globals {
         Task task28 = new Task("Put Delicate Clothes into Laundry Bags", Size.MEDIUM, Priority.HIGH);
         task28.setCompleteStatus(false);
         task28.setText("Put delicate clothes into laundry bags");
+        task28.addTag(tag4.getUUID());
 
         Task task29 = new Task("Put All Clothes into Washer", Size.HUGE, Priority.LOW);
         task29.setCompleteStatus(false);
