@@ -86,6 +86,6 @@
     <string name="delete_task_button_text">DELETE TASK</string>
     <string name="delete_project_button_text">DELETE PROJECT</string>
 
-    <string name="empty_blocker_list">There are no tasks that can block this one.</string>
+    <string name="empty_blocker_list">No task can block this one 😎</string>
     <string name="to_be_implemented">Coming soon</string>
 </resources>

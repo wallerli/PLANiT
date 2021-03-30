@@ -56,7 +56,7 @@ public class EditTaskActivity extends AppCompatActivity {
     ChipGroup sizeChips;
     ChipGroup priorityChips;
     ChipGroup tagChips;
-    TextView emptyTagsText, emptyBlockersText;
+    TextView emptyTagsText, emptyBlockersText, blockersLabel;
     RecyclerView blockersRecycler;
     Button delete;
 
@@ -87,6 +87,7 @@ public class EditTaskActivity extends AppCompatActivity {
         emptyTagsText = findViewById(R.id.empty_tags_text);
         emptyBlockersText = findViewById(R.id.empty_blockers_text);
         blockersRecycler = findViewById(R.id.blockers);
+        blockersLabel = findViewById(R.id.blockers_label);
         blockersRecycler.setHasFixedSize(true);
         blockersRecycler.setLayoutManager(new LinearLayoutManager(this));
         blockersRecycler.setNestedScrollingEnabled(false);
@@ -276,6 +277,10 @@ public class EditTaskActivity extends AppCompatActivity {
                 @ColorInt int color = typedValue.data;
                 b.setTextColor(color);
             }
+        });
+
+        blockersLabel.setOnClickListener(v -> {
+
         });
     }
 
