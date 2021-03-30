@@ -78,14 +78,21 @@ public class Globals {
         Set<UUID> retSet = new HashSet<>(getParentProject(taskUUID).getTasks());
         retSet.remove(taskUUID);
         retSet.removeAll(getAllDependants(taskUUID));
-        return tasks.entrySet()
-                .stream()
-                .filter(t -> retSet.contains(t.getKey()))
-                .map(Map.Entry::getValue)
-                .sorted(new TaskAlphabetizer())
-                .map(Task::getUUID)
-                .collect(Collectors.toList());
+        return retSet.stream().map(this::getTask).sorted((b1, b2) -> b1.getTitle().compareTo(b2.getTitle()))
+                .map(Task::getUUID).collect(Collectors.toList());
     }
+//    public List<UUID> getValidBlockers(UUID taskUUID) {
+//        Set<UUID> retSet = new HashSet<>(getParentProject(taskUUID).getTasks());
+//        retSet.remove(taskUUID);
+//        retSet.removeAll(getAllDependants(taskUUID));
+//        return tasks.entrySet()
+//                .stream()
+//                .filter(t -> retSet.contains(t.getKey()))
+//                .map(Map.Entry::getValue)
+//                .sorted(new TaskAlphabetizer())
+//                .map(Task::getUUID)
+//                .collect(Collectors.toList());
+//    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public Set<UUID> getAllDependants(UUID taskUUID) {
