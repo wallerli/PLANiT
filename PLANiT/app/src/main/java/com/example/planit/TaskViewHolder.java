@@ -27,7 +27,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     CircularProgressIndicator indicator;
     ChipGroup chips;
     Chip sizeChip, priorityChip;
-    ImageView blockedIndicator;
+    ImageView blockedIndicator, doneIndicator;
     boolean completed;
     boolean unblocked;
     final int completeThickness;
@@ -44,6 +44,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         sizeChip = itemView.findViewById(R.id.sizeChip);
         priorityChip = itemView.findViewById(R.id.priorityChip);
         blockedIndicator = itemView.findViewById(R.id.blocked_indicator);
+        doneIndicator = itemView.findViewById(R.id.done_indicator);
 
         itemView.findViewById(R.id.taskClickBox).setOnClickListener(v -> {
             openTask(v.getContext());
@@ -57,18 +58,21 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         indicator.setProgress(100);
         indicator.setTrackThickness(completeThickness);
         blockedIndicator.setVisibility(View.INVISIBLE);
+        doneIndicator.setVisibility(View.VISIBLE);
     }
 
     public void setIncomplete() {
         indicator.setProgress(100);
         indicator.setTrackThickness(incompleteThickness);
         blockedIndicator.setVisibility(View.INVISIBLE);
+        doneIndicator.setVisibility(View.INVISIBLE);
     }
 
     public void setBlocked() {
         indicator.setProgress(0);
         indicator.setTrackThickness(incompleteThickness);
         blockedIndicator.setVisibility(View.VISIBLE);
+        doneIndicator.setVisibility(View.INVISIBLE);
     }
 
     public void openTask(Context c) {

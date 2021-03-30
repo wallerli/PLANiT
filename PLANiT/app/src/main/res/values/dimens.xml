@@ -23,14 +23,15 @@
 
     <dimen name="project_indicator_size">32dp</dimen>
     <dimen name="project_indicator_size_large">60dp</dimen>
+    <dimen name="project_indicator_thickness_large">19.5dp</dimen>
+    <dimen name="project_indicator_thickness">10.5dp</dimen>
 
-    <dimen name="task_indicator_complete_thickness">18dp</dimen>
-    <dimen name="task_indicator_complete_thickness_large">30dp</dimen>
+    <dimen name="task_indicator_complete_thickness">4dp</dimen>
+    <dimen name="task_indicator_complete_thickness_large">8dp</dimen>
     <dimen name="task_indicator_incomplete_thickness">4dp</dimen>
     <dimen name="task_indicator_incomplete_thickness_large">8dp</dimen>
-
-    <dimen name="project_indicator_thickness_large">18dp</dimen>
-    <dimen name="project_indicator_thickness">10dp</dimen>
+    <dimen name="task_indicator_padding">8.35dp</dimen>
+    <dimen name="task_indicator_padding_large">11.8dp</dimen>
 
     <dimen name="view_task_title_width">280dp</dimen>
 
