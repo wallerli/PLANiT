@@ -78,7 +78,13 @@ public class Globals {
         Set<UUID> retSet = new HashSet<>(getParentProject(taskUUID).getTasks());
         retSet.remove(taskUUID);
         retSet.removeAll(getAllDependants(taskUUID));
-        return new ArrayList<>(retSet);
+        return tasks.entrySet()
+                .stream()
+                .filter(t -> retSet.contains(t.getKey()))
+                .map(Map.Entry::getValue)
+                .sorted(new TaskAlphabetizer())
+                .map(Task::getUUID)
+                .collect(Collectors.toList());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -573,6 +579,12 @@ public class Globals {
     {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return timestamp;
+    }
+
+    static class TaskAlphabetizer implements Comparator<Task> {
+        public int compare(Task t1, Task t2) {
+            return t1.getTitle().compareTo(t2.getTitle());
+        }
     }
 
     static class TaskComparator implements Comparator<Task> {
