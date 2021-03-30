@@ -94,7 +94,7 @@ public class SecondFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         emptyRecyclerText = view.findViewById(R.id.empty_recycler_text);
-        fab = getActivity().findViewById(R.id.fab);
+        fab = requireActivity().findViewById(R.id.fab);
         showAllTasks();
 
         handler = new Handler();
@@ -182,15 +182,14 @@ public class SecondFragment extends Fragment {
             Globals globals = Globals.getInstance();
             List<UUID> newFilteredTasks = globals.getOrderedTasks().stream().filter(t ->
                     globals.getTask(t).getTitle().toLowerCase().contains(filter.toLowerCase())).collect(Collectors.toList());
-            if (filteredTasks != null && recyclerView.getAdapter().getItemCount() == newFilteredTasks.size()
+            if (filteredTasks != null && Objects.requireNonNull(recyclerView.getAdapter()).getItemCount() == newFilteredTasks.size()
                     && filteredTasks.size() == newFilteredTasks.size() && filteredTasks.containsAll(newFilteredTasks)) {
                 filteredTasks = newFilteredTasks;
                 recyclerView.getAdapter().notifyDataSetChanged();
             } else {
                 filteredTasks = newFilteredTasks;
-                recyclerView.setAdapter(new ProjectAdapter(view.getContext(), filteredTasks));
+                recyclerView.setAdapter(new TaskAdapter(view.getContext(), filteredTasks));
             }
-            recyclerView.setAdapter(new TaskAdapter(view.getContext(), filteredTasks));
             if (filteredTasks.size() == 0)
                 emptyRecyclerText.setVisibility(View.VISIBLE);
             else
