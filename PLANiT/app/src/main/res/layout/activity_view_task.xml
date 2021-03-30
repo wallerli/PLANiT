@@ -77,6 +77,21 @@
                         app:srcCompat="@drawable/ic_baseline_done_24"
                         app:tint="?colorSurface" />
 
+                    <ImageView
+                        android:id="@+id/blocked_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@id/task_indicator"
+                        android:layout_alignLeft="@id/task_indicator"
+                        android:layout_alignTop="@id/task_indicator"
+                        android:layout_alignEnd="@id/task_indicator"
+                        android:layout_alignRight="@id/task_indicator"
+                        android:layout_alignBottom="@id/task_indicator"
+                        android:layout_gravity="center"
+                        android:padding="11.5dp"
+                        app:srcCompat="@drawable/ic_baseline_remove_outline_24"
+                        app:tint="?colorSecondaryVariant" />
+
                     <TextView
                         android:id="@+id/task_indicator_text"
                         android:layout_width="match_parent"
@@ -95,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/taskTitles"
-                android:textColor="?colorPrimary"
+                android:textColor="?colorSecondary"
                 android:paddingBottom="@dimen/sub_title_padding"
                 android:paddingTop="@dimen/sub_title_padding"
                 android:layout_marginTop="@dimen/subtitle_margin"

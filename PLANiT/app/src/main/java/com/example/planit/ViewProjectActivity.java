@@ -191,6 +191,9 @@ public class ViewProjectActivity extends AppCompatActivity {
     public void updateProgress() {
         project = Globals.getInstance().getProject(projectUUID);
         indicator.setProgress((int) (100 * project.getCompleteness()));
-        completenessText.setText(String.format(Locale.getDefault(), "%.1f%%", 100 * project.getCompleteness()));
+        if (project.getCompleteness() < 1)
+            completenessText.setText(String.format(Locale.getDefault(), "%.1f%%", 100 * project.getCompleteness()));
+        else
+            completenessText.setText(R.string.done);
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     CircularProgressIndicator indicator;
     ChipGroup chips;
     Chip sizeChip, priorityChip;
+    ImageView blockedIndicator;
     boolean completed;
     boolean unblocked;
     final int completeThickness;
@@ -41,6 +43,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         chips = itemView.findViewById(R.id.taskTags);
         sizeChip = itemView.findViewById(R.id.sizeChip);
         priorityChip = itemView.findViewById(R.id.priorityChip);
+        blockedIndicator = itemView.findViewById(R.id.blocked_indicator);
 
         itemView.findViewById(R.id.taskClickBox).setOnClickListener(v -> {
             openTask(v.getContext());
@@ -53,16 +56,19 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     public void setComplete() {
         indicator.setProgress(100);
         indicator.setTrackThickness(completeThickness);
+        blockedIndicator.setVisibility(View.INVISIBLE);
     }
 
     public void setIncomplete() {
         indicator.setProgress(100);
         indicator.setTrackThickness(incompleteThickness);
+        blockedIndicator.setVisibility(View.INVISIBLE);
     }
 
     public void setBlocked() {
         indicator.setProgress(0);
         indicator.setTrackThickness(incompleteThickness);
+        blockedIndicator.setVisibility(View.VISIBLE);
     }
 
     public void openTask(Context c) {
