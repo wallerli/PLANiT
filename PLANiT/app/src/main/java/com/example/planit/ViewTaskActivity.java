@@ -35,7 +35,7 @@ public class ViewTaskActivity extends AppCompatActivity {
     Task task;
     TextView title, projectTitle, text, emptyRecyclerText, indicatorText;
     RecyclerView recyclerView;
-    ImageView blockedIndicator;
+    ImageView blockedIndicator, doneIndicator;
     List<UUID> blockers = new ArrayList<>();
     List<UUID> tags = new ArrayList<>();
     CircularProgressIndicator indicator;
@@ -88,6 +88,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         indicatorText = findViewById(R.id.task_indicator_text);
         recyclerView = findViewById(R.id.tasksRecyclerView);
         blockedIndicator = findViewById(R.id.blocked_indicator);
+        doneIndicator = findViewById(R.id.done_indicator);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNestedScrollingEnabled(false);
@@ -190,8 +191,9 @@ public class ViewTaskActivity extends AppCompatActivity {
     public void setComplete() {
         indicator.setProgress(100);
         indicator.setTrackThickness(completeThickness);
-        indicatorText.setText(R.string.done);
+        indicatorText.setText(R.string.nice_work);
         blockedIndicator.setVisibility(View.INVISIBLE);
+        doneIndicator.setVisibility(View.VISIBLE);
     }
 
     public void setIncomplete() {
@@ -199,6 +201,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         indicator.setTrackThickness(incompleteThickness);
         indicatorText.setText(R.string.done_question_mark);
         blockedIndicator.setVisibility(View.INVISIBLE);
+        doneIndicator.setVisibility(View.INVISIBLE);
     }
 
     public void setBlocked() {
@@ -206,6 +209,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         indicator.setTrackThickness(incompleteThickness);
         indicatorText.setText(R.string.blocked);
         blockedIndicator.setVisibility(View.VISIBLE);
+        doneIndicator.setVisibility(View.INVISIBLE);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

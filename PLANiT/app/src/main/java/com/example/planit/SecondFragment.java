@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -51,6 +50,7 @@ public class SecondFragment extends Fragment {
                 searchView.clearFocus();
         } else {
             showFilteredTasks();
+            searchView.requestFocus();
         }
         if (fab != null && fab.getVisibility() != View.VISIBLE) {
             fab.show();
@@ -78,7 +78,6 @@ public class SecondFragment extends Fragment {
         super.onPause();
         if (searchView != null)
             searchView.clearFocus();
-        if (((TabLayout)getActivity().findViewById(R.id.tabLayout)).getSelectedTabPosition() == 0) onResume();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -95,7 +94,7 @@ public class SecondFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         emptyRecyclerText = view.findViewById(R.id.empty_recycler_text);
-        fab = getActivity().findViewById(R.id.fab);
+        fab = requireActivity().findViewById(R.id.fab);
         showAllTasks();
 
         handler = new Handler();
@@ -112,6 +111,23 @@ public class SecondFragment extends Fragment {
                 }
             }
         });
+
+        ((TabLayout) requireActivity().findViewById(R.id.tabLayout)).addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 1)  {
+                    onResume();
+                    recyclerView.scrollToPosition(0);
+                }
+            }
+        });
+
         return view;
     }
 
@@ -147,10 +163,8 @@ public class SecondFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public boolean onQueryTextChange(String newText) {
-                new Handler().postDelayed(() -> {
-                    filter = newText;
-                    showFilteredTasks();
-                }, 500);
+                filter = newText;
+                showFilteredTasks();
                 return false;
             }
         });
@@ -168,15 +182,14 @@ public class SecondFragment extends Fragment {
             Globals globals = Globals.getInstance();
             List<UUID> newFilteredTasks = globals.getOrderedTasks().stream().filter(t ->
                     globals.getTask(t).getTitle().toLowerCase().contains(filter.toLowerCase())).collect(Collectors.toList());
-            if (filteredTasks != null && recyclerView.getAdapter().getItemCount() == newFilteredTasks.size()
+            if (filteredTasks != null && Objects.requireNonNull(recyclerView.getAdapter()).getItemCount() == newFilteredTasks.size()
                     && filteredTasks.size() == newFilteredTasks.size() && filteredTasks.containsAll(newFilteredTasks)) {
                 filteredTasks = newFilteredTasks;
                 recyclerView.getAdapter().notifyDataSetChanged();
             } else {
                 filteredTasks = newFilteredTasks;
-                recyclerView.setAdapter(new ProjectAdapter(view.getContext(), filteredTasks));
+                recyclerView.setAdapter(new TaskAdapter(view.getContext(), filteredTasks));
             }
-            recyclerView.setAdapter(new TaskAdapter(view.getContext(), filteredTasks));
             if (filteredTasks.size() == 0)
                 emptyRecyclerText.setVisibility(View.VISIBLE);
             else
