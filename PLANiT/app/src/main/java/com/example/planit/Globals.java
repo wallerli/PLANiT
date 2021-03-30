@@ -207,7 +207,7 @@ public class Globals {
 
         Task task2 = new Task("Milestone 2 Demonstration", Size.HUGE, Priority.HIGH);
         task2.addTag(tag3.getUUID());
-        task2.addTag(tag4.getUUID());
+        task2.addTag(tag1.getUUID());
         task2.setText("" +
                 "A functional prototype of our app, PLANit, needs to be complete for a demonstration. See Github for to-dos and to keep on track. \n" +
                 "Key grading points:\n" +
@@ -501,6 +501,7 @@ public class Globals {
         Task task28 = new Task("Put Delicate Clothes into Laundry Bags", Size.MEDIUM, Priority.HIGH);
         task28.setCompleteStatus(false);
         task28.setText("Put delicate clothes into laundry bags");
+        task28.addTag(tag4.getUUID());
 
         Task task29 = new Task("Put All Clothes into Washer", Size.HUGE, Priority.LOW);
         task29.setCompleteStatus(false);

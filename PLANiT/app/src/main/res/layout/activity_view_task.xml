@@ -88,7 +88,7 @@
                         android:layout_alignRight="@id/task_indicator"
                         android:layout_alignBottom="@id/task_indicator"
                         android:layout_gravity="center"
-                        android:padding="12dp"
+                        android:padding="11.5dp"
                         app:srcCompat="@drawable/ic_baseline_remove_outline_24"
                         app:tint="?colorSecondaryVariant" />
 
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/taskTitles"
-                android:textColor="?colorPrimary"
+                android:textColor="?colorSecondary"
                 android:paddingBottom="@dimen/sub_title_padding"
                 android:paddingTop="@dimen/sub_title_padding"
                 android:layout_marginTop="@dimen/subtitle_margin"
