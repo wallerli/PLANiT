@@ -16,13 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -52,6 +50,7 @@ public class FirstFragment extends Fragment {
                 searchView.clearFocus();
         } else {
             showFilteredProjects();
+            searchView.requestFocus();
         }
         if (fab != null && fab.getVisibility() != View.VISIBLE) {
             fab.show();
@@ -79,7 +78,6 @@ public class FirstFragment extends Fragment {
         super.onPause();
         if (searchView != null)
             searchView.clearFocus();
-        if (((TabLayout)getActivity().findViewById(R.id.tabLayout)).getSelectedTabPosition() == 1) onResume();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -97,7 +95,7 @@ public class FirstFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
         emptyRecyclerText = view.findViewById(R.id.empty_recycler_text);
-        fab = getActivity().findViewById(R.id.fab);
+        fab = requireActivity().findViewById(R.id.fab);
         showAllProjects();
 
         handler = new Handler();
@@ -114,6 +112,23 @@ public class FirstFragment extends Fragment {
                 }
             }
         });
+
+        ((TabLayout) requireActivity().findViewById(R.id.tabLayout)).addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 0)  {
+                    onResume();
+                    recyclerView.scrollToPosition(0);
+                }
+            }
+        });
+
         return view;
     }
 
@@ -149,10 +164,8 @@ public class FirstFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public boolean onQueryTextChange(String newText) {
-                new Handler().postDelayed(() -> {
-                    filter = newText;
-                    showFilteredProjects();
-                }, 500);
+                filter = newText;
+                showFilteredProjects();
                 return false;
             }
         });

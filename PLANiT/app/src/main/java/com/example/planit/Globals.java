@@ -230,7 +230,7 @@ public class Globals {
         task2.addTag(tag3.getUUID());
         task2.addTag(tag1.getUUID());
         task2.setText("" +
-                "A functional prototype of our app, PLANit, needs to be complete for a demonstration. See Github for to-dos and to keep on track. \n" +
+                "A functional prototype of our app, PLANiT, needs to be complete for a demonstration. See Github for to-dos and to keep on track. \n" +
                 "Key grading points:\n" +
                 "* Implement most of the details previously conceptualized\n" +
                 "* Explain changes\n" +

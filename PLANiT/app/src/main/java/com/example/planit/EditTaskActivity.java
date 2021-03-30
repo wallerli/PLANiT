@@ -56,7 +56,7 @@ public class EditTaskActivity extends AppCompatActivity {
     ChipGroup sizeChips;
     ChipGroup priorityChips;
     ChipGroup tagChips;
-    TextView emptyTagsText, emptyBlockersText;
+    TextView emptyTagsText, emptyBlockersText, blockersLabel;
     RecyclerView blockersRecycler;
     Button delete;
 
@@ -87,6 +87,7 @@ public class EditTaskActivity extends AppCompatActivity {
         emptyTagsText = findViewById(R.id.empty_tags_text);
         emptyBlockersText = findViewById(R.id.empty_blockers_text);
         blockersRecycler = findViewById(R.id.blockers);
+        blockersLabel = findViewById(R.id.blockers_label);
         blockersRecycler.setHasFixedSize(true);
         blockersRecycler.setLayoutManager(new LinearLayoutManager(this));
         blockersRecycler.setNestedScrollingEnabled(false);
@@ -276,6 +277,15 @@ public class EditTaskActivity extends AppCompatActivity {
                 @ColorInt int color = typedValue.data;
                 b.setTextColor(color);
             }
+        });
+
+        blockersLabel.setOnClickListener(v -> {AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("What will happen if a task is blocked?");
+            alertDialog.setMessage("When a task is blocked, it cannot be completed until all other tasks in the \"Blocked by\" list are completed first.\n\n" +
+                    "Select the list from tasks in the same project. Tasks blocked by the current task are hidden.");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
+                    (dialog, which) -> dialog.dismiss());
+            alertDialog.show();
         });
     }
 

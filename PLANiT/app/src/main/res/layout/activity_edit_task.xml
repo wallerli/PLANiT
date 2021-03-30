@@ -163,7 +163,7 @@
                 android:layout_below="@id/priority_chips"
                 android:layout_marginTop="@dimen/title_margin"
                 android:text="@string/tags_label_text"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/tag_chips"
@@ -204,7 +204,8 @@
                 android:layout_below="@id/descriptionText"
                 android:layout_marginTop="@dimen/title_margin"
                 android:text="@string/blocked_by"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:drawableRightCompat="@drawable/ic_baseline_help_outline_24" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/blockers"

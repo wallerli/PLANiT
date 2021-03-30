@@ -26,6 +26,7 @@
             app:indicatorSize="@dimen/task_indicator_size" />
 
         <ImageView
+            android:id="@+id/done_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/task_indicator"
@@ -33,10 +34,11 @@
             android:layout_alignRight="@id/task_indicator"
             android:layout_alignLeft="@id/task_indicator"
             android:layout_alignStart="@id/task_indicator"
-            android:padding="10dp"
+            android:padding="@dimen/task_indicator_padding"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_baseline_done_24"
-            app:tint="?colorSurface"
+            app:srcCompat="@drawable/ic_baseline_check_circle_24"
+            app:tint="?colorPrimary"
+            android:visibility="invisible"
             android:layout_alignEnd="@id/task_indicator" />
 
         <ImageView
@@ -50,7 +52,8 @@
             android:layout_alignRight="@id/task_indicator"
             android:layout_alignBottom="@id/task_indicator"
             android:layout_gravity="center"
-            android:padding="8dp"
+            android:padding="@dimen/task_indicator_padding"
+            android:visibility="invisible"
             app:srcCompat="@drawable/ic_baseline_remove_outline_24"
             app:tint="?colorSecondaryVariant" />
     </RelativeLayout>

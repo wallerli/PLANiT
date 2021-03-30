@@ -55,6 +55,7 @@
     <string name="priority_label_text">Priority</string>
     <string name="tags_label_text">Tags</string>
     <string name="done_question_mark">Done?</string>
+    <string name="nice_work">Nice work!</string>
     <string name="blocked">Blocked</string>
     <string name="indicator_progress">0.0%</string>
     <string name="no_due_date">No Due Date</string>
@@ -86,6 +87,6 @@
     <string name="delete_task_button_text">DELETE TASK</string>
     <string name="delete_project_button_text">DELETE PROJECT</string>
 
-    <string name="empty_blocker_list">There are no tasks that can block this one.</string>
+    <string name="empty_blocker_list">No task can block this one 😎</string>
     <string name="to_be_implemented">Coming soon</string>
 </resources>
