@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -51,6 +50,7 @@ public class SecondFragment extends Fragment {
                 searchView.clearFocus();
         } else {
             showFilteredTasks();
+            searchView.requestFocus();
         }
         if (fab != null && fab.getVisibility() != View.VISIBLE) {
             fab.show();
@@ -78,7 +78,7 @@ public class SecondFragment extends Fragment {
         super.onPause();
         if (searchView != null)
             searchView.clearFocus();
-        if (((TabLayout)getActivity().findViewById(R.id.tabLayout)).getSelectedTabPosition() == 0) onResume();
+        if (((TabLayout) requireActivity().findViewById(R.id.tabLayout)).getSelectedTabPosition() == 0) onResume();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -147,10 +147,8 @@ public class SecondFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public boolean onQueryTextChange(String newText) {
-                new Handler().postDelayed(() -> {
-                    filter = newText;
-                    showFilteredTasks();
-                }, 500);
+                filter = newText;
+                showFilteredTasks();
                 return false;
             }
         });
