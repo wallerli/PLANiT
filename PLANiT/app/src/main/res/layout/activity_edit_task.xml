@@ -227,7 +227,6 @@
                 android:layout_marginTop="@dimen/description_margin"
                 android:layout_marginLeft="@dimen/title_margin"
                 android:layout_marginRight="@dimen/title_margin"
-                android:layout_marginBottom="@dimen/description_margin"
                 android:text="@string/empty_blocker_list"
                 android:textSize="@dimen/empty_recycler_hint" />
 
@@ -235,7 +234,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/blockers"
+                android:layout_below="@id/empty_blockers_text"
                 android:layout_margin="@dimen/fab_margin">
 
                 <Button
