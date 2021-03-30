@@ -78,7 +78,6 @@ public class FirstFragment extends Fragment {
         super.onPause();
         if (searchView != null)
             searchView.clearFocus();
-        if (((TabLayout) requireActivity().findViewById(R.id.tabLayout)).getSelectedTabPosition() == 1) onResume();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -113,6 +112,23 @@ public class FirstFragment extends Fragment {
                 }
             }
         });
+
+        ((TabLayout) requireActivity().findViewById(R.id.tabLayout)).addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 0)  {
+                    onResume();
+                    recyclerView.scrollToPosition(0);
+                }
+            }
+        });
+
         return view;
     }
 
