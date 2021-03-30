@@ -19,10 +19,12 @@ import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import android.widget.Button;
@@ -54,7 +56,7 @@ public class EditTaskActivity extends AppCompatActivity {
     ChipGroup sizeChips;
     ChipGroup priorityChips;
     ChipGroup tagChips;
-    TextView emptyTagsText;
+    TextView emptyTagsText, emptyBlockersText;
     RecyclerView blockersRecycler;
     Button delete;
 
@@ -83,6 +85,7 @@ public class EditTaskActivity extends AppCompatActivity {
         tagChips = findViewById(R.id.tag_chips);
         textEdit = findViewById(R.id.edit_description);
         emptyTagsText = findViewById(R.id.empty_tags_text);
+        emptyBlockersText = findViewById(R.id.empty_blockers_text);
         blockersRecycler = findViewById(R.id.blockers);
         blockersRecycler.setHasFixedSize(true);
         blockersRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -115,13 +118,10 @@ public class EditTaskActivity extends AppCompatActivity {
         sizeChips.check(sizeChipIDs[task.getSize().ordinal()]);
         priorityChips.check(priorityChipIDs[task.getPriority().ordinal()]);
         updateTagChips();
+        resetBlockersList();
 
         if (parentProject != null) {
             act_projects.setText(parentProject.getTitle());
-            blockersRecycler.setAdapter(new BlockerAdapter(this, globals.getValidBlockers(task.getUUID()), task.getUUID()));
-        }
-        else {
-            blockersRecycler.setAdapter(new BlockerAdapter(this, new ArrayList<>(), task.getUUID()));
         }
 
         // Get all project names to fill in menu
@@ -180,7 +180,8 @@ public class EditTaskActivity extends AppCompatActivity {
         act_projects.setOnItemClickListener((parent, view, position, id) -> {
             parentProject = new Project((Project) globals.getProjects().values().toArray()[arrayList_project.indexOf(act_projects.getAdapter().getItem(position))]);
             act_projects.setText(parentProject.getTitle());
-            blockersRecycler.setAdapter(new BlockerAdapter(this, globals.getValidBlockers(task.getUUID()), task.getUUID()));
+            task.removeAllBlockers();
+            resetBlockersList();
             parentInput.setError(null);
         });
 
@@ -380,5 +381,17 @@ public class EditTaskActivity extends AppCompatActivity {
                 getResources().getConfiguration().uiMode &
                         Configuration.UI_MODE_NIGHT_MASK;
         return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void resetBlockersList() {
+        List<UUID> blockers = (parentProject != null) ? (newTask ? parentProject.getTasks() : globals.getValidBlockers(task.getUUID())) : new ArrayList<UUID>();
+        if (blockers.size() == 0) {
+            emptyBlockersText.setVisibility(View.VISIBLE);
+        }
+        else {
+            emptyBlockersText.setVisibility(View.INVISIBLE);
+            blockersRecycler.setAdapter(new BlockerAdapter(this, blockers, task));
+        }
     }
 }

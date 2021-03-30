@@ -1,13 +1,10 @@
 package com.example.planit;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -96,29 +93,31 @@ public class Task {
         this.priority = priority;
     }
 
-    public boolean addTag(UUID uuid) {
-        return this.tags.add(uuid);
+    public void addTag(UUID uuid) {
+        this.tags.add(uuid);
     }
 
     public boolean containsTag(UUID uuid) {
         return this.tags.contains(uuid);
     }
 
-    public boolean removeTag(UUID uuid) {
-        return this.tags.remove(uuid);
+    public void removeTag(UUID uuid) {
+        this.tags.remove(uuid);
     }
 
-    public boolean addBlocker(UUID uuid) {
-        return this.blockers.add(uuid);
+    public void addBlocker(UUID uuid) {
+        this.blockers.add(uuid);
     }
 
     public boolean containsBlocker(UUID uuid) {
         return this.blockers.contains(uuid);
     }
 
-    public boolean removeBlocker(UUID uuid) {
-        return this.blockers.remove(uuid);
+    public void removeBlocker(UUID uuid) {
+        this.blockers.remove(uuid);
     }
+
+    public void removeAllBlockers() { this.blockers = new HashSet<>(); }
 
     public Set<UUID> getBlockers() {
         return blockers;

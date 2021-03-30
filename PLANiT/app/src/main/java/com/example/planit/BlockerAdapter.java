@@ -23,10 +23,10 @@ public class BlockerAdapter extends RecyclerView.Adapter<com.example.planit.Bloc
     private final Task contextTask;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public BlockerAdapter(Context mCtx, List<UUID> tasks, UUID contextTaskUUID) {
+    public BlockerAdapter(Context mCtx, List<UUID> tasks, Task contextTask) {
         this.mCtx = mCtx;
         this.tasks = tasks.stream().filter(Objects::nonNull).collect(Collectors.toList());
-        this.contextTask = globals.getTask(contextTaskUUID);
+        this.contextTask = contextTask;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

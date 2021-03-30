@@ -88,4 +88,5 @@
     <string name="delete_project_button_text">DELETE PROJECT</string>
 
     <string name="to_be_implemented">This function will be implemented in future.</string>
+    <string name="empty_blocker_list">There are no task that can block this one.</string>
 </resources>
