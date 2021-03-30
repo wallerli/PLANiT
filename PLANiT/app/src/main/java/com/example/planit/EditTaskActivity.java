@@ -385,7 +385,13 @@ public class EditTaskActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void resetBlockersList() {
-        List<UUID> blockers = (parentProject != null) ? (newTask ? parentProject.getTasks() : globals.getValidBlockers(task.getUUID())) : new ArrayList<UUID>();
+        List<UUID> blockers =
+                (parentProject != null) ?
+                        (parentProject.containsTask(task.getUUID()) ?
+                                globals.getValidBlockers(task.getUUID()) :
+                                parentProject.getTasks()
+                        ) :
+                        new ArrayList<UUID>();
         if (blockers.size() == 0) {
             emptyBlockersText.setVisibility(View.VISIBLE);
         }
