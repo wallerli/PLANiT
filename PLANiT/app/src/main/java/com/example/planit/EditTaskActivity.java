@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -116,6 +117,7 @@ public class EditTaskActivity extends AppCompatActivity {
             titleEdit.requestFocus();
         }
         setSupportActionBar(toolbar);
+        Globals.updateToolbarColor(this, toolbar);
         sizeChips.check(sizeChipIDs[task.getSize().ordinal()]);
         priorityChips.check(priorityChipIDs[task.getPriority().ordinal()]);
         updateTagChips();
@@ -130,7 +132,7 @@ public class EditTaskActivity extends AppCompatActivity {
             arrayList_project.add(p.getValue().getTitle());
         }
         act_projects.setAdapter(
-            isNightMode()
+            Globals.isNightMode(this)
                     ? new ArrayAdapter<>(getApplicationContext(), R.layout.custom_autocomplete_night, arrayList_project)
                     : new ArrayAdapter<>(getApplicationContext(), R.layout.custom_autocomplete, arrayList_project)
         );
@@ -390,13 +392,6 @@ public class EditTaskActivity extends AppCompatActivity {
         lChip.setOnClickListener(v ->
                 Toast.makeText(getApplicationContext(),R.string.to_be_implemented,Toast.LENGTH_SHORT).show());
         tagChips.addView(lChip);
-    }
-
-    private boolean isNightMode() {
-        int nightModeFlags =
-                getResources().getConfiguration().uiMode &
-                        Configuration.UI_MODE_NIGHT_MASK;
-        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

@@ -66,6 +66,7 @@ public class ViewProjectActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.view_toolbar);
         toolbar.setTitle("View Project");
         setSupportActionBar(toolbar);
+        Globals.updateToolbarColor(this, toolbar);
         toolbar.inflateMenu(R.menu.menu_toolbar_view);
 
         toolbar.setNavigationOnClickListener(view -> finish());

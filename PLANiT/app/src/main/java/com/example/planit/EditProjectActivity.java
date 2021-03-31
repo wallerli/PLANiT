@@ -110,6 +110,7 @@ public class EditProjectActivity extends AppCompatActivity {
             title.requestFocus();
         }
         setSupportActionBar(toolbar);
+        Globals.updateToolbarColor(this, toolbar);
         dueCLear.setEnabled(project.getDueDate() != null);
 
         toolbar.setNavigationOnClickListener(view -> finish());

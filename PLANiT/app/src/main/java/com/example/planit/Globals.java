@@ -1,8 +1,14 @@
 package com.example.planit;
 
+import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.TypedValue;
+import androidx.appcompat.widget.Toolbar;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
 
 import java.text.ParseException;
@@ -174,6 +180,29 @@ public class Globals {
         }
         addTask(task);
         return 0;
+    }
+
+    public static boolean isNightMode(Context ctx) {
+        int nightModeFlags =
+                ctx.getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    public static void updateToolbarColor(Context ctx, Toolbar toolbar) {
+        if (isNightMode(ctx)) {
+            TypedValue typedValue = new TypedValue();
+            Resources.Theme theme = ctx.getTheme();
+            theme.resolveAttribute(R.attr.backgroundColor, typedValue, true);
+            @ColorInt int color = typedValue.data;
+            toolbar.setBackgroundColor(color);
+        } else {
+            TypedValue typedValue = new TypedValue();
+            Resources.Theme theme = ctx.getTheme();
+            theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
+            @ColorInt int color = typedValue.data;
+            toolbar.setBackgroundColor(color);
+        }
     }
 
     public void setupDummyObjects() {
@@ -387,7 +416,7 @@ public class Globals {
 
         Project project6 = new Project("🐻 Draw a Bear");
         project6.setText("" +"Draw a bear on a piece of paper\n"+
-                            "Our bear does not have a nose!!!" + "");
+                "Our bear does not have a nose!!!" + "");
 
         Task task12 = new Task("Draw Head", Size.TINY, Priority.CRITICAL);
         task12.setCompleteStatus(true);
