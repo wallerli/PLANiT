@@ -45,8 +45,6 @@ public class Globals {
     public static final int MAX_TEXT_LENGTH = 500;
     public static final int MAX_TAG_LENGTH = 20;
 
-    private static Context ctx;
-
 //    private Globals() {
 //        setupDummyObjects();
 //    }
@@ -164,7 +162,6 @@ public class Globals {
 
     public int save(Context ctx){
         try {
-//            OutputStreamWriter out = new OutputStreamWriter(System.out);
             OutputStreamWriter out = new OutputStreamWriter(ctx.openFileOutput(FILE_NAME, Context.MODE_PRIVATE));
             JsonWriter writer = new JsonWriter(out);
             writer.setIndent("\t");
