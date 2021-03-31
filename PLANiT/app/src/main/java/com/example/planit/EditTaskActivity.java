@@ -39,6 +39,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Arrays;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static android.view.View.GONE;
 import static com.example.planit.MainActivity.VIEW_TASK_ID;
@@ -400,9 +401,10 @@ public class EditTaskActivity extends AppCompatActivity {
                 (parentProject != null) ?
                         (parentProject.containsTask(task.getUUID()) ?
                                 globals.getValidBlockers(task.getUUID()) :
-                                parentProject.getTasks()
+                                parentProject.getTasks().stream().map(globals::getTask).sorted((t1, t2) ->
+                                        t1.getTitle().compareTo(t2.getTitle())).map(Task::getUUID).collect(Collectors.toList())
                         ) :
-                        new ArrayList<UUID>();
+                        new ArrayList<>();
         if (blockers.size() == 0)
             emptyBlockersText.setVisibility(View.VISIBLE);
         else
