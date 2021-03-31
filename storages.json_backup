@@ -30,7 +30,7 @@
     			"name": "CSCI 5115",
     			"color": -1341639
     		},
- 		{
+ 			{
     			"id": "e7d26931-bcdc-430f-88da-0177a70ff03e",
     			"name": "Group-Work",
     			"color": -4541402
@@ -92,7 +92,7 @@
     			"blockers": [
     				"fa41c528-ddd9-4016-bf1f-a4578762dd4d"
     			]
- 		},
+ 			},
     		{
     			"id": "a4ec77dd-2f6a-4fe9-b46c-2574b65c03b0",
     			"title": "Apply to graduate",
@@ -307,7 +307,7 @@
     				"6df5b37f-3be1-4146-8617-37d22825cadb"
     			]
     		},
- 		{
+ 			{
     			"id": "fabc8c04-161f-483c-a6aa-efd1da5a8650",
     			"title": "Milestone 2 Demonstration",
     			"completed": false,
@@ -345,7 +345,7 @@
     			"tags": [],
     			"blockers": []
     		},
- 		{
+ 			{
     			"id": "3fa67b67-bf63-469a-bbcc-8a0e64746cfa",
     			"title": "Order graduation apparel",
     			"completed": false,
