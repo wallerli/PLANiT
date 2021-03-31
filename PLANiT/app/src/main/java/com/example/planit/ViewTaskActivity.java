@@ -60,6 +60,12 @@ public class ViewTaskActivity extends AppCompatActivity {
         populate();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        Globals.getInstance().save(this);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,13 +1,10 @@
 package com.example.planit;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -26,6 +23,13 @@ public class Project {
 
     public Project(String title) {
         this.setTitle(title);
+    }
+
+    public Project(UUID uuid, String title, Date due, String text) {
+        this.uuid = uuid;
+        this.setTitle(title);
+        this.dueDate = due;
+        this.text = text;
     }
 
     public Project(Project originalProject) {
@@ -85,7 +89,6 @@ public class Project {
         return this.tasks.contains(uuid);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public List<UUID> getTasks() {
         return new ArrayList<>(this.tasks);
     }

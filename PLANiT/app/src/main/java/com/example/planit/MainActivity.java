@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import android.os.Handler;
 import android.view.View;
 
 import android.view.Menu;
@@ -31,9 +32,22 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
 
     @Override
+    public void onPause() {
+        super.onPause();
+        new Handler().postDelayed(() -> Globals.getInstance().save(this), 1000);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Globals.getInstance().save(this);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Globals.getInstance(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

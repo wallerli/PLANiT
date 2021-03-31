@@ -356,6 +356,7 @@ public class EditTaskActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 Toast.makeText(getApplicationContext(),"Saved",Toast.LENGTH_SHORT).show();
+                globals.save(this);
             }
         }
 
