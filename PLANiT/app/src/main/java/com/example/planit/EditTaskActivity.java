@@ -112,7 +112,7 @@ public class EditTaskActivity extends AppCompatActivity {
             if (intent.getStringExtra(PARENT_PROJECT_ID) != null) {
                 parentProject = new Project(globals.getProject(UUID.fromString(intent.getStringExtra(PARENT_PROJECT_ID))));
             }
-            toolbar.setTitle("Add New Task");
+            toolbar.setTitle(R.string.create_task);
             delete.setVisibility(GONE);
             newTask = true;
             titleEdit.requestFocus();
