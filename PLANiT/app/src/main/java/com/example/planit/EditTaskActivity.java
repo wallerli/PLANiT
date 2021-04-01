@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -38,6 +39,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Arrays;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static android.view.View.GONE;
 import static com.example.planit.MainActivity.VIEW_TASK_ID;
@@ -110,12 +112,13 @@ public class EditTaskActivity extends AppCompatActivity {
             if (intent.getStringExtra(PARENT_PROJECT_ID) != null) {
                 parentProject = new Project(globals.getProject(UUID.fromString(intent.getStringExtra(PARENT_PROJECT_ID))));
             }
-            toolbar.setTitle("Add New Task");
+            toolbar.setTitle(R.string.create_task);
             delete.setVisibility(GONE);
             newTask = true;
             titleEdit.requestFocus();
         }
         setSupportActionBar(toolbar);
+        Globals.updateToolbarColor(this, toolbar);
         sizeChips.check(sizeChipIDs[task.getSize().ordinal()]);
         priorityChips.check(priorityChipIDs[task.getPriority().ordinal()]);
         updateTagChips();
@@ -130,7 +133,7 @@ public class EditTaskActivity extends AppCompatActivity {
             arrayList_project.add(p.getValue().getTitle());
         }
         act_projects.setAdapter(
-            isNightMode()
+            Globals.isNightMode(this)
                     ? new ArrayAdapter<>(getApplicationContext(), R.layout.custom_autocomplete_night, arrayList_project)
                     : new ArrayAdapter<>(getApplicationContext(), R.layout.custom_autocomplete, arrayList_project)
         );
@@ -392,22 +395,16 @@ public class EditTaskActivity extends AppCompatActivity {
         tagChips.addView(lChip);
     }
 
-    private boolean isNightMode() {
-        int nightModeFlags =
-                getResources().getConfiguration().uiMode &
-                        Configuration.UI_MODE_NIGHT_MASK;
-        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void resetBlockersList() {
         List<UUID> blockers =
                 (parentProject != null) ?
                         (parentProject.containsTask(task.getUUID()) ?
                                 globals.getValidBlockers(task.getUUID()) :
-                                parentProject.getTasks()
+                                parentProject.getTasks().stream().map(globals::getTask).sorted((t1, t2) ->
+                                        t1.getTitle().compareTo(t2.getTitle())).map(Task::getUUID).collect(Collectors.toList())
                         ) :
-                        new ArrayList<UUID>();
+                        new ArrayList<>();
         if (blockers.size() == 0)
             emptyBlockersText.setVisibility(View.VISIBLE);
         else

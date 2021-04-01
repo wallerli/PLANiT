@@ -104,12 +104,13 @@ public class EditProjectActivity extends AppCompatActivity {
         }
         else {
             project = new Project("");
-            toolbar.setTitle("Add New Project");
+            toolbar.setTitle(R.string.create_project);
             delete.setVisibility(GONE);
             newProject = true;
             title.requestFocus();
         }
         setSupportActionBar(toolbar);
+        Globals.updateToolbarColor(this, toolbar);
         dueCLear.setEnabled(project.getDueDate() != null);
 
         toolbar.setNavigationOnClickListener(view -> finish());

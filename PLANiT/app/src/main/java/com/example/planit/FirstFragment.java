@@ -78,6 +78,8 @@ public class FirstFragment extends Fragment {
         super.onPause();
         if (searchView != null)
             searchView.clearFocus();
+        if (((TabLayout)getActivity().findViewById(R.id.tabLayout)).getSelectedTabPosition() == 1)
+            new Handler().postDelayed(this::onResume, 500);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

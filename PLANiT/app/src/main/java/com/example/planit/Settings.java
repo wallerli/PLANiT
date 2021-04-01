@@ -15,6 +15,7 @@ public class Settings extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.settings_toolbar);
         //setSupportActionBar(toolbar);
+        Globals.updateToolbarColor(this, toolbar);
         toolbar.inflateMenu(R.menu.menu_toolbar_settings);
         toolbar.setNavigationOnClickListener(view -> finish());
 
