@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -51,10 +52,10 @@ public class Globals {
 
     private Globals(Context ctx) {
         if(isFilePresent(ctx)) {
-            int ret = read(ctx);
+            read(ctx);
         } else {
             setupDummyObjects();
-            int ret = save(ctx);
+            save(ctx);
         }
     }
 
@@ -162,7 +163,9 @@ public class Globals {
 
     public int save(Context ctx){
         try {
-            OutputStreamWriter out = new OutputStreamWriter(ctx.openFileOutput(FILE_NAME, Context.MODE_PRIVATE));
+            FileOutputStream fos = ctx.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+            OutputStreamWriter out = new OutputStreamWriter(fos);
+//            OutputStreamWriter out = new OutputStreamWriter(System.out);
             JsonWriter writer = new JsonWriter(out);
             writer.setIndent("\t");
             writer.beginObject();

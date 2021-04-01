@@ -343,20 +343,24 @@ public class EditTaskActivity extends AppCompatActivity {
                 alertDialog.show();
             }
             else {
-                if (!newTask) {
-                    globals.getParentProject(task.getUUID()).removeTask(task.getUUID());
+                if (globals.save(this) == 0) {
+                    if (!newTask) {
+                        globals.getParentProject(task.getUUID()).removeTask(task.getUUID());
+                    }
+                    globals.addTask(task);
+                    parentProject.addTask(task.getUUID());
+                    globals.addProject(parentProject);
+                    finish();
+                    if (newTask) {
+                        Intent intent = new Intent(this, ViewTaskActivity.class);
+                        intent.putExtra(VIEW_TASK_ID, task.getUUID().toString());
+                        startActivity(intent);
+                    }
+                    Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
+                    globals.save(this);
+                } else {
+                    Toast.makeText(getApplicationContext(), "An error occurred, please try again.", Toast.LENGTH_SHORT).show();
                 }
-                globals.addTask(task);
-                parentProject.addTask(task.getUUID());
-                globals.addProject(parentProject);
-                finish();
-                if (newTask) {
-                    Intent intent = new Intent(this, ViewTaskActivity.class);
-                    intent.putExtra(VIEW_TASK_ID, task.getUUID().toString());
-                    startActivity(intent);
-                }
-                Toast.makeText(getApplicationContext(),"Saved",Toast.LENGTH_SHORT).show();
-                globals.save(this);
             }
         }
 

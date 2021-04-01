@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -100,9 +101,15 @@ public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskVie
             int ret;
             if (holder.completed) {
                 ret = Globals.getInstance().setTaskCompleted(holder.taskUUID, false);
+                globals.save(mCtx);
+                globals.read(mCtx);
                 if (ret == 0) {
-                    holder.completed = false;
-                    holder.setIncomplete();
+                    if (!globals.getTask(holder.taskUUID).getCompleteStatus()) {
+                        holder.completed = false;
+                        holder.setIncomplete();
+                    } else {
+                        Toast.makeText(mCtx.getApplicationContext(), "An error occurred, please try again.", Toast.LENGTH_SHORT).show();
+                    }
                 } else if (ret == 3) {
                     holder.completed = false;
                     holder.unblocked = false;
@@ -110,9 +117,15 @@ public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskVie
                 }
             } else {
                 ret = Globals.getInstance().setTaskCompleted(holder.taskUUID, true);
+                globals.save(mCtx);
+                globals.read(mCtx);
                 if (ret == 0) {
-                    holder.completed = true;
-                    holder.setComplete();
+                    if (globals.getTask(holder.taskUUID).getCompleteStatus()) {
+                        holder.completed = true;
+                        holder.setComplete();
+                    } else {
+                        Toast.makeText(mCtx.getApplicationContext(), "An error occurred, please try again.", Toast.LENGTH_SHORT).show();
+                    }
                 } else if (ret == 2) {
                     holder.completed = false;
                     holder.unblocked = false;

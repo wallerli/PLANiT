@@ -263,15 +263,18 @@ public class EditProjectActivity extends AppCompatActivity {
                         });
                 alertDialog.show();
             } else {
-                globals.addProject(project);
-                finish();
-                if (newProject) {
-                    Intent intent = new Intent(this, ViewProjectActivity.class);
-                    intent.putExtra(VIEW_PROJECT_ID, project.getUUID().toString());
-                    startActivity(intent);
+                if (globals.save(this) == 0) {
+                    globals.addProject(project);
+                    finish();
+                    if (newProject) {
+                        Intent intent = new Intent(this, ViewProjectActivity.class);
+                        intent.putExtra(VIEW_PROJECT_ID, project.getUUID().toString());
+                        startActivity(intent);
+                    }
+                    Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "An error occurred, please try again.", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(getApplicationContext(),"Saved",Toast.LENGTH_SHORT).show();
-                globals.save(this);
             }
         }
 
