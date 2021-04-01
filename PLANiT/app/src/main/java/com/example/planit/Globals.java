@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -55,9 +56,11 @@ public class Globals {
     public static final int MAX_TEXT_LENGTH = 500;
     public static final int MAX_TAG_LENGTH = 20;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private Globals(Context ctx) {
         read(ctx);
         if (restored) {
+            updateRestoredDueDate();
             save(ctx);
         }
     }
@@ -66,6 +69,7 @@ public class Globals {
         return globals_instance;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public static Globals getInstance(Context ctx) {
         if (globals_instance == null)
             globals_instance = new Globals(ctx);
@@ -235,6 +239,24 @@ public class Globals {
         String path = context.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
         File file = new File(path);
         return file.exists();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void updateRestoredDueDate() {
+        SimpleDateFormat df = new SimpleDateFormat("M/d/yyyy", Locale.ENGLISH);
+        Date today = new Date(System.currentTimeMillis());
+        long dateDiff = 0;
+        try {
+            dateDiff = Objects.requireNonNull(df.parse(df.format(today))).getTime() - Objects.requireNonNull(df.parse("3/30/2021")).getTime();
+        } catch (ParseException ignored) { }
+        long finalDateDiff = dateDiff;
+        projects.values().forEach(p -> {
+            Date due = p.getDueDate();
+            if (due != null) {
+                p.setDueDate(new Date(due.getTime() + finalDateDiff));
+                projects.put(p.getUUID(), p);
+            }
+        });
     }
 
     public Project addProject(Project project) {
