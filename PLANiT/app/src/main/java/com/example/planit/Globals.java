@@ -1,7 +1,6 @@
 package com.example.planit;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.util.JsonReader;
 import android.util.JsonToken;
@@ -15,15 +14,12 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.nio.channels.FileChannel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
@@ -81,6 +77,7 @@ public class Globals {
             InputStream fis;
             if (isStorageFilePresent(ctx)) {
                 fis = ctx.openFileInput(FILE_NAME);
+                restored = false;
             }  else {
                 fis = ctx.getAssets().open(FILE_NAME_BACKUP);
                 restored = true;
@@ -228,9 +225,9 @@ public class Globals {
             File from      = new File(ctx.getFilesDir(), FILE_NAME_TEMP);
             File to        = new File(ctx.getFilesDir(), FILE_NAME);
             return from.renameTo(to) ? 0 : 1;
-        } catch (IllegalStateException illegalStateException) {
+        } catch (FileNotFoundException fileNotFound) {
             return 1;
-        } catch (Throwable throwable) {
+        } catch (IOException ioException) {
             return 1;
         }
     }

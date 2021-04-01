@@ -23,12 +23,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
                 android:textSize="@dimen/logo_font_size"
-                android:textColor="?attr/colorSurface"
-                android:fontFamily="@font/intro_black"
-                android:padding="0dp">
-
-            </TextView>
-
+                android:fontFamily="@font/intro_black"/>
         </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout
