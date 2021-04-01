@@ -39,7 +39,7 @@
     <dimen name="view_description_font_size">18sp</dimen>
     <dimen name="view_subtitle_font_size">16sp</dimen>
     <dimen name="view_title_font_size">26sp</dimen>
-    <dimen name="logo_font_size">57sp</dimen>
+    <dimen name="logo_font_size">56.2sp</dimen>
 
     <dimen name="indicator_hint_font_size">12sp</dimen>
     <dimen name="indicator_progress_font_size">12sp</dimen>
