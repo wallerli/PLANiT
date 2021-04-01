@@ -17,7 +17,19 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:collapseIcon="@drawable/ic_baseline_arrow_back_24"
-            app:popupTheme="@style/Theme.PLANiT.PopupOverlay" />
+            app:popupTheme="@style/Theme.PLANiT.PopupOverlay">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="@dimen/logo_font_size"
+                android:textColor="?attr/colorSurface"
+                android:fontFamily="@font/intro_black"
+                android:padding="0dp">
+
+            </TextView>
+
+        </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
