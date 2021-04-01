@@ -18,9 +18,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.nio.channels.FileChannel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
@@ -44,6 +46,7 @@ public class Globals {
     private final Map<UUID, Tag> tags = new HashMap<>();
     private final Map<UUID, Task> tasks = new HashMap<>();
     private final static String FILE_NAME = "storage.json";
+    private final static String FILE_NAME_TEMP = "storage.json_temp";
 
     public static final int MAX_TITLE_LENGTH = 100;
     public static final int MAX_TEXT_LENGTH = 500;
@@ -159,9 +162,8 @@ public class Globals {
 
     public int save(Context ctx){
         try {
-            FileOutputStream fos = ctx.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+            FileOutputStream fos = ctx.openFileOutput(FILE_NAME_TEMP, Context.MODE_PRIVATE);
             OutputStreamWriter out = new OutputStreamWriter(fos);
-//            OutputStreamWriter out = new OutputStreamWriter(System.out);
             JsonWriter writer = new JsonWriter(out);
             writer.setIndent("\t");
             writer.beginObject();
@@ -212,8 +214,12 @@ public class Globals {
             writer.endObject();
             writer.flush();
             writer.close();
-            return 0;
-        } catch (IOException ioException) {
+            File from      = new File(ctx.getFilesDir(), FILE_NAME_TEMP);
+            File to        = new File(ctx.getFilesDir(), FILE_NAME);
+            return from.renameTo(to) ? 0 : 1;
+        } catch (IllegalStateException illegalStateException) {
+            return 1;
+        } catch (Throwable throwable) {
             return 1;
         }
     }

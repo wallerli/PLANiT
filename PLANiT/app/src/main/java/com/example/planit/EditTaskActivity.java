@@ -346,13 +346,13 @@ public class EditTaskActivity extends AppCompatActivity {
                 alertDialog.show();
             }
             else {
+                if (!newTask) {
+                    globals.getParentProject(task.getUUID()).removeTask(task.getUUID());
+                }
+                globals.addTask(task);
+                parentProject.addTask(task.getUUID());
+                globals.addProject(parentProject);
                 if (globals.save(this) == 0) {
-                    if (!newTask) {
-                        globals.getParentProject(task.getUUID()).removeTask(task.getUUID());
-                    }
-                    globals.addTask(task);
-                    parentProject.addTask(task.getUUID());
-                    globals.addProject(parentProject);
                     finish();
                     if (newTask) {
                         Intent intent = new Intent(this, ViewTaskActivity.class);

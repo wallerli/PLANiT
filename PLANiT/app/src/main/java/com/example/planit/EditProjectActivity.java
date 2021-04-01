@@ -264,8 +264,8 @@ public class EditProjectActivity extends AppCompatActivity {
                         });
                 alertDialog.show();
             } else {
+                globals.addProject(project);
                 if (globals.save(this) == 0) {
-                    globals.addProject(project);
                     finish();
                     if (newProject) {
                         Intent intent = new Intent(this, ViewProjectActivity.class);
