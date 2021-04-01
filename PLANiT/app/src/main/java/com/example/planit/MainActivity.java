@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         Globals.getInstance(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Globals.updateToolbarColor(this, toolbar);
 
         fab = findViewById(R.id.fab);
 

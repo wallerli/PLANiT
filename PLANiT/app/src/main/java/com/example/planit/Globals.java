@@ -6,10 +6,14 @@ import android.os.Build;
 import android.util.JsonReader;
 import android.util.JsonToken;
 import android.util.JsonWriter;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.util.TypedValue;
+import androidx.appcompat.widget.Toolbar;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,7 +23,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.AbstractMap;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -46,10 +49,6 @@ public class Globals {
     public static final int MAX_TEXT_LENGTH = 500;
     public static final int MAX_TAG_LENGTH = 20;
 
-//    private Globals() {
-//        setupDummyObjects();
-//    }
-
     private Globals(Context ctx) {
         if(isFilePresent(ctx)) {
             read(ctx);
@@ -60,9 +59,6 @@ public class Globals {
     }
 
     public static Globals getInstance() {
-//        if (globals_instance == null)
-//            globals_instance = new Globals();
-//        return globals_instance;
         return globals_instance;
     }
 
@@ -291,8 +287,6 @@ public class Globals {
         return projects.values().stream().sorted(new ProjectComparator()).map(Project::getUUID).collect(Collectors.toList());
     }
 
-//    public List<UUID> getProjects() { return new ArrayList<>(projects.keySet()); }
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void removeProject(UUID projectUUID) {
         Iterator iterator = getProject(projectUUID).getTasks().iterator();
@@ -358,6 +352,29 @@ public class Globals {
         }
         addTask(task);
         return 0;
+    }
+
+    public static boolean isNightMode(Context ctx) {
+        int nightModeFlags =
+                ctx.getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    public static void updateToolbarColor(Context ctx, Toolbar toolbar) {
+        if (isNightMode(ctx)) {
+            TypedValue typedValue = new TypedValue();
+            Resources.Theme theme = ctx.getTheme();
+            theme.resolveAttribute(R.attr.backgroundColor, typedValue, true);
+            @ColorInt int color = typedValue.data;
+            toolbar.setBackgroundColor(color);
+        } else {
+            TypedValue typedValue = new TypedValue();
+            Resources.Theme theme = ctx.getTheme();
+            theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
+            @ColorInt int color = typedValue.data;
+            toolbar.setBackgroundColor(color);
+        }
     }
 
     public void setupDummyObjects() {
@@ -434,7 +451,6 @@ public class Globals {
         addTask(task1);
         addTask(task2);
 
-
         Project project1 = new Project("Update Company Website");
         project1.setText("" +
                 "Include the bios of the new 2021 employees. Find them on the Twitter page (@companyteam_twitter)" +
@@ -453,7 +469,6 @@ public class Globals {
         project1.addTask(task3.getUUID());
         addProject(project1);
         addTask(task3);
-
 
         Project project2 = new Project("Plan for graduation!!! 🎓");
         project2.setText("" +
@@ -506,7 +521,6 @@ public class Globals {
         addTask(task6);
         addTask(task7);
 
-
         Project project3 = new Project("Analyze Company Data");
         project3.setText("" +
                 "Find ways to utilize past company data that is already being stored. My boss wants to increase sales, find new consumer trends to impress her." +
@@ -514,7 +528,6 @@ public class Globals {
         project3.addTag(tag0.getUUID());
         project3.addTag(tag4.getUUID());
         addProject(project3);
-
 
         Project project4 = new Project("Android Studio");
         project4.setText("" +
@@ -571,7 +584,7 @@ public class Globals {
 
         Project project6 = new Project("🐻 Draw a Bear");
         project6.setText("" +"Draw a bear on a piece of paper\n"+
-                            "Our bear does not have a nose!!!" + "");
+                "Our bear does not have a nose!!!" + "");
 
         Task task12 = new Task("Draw Head", Size.TINY, Priority.CRITICAL);
         task12.setCompleteStatus(true);
@@ -771,6 +784,7 @@ public class Globals {
         /**
          * Reversed ordered by number of completeness, priority, # of blockers, size
          */
+        @RequiresApi(api = Build.VERSION_CODES.N)
         public int compare(Task t1, Task t2) {
             if (t1.getCompleteStatus() != t2.getCompleteStatus())
                 return t1.getCompleteStatus() ? 1 : -1;
