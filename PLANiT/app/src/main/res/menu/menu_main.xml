@@ -6,13 +6,11 @@
         android:id="@+id/action_search"
         android:icon="@drawable/ic_baseline_search_24"
         android:title="@string/search"
-        android:textColor="@color/white"
         app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView" />
+        app:showAsAction="always|collapseActionView" />
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_baseline_settings_24"
         android:title="@string/settings"
-        android:textColor="@color/white"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
 </menu>
