@@ -114,7 +114,7 @@ public class ViewTaskActivity extends AppCompatActivity {
                         completed = false;
                         setIncomplete();
                     } else {
-
+                        Toast.makeText(getApplicationContext(), "An error occurred, please try again.", Toast.LENGTH_SHORT).show();
                     }
                 } else if (ret == 3) {
                     completed = false;
