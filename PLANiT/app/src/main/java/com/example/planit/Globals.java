@@ -59,7 +59,7 @@ public class Globals {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private Globals(Context ctx) {
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(ctx.getApplicationContext());;
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(ctx.getApplicationContext());
         demoMode = shared.getBoolean("demoMode", false);
         read(ctx);
         if (restored) {

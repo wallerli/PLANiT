@@ -3,6 +3,7 @@ package com.example.planit;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Handler;
@@ -20,6 +22,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     FragmentPagerAdapter FragmentPagerAdapter;
     ViewPager viewPager;
     TabLayout tabLayout;
+    TextView logo;
 
     @Override
     public void onPause() {
@@ -52,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Globals.getInstance(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        logo = findViewById(R.id.app_logo);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         Globals.updateToolbarColor(this, toolbar);
@@ -66,6 +72,18 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getApplication());
+        logo.setOnLongClickListener(v -> {
+            if (shared.getBoolean("demoMode", false)) {
+                shared.edit().putBoolean("developer", true).apply();
+                Toast.makeText(getApplicationContext(), R.string.turn_off_demo_mode_text,Toast.LENGTH_SHORT).show();
+            } else {
+                shared.edit().putBoolean("developer", !shared.getBoolean("developer", false)).apply();
+                Toast.makeText(getApplicationContext(), shared.getBoolean("developer", false) ?
+                        R.string.developer_on : R.string.developer_off ,Toast.LENGTH_SHORT).show();
+            }
+            return false;
+        });
 
         setPagerAdapter();
         setTabLayout();
