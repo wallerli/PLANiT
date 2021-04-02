@@ -201,6 +201,6 @@ public class ViewProjectActivity extends AppCompatActivity {
         if (project.getCompleteness() < 1)
             completenessText.setText(String.format(Locale.getDefault(), "%.1f%%", 100 * project.getCompleteness()));
         else
-            completenessText.setText(R.string.done);
+            completenessText.setText(R.string.done_period);
     }
 }

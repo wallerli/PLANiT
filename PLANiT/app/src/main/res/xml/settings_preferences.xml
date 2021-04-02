@@ -62,7 +62,8 @@
     <PreferenceCategory
         app:title="@string/developer_header"
         app:iconSpaceReserved="false"
-        app:key="developer">
+        app:key="developer"
+        app:isPreferenceVisible="false">
 
         <SwitchPreferenceCompat
             app:iconSpaceReserved="false"
@@ -73,6 +74,5 @@
         </SwitchPreferenceCompat>
 
     </PreferenceCategory>
-
 
 </PreferenceScreen>
