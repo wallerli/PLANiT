@@ -1,6 +1,7 @@
 package com.example.planit;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.JsonReader;
 import android.util.JsonToken;
@@ -12,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
+import androidx.preference.PreferenceManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,6 +39,8 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.sql.Timestamp;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class Globals {
 
     private static Globals globals_instance = null;
@@ -46,6 +50,7 @@ public class Globals {
     private final static String FILE_NAME = "storage.json";
     private final static String FILE_NAME_TEMP = "storage.json_temp";
     private final static String FILE_NAME_BACKUP = "storage.json_backup";
+    private boolean demoMode = false;
     private boolean restored = false;
 
     public static final int MAX_TITLE_LENGTH = 100;
@@ -54,6 +59,8 @@ public class Globals {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private Globals(Context ctx) {
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(ctx.getApplicationContext());;
+        demoMode = shared.getBoolean("demoMode", false);
         read(ctx);
         if (restored) {
             updateRestoredDueDate();
@@ -73,163 +80,176 @@ public class Globals {
     }
 
     public int read(Context ctx) {
-        try {
-            InputStream fis;
-            if (isStorageFilePresent(ctx)) {
-                fis = ctx.openFileInput(FILE_NAME);
-                restored = false;
-            }  else {
-                fis = ctx.getAssets().open(FILE_NAME_BACKUP);
-                restored = true;
-            }
-            InputStreamReader isr = new InputStreamReader(fis);
-            JsonReader reader = new JsonReader(isr);
-            tags.clear();
-            tasks.clear();
-            projects.clear();
-            reader.beginObject();
-            reader.nextName();
-            reader.beginArray();
-            while (reader.peek() != JsonToken.END_ARRAY) {
+        if (!restored) {
+            try {
+                InputStream fis;
+                if (demoMode) {
+                    fis = ctx.getAssets().open(FILE_NAME_BACKUP);
+                    restored = true;
+                } else if (isStorageFilePresent(ctx)) {
+                    fis = ctx.openFileInput(FILE_NAME);
+                    restored = true;
+                } else {
+                    restored = false;
+                    return 0;
+                }
+                InputStreamReader isr = new InputStreamReader(fis);
+                JsonReader reader = new JsonReader(isr);
+                tags.clear();
+                tasks.clear();
+                projects.clear();
                 reader.beginObject();
                 reader.nextName();
-                UUID uuid = UUID.fromString(reader.nextString());
+                reader.beginArray();
+                while (reader.peek() != JsonToken.END_ARRAY) {
+                    reader.beginObject();
+                    reader.nextName();
+                    UUID uuid = UUID.fromString(reader.nextString());
+                    reader.nextName();
+                    String name = reader.nextString();
+                    reader.nextName();
+                    int hex = reader.nextInt();
+                    Tag tag = new Tag(uuid, name, hex);
+                    tags.put(tag.getUUID(), tag);
+                    reader.endObject();
+                }
+                reader.endArray();
                 reader.nextName();
-                String name = reader.nextString();
+                reader.beginArray();
+                while (reader.peek() != JsonToken.END_ARRAY) {
+                    reader.beginObject();
+                    reader.nextName();
+                    UUID uuid = UUID.fromString(reader.nextString());
+                    reader.nextName();
+                    String title = reader.nextString();
+                    reader.nextName();
+                    boolean completed = reader.nextBoolean();
+                    reader.nextName();
+                    Size size = Size.valueOf(reader.nextString());
+                    reader.nextName();
+                    Priority priority = Priority.valueOf(reader.nextString());
+                    reader.nextName();
+                    String text = reader.nextString();
+                    Task task = new Task(uuid, title, completed, size, priority, text);
+                    reader.nextName();
+                    reader.beginArray();
+                    while (reader.peek() != JsonToken.END_ARRAY)
+                        task.addTag(UUID.fromString(reader.nextString()));
+                    reader.endArray();
+                    reader.nextName();
+                    reader.beginArray();
+                    while (reader.peek() != JsonToken.END_ARRAY)
+                        task.addBlocker(UUID.fromString(reader.nextString()));
+                    reader.endArray();
+                    tasks.put(task.getUUID(), task);
+                    reader.endObject();
+                }
+                reader.endArray();
                 reader.nextName();
-                int hex = reader.nextInt();
-                Tag tag = new Tag(uuid, name, hex);
-                tags.put(tag.getUUID(), tag);
+                reader.beginArray();
+                while (reader.peek() != JsonToken.END_ARRAY) {
+                    reader.beginObject();
+                    reader.nextName();
+                    UUID uuid = UUID.fromString(reader.nextString());
+                    reader.nextName();
+                    String title = reader.nextString();
+                    reader.nextName();
+                    Date due = reader.peek() == JsonToken.NULL ? null : new Date(reader.nextLong());
+                    if (due == null) reader.nextNull();
+                    reader.nextName();
+                    String text = reader.nextString();
+                    Project project = new Project(uuid, title, due, text);
+                    reader.nextName();
+                    reader.beginArray();
+                    while (reader.peek() != JsonToken.END_ARRAY)
+                        project.addTag(UUID.fromString(reader.nextString()));
+                    reader.endArray();
+                    reader.nextName();
+                    reader.beginArray();
+                    while (reader.peek() != JsonToken.END_ARRAY)
+                        project.addTask(UUID.fromString(reader.nextString()));
+                    reader.endArray();
+                    projects.put(project.getUUID(), project);
+                    reader.endObject();
+                }
+                reader.endArray();
                 reader.endObject();
+                reader.close();
+                return 0;
+            } catch (FileNotFoundException fileNotFound) {
+                return 1;
+            } catch (IOException ioException) {
+                return 1;
             }
-            reader.endArray();
-            reader.nextName();
-            reader.beginArray();
-            while (reader.peek() != JsonToken.END_ARRAY) {
-                reader.beginObject();
-                reader.nextName();
-                UUID uuid = UUID.fromString(reader.nextString());
-                reader.nextName();
-                String title = reader.nextString();
-                reader.nextName();
-                boolean completed = reader.nextBoolean();
-                reader.nextName();
-                Size size = Size.valueOf(reader.nextString());
-                reader.nextName();
-                Priority priority = Priority.valueOf(reader.nextString());
-                reader.nextName();
-                String text = reader.nextString();
-                Task task = new Task(uuid, title, completed, size, priority, text);
-                reader.nextName();
-                reader.beginArray();
-                while (reader.peek() != JsonToken.END_ARRAY) task.addTag(UUID.fromString(reader.nextString()));
-                reader.endArray();
-                reader.nextName();
-                reader.beginArray();
-                while (reader.peek() != JsonToken.END_ARRAY) task.addBlocker(UUID.fromString(reader.nextString()));
-                reader.endArray();
-                tasks.put(task.getUUID(), task);
-                reader.endObject();
-            }
-            reader.endArray();
-            reader.nextName();
-            reader.beginArray();
-            while (reader.peek() != JsonToken.END_ARRAY) {
-                reader.beginObject();
-                reader.nextName();
-                UUID uuid = UUID.fromString(reader.nextString());
-                reader.nextName();
-                String title = reader.nextString();
-                reader.nextName();
-                Date due = reader.peek() == JsonToken.NULL ? null : new Date(reader.nextLong());
-                if (due == null) reader.nextNull();
-                reader.nextName();
-                String text = reader.nextString();
-                Project project = new Project(uuid, title, due, text);
-                reader.nextName();
-                reader.beginArray();
-                while (reader.peek() != JsonToken.END_ARRAY) project.addTag(UUID.fromString(reader.nextString()));
-                reader.endArray();
-                reader.nextName();
-                reader.beginArray();
-                while (reader.peek() != JsonToken.END_ARRAY) project.addTask(UUID.fromString(reader.nextString()));
-                reader.endArray();
-                projects.put(project.getUUID(), project);
-                reader.endObject();
-            }
-            reader.endArray();
-            reader.endObject();
-            reader.close();
-            return 0;
-        } catch (FileNotFoundException fileNotFound) {
-            return 1;
-        } catch (IOException ioException) {
-            return 1;
         }
+        return 0;
     }
 
-    public int save(Context ctx){
-        try {
-            FileOutputStream fos = ctx.openFileOutput(FILE_NAME_TEMP, Context.MODE_PRIVATE);
-            OutputStreamWriter out = new OutputStreamWriter(fos);
-            JsonWriter writer = new JsonWriter(out);
-            writer.setIndent("\t");
-            writer.beginObject();
-            writer.name("tags").beginArray();
-            for (Tag tag : tags.values()) {
+    public int save(Context ctx) {
+        if (!demoMode) {
+            try {
+                FileOutputStream fos = ctx.openFileOutput(FILE_NAME_TEMP, MODE_PRIVATE);
+                OutputStreamWriter out = new OutputStreamWriter(fos);
+                JsonWriter writer = new JsonWriter(out);
+                writer.setIndent("\t");
                 writer.beginObject();
-                writer.name("id").value(tag.getUUID().toString());
-                writer.name("name").value(tag.getName());
-                writer.name("color").value(tag.getHexColor());
-                writer.endObject();
-            }
-            writer.endArray();
-            writer.name("tasks").beginArray();
-            for (Task task : tasks.values()) {
-                writer.beginObject();
-                writer.name("id").value(task.getUUID().toString());
-                writer.name("title").value(task.getTitle());
-                writer.name("completed").value(task.getCompleteStatus());
-                writer.name("size").value(task.getSize().toString());
-                writer.name("priority").value(task.getPriority().toString());
-                writer.name("text").value(task.getText());
                 writer.name("tags").beginArray();
-                for (UUID tags : task.getTags()) writer.value(tags.toString());
-                writer.endArray();
-                writer.name("blockers").beginArray();
-                for (UUID blockers : task.getBlockers()) writer.value(blockers.toString());
-                writer.endArray();
-                writer.endObject();
-            }
-            writer.endArray();
-            writer.name("projects").beginArray();
-            for (Project project : projects.values()) {
-                writer.beginObject();
-                writer.name("id").value(project.getUUID().toString());
-                writer.name("title").value(project.getTitle());
-                Date due = project.getDueDate();
-                writer.name("due").value(due != null ? due.getTime() : null);
-                writer.name("text").value(project.getText());
-                writer.name("tags").beginArray();
-                for (UUID tags : project.getTags()) writer.value(tags.toString());
+                for (Tag tag : tags.values()) {
+                    writer.beginObject();
+                    writer.name("id").value(tag.getUUID().toString());
+                    writer.name("name").value(tag.getName());
+                    writer.name("color").value(tag.getHexColor());
+                    writer.endObject();
+                }
                 writer.endArray();
                 writer.name("tasks").beginArray();
-                for (UUID tasks : project.getTasks()) writer.value(tasks.toString());
+                for (Task task : tasks.values()) {
+                    writer.beginObject();
+                    writer.name("id").value(task.getUUID().toString());
+                    writer.name("title").value(task.getTitle());
+                    writer.name("completed").value(task.getCompleteStatus());
+                    writer.name("size").value(task.getSize().toString());
+                    writer.name("priority").value(task.getPriority().toString());
+                    writer.name("text").value(task.getText());
+                    writer.name("tags").beginArray();
+                    for (UUID tags : task.getTags()) writer.value(tags.toString());
+                    writer.endArray();
+                    writer.name("blockers").beginArray();
+                    for (UUID blockers : task.getBlockers()) writer.value(blockers.toString());
+                    writer.endArray();
+                    writer.endObject();
+                }
+                writer.endArray();
+                writer.name("projects").beginArray();
+                for (Project project : projects.values()) {
+                    writer.beginObject();
+                    writer.name("id").value(project.getUUID().toString());
+                    writer.name("title").value(project.getTitle());
+                    Date due = project.getDueDate();
+                    writer.name("due").value(due != null ? due.getTime() : null);
+                    writer.name("text").value(project.getText());
+                    writer.name("tags").beginArray();
+                    for (UUID tags : project.getTags()) writer.value(tags.toString());
+                    writer.endArray();
+                    writer.name("tasks").beginArray();
+                    for (UUID tasks : project.getTasks()) writer.value(tasks.toString());
+                    writer.endArray();
+                    writer.endObject();
+                }
                 writer.endArray();
                 writer.endObject();
+                writer.flush();
+                writer.close();
+                File from = new File(ctx.getFilesDir(), FILE_NAME_TEMP);
+                File to = new File(ctx.getFilesDir(), FILE_NAME);
+                return from.renameTo(to) ? 0 : 1;
+            } catch (FileNotFoundException fileNotFound) {
+                return 1;
+            } catch (IOException ioException) {
+                return 1;
             }
-            writer.endArray();
-            writer.endObject();
-            writer.flush();
-            writer.close();
-            File from      = new File(ctx.getFilesDir(), FILE_NAME_TEMP);
-            File to        = new File(ctx.getFilesDir(), FILE_NAME);
-            return from.renameTo(to) ? 0 : 1;
-        } catch (FileNotFoundException fileNotFound) {
-            return 1;
-        } catch (IOException ioException) {
-            return 1;
         }
+        return 0;
     }
 
     public boolean isStorageFilePresent(Context context) {

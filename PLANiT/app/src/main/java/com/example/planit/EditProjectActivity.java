@@ -119,7 +119,6 @@ public class EditProjectActivity extends AppCompatActivity {
         dueTime.setOnClickListener(this::showTimePickerDialog);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         updateChips();
 
         // Listeners
@@ -316,17 +315,19 @@ public class EditProjectActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void showDatePickerDialog(View v) {
-        datePicker =
-                MaterialDatePicker.Builder.datePicker()
-                        .setTitleText("Select date")
-                        .setSelection(date.getTime())
-                        .build();
-        datePicker.show(getSupportFragmentManager(), datePicker.toString());
-        datePicker.addOnPositiveButtonClickListener(l -> {
-            strDate = dateFormat.format(new Date(l));
-            dueDate.setText(strDate);
-            updateDate();
-        });
+        try {
+            datePicker =
+                    MaterialDatePicker.Builder.datePicker()
+                            .setTitleText("Select date")
+                            .setSelection(dateFormat.parse(dateTimeFormat.format(date)).getTime())
+                            .build();
+            datePicker.show(getSupportFragmentManager(), datePicker.toString());
+            datePicker.addOnPositiveButtonClickListener(l -> {
+                strDate = dateFormat.format(new Date(l));
+                dueDate.setText(strDate);
+                updateDate();
+            });
+        } catch (ParseException ignored) { }
     }
 
     private void updateDate() {

@@ -74,10 +74,14 @@
     <string name="tags_settings_summary">Add \/ edit \/ delete tags (coming soon)</string>
     <string name="tags_settings_title">Manage Tags</string>
     <string name="help_header">Help</string>
+    <string name="developer_header">Developer</string>
     <string name="email_developer_summary">Thanks for trying out 💖 (coming soon)</string>
     <string name="email_developer_title">Email feedback to developers</string>
     <string name="faq_settings_summary">FAQ (coming soon)</string>
     <string name="faq_settings_title">Frequently Asked Questions</string>
+    <string name="demo_mode_title">Demonstration Mode</string>
+    <string name="demo_mode_description_on">Mock data will be restored after restarting</string>
+    <string name="demo_mode_description_off">User data will be displayed after restarting</string>
     <string name="empty_recycler">Nothing to show here 🎐</string>
     <string name="empty_tasks_recycler">Create a task first 🎯</string>
     <string name="empty_blocker_recycler">This task has no blocker 🎊</string>
