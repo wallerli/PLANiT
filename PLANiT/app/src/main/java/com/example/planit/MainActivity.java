@@ -39,12 +39,6 @@ public class MainActivity extends AppCompatActivity {
     TextView logo;
 
     @Override
-    public void onPause() {
-        super.onPause();
-        new Handler().postDelayed(() -> Globals.getInstance().save(this), 1000);
-    }
-
-    @Override
     public void onStop() {
         super.onStop();
         Globals.getInstance().save(this);
