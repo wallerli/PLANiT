@@ -25,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -60,13 +61,20 @@ public class EditTaskActivity extends AppCompatActivity {
     ChipGroup tagChips;
     TextView emptyTagsText, emptyBlockersText, blockersLabel;
     RecyclerView blockersRecycler;
-    Button delete;
+    Button delete, createProject;
 
     ArrayList<String> arrayList_project = new ArrayList<>();
     final Integer[] sizeChipIDs = new Integer[] {R.id.tiny_chip, R.id.small_chip, R.id.medium_chip, R.id.large_chip, R.id.huge_chip};
     final Integer[] priorityChipIDs = new Integer[] {R.id.low_chip, R.id.moderate_chip, R.id.high_chip, R.id.critical_chip};
 
     boolean newTask = false;
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        initializeActProjects();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -93,6 +101,7 @@ public class EditTaskActivity extends AppCompatActivity {
         blockersRecycler.setHasFixedSize(true);
         blockersRecycler.setLayoutManager(new LinearLayoutManager(this));
         blockersRecycler.setNestedScrollingEnabled(false);
+        createProject = findViewById(R.id.new_project_button);
         delete = findViewById(R.id.delete_button);
         titleInput = findViewById(R.id.edit_task_title);
         textInput = findViewById(R.id.descriptionText);
@@ -127,17 +136,9 @@ public class EditTaskActivity extends AppCompatActivity {
         if (parentProject != null) {
             act_projects.setText(parentProject.getTitle());
         }
+        arrayList_project = Globals.getInstance().getProjects().values().stream().map(Project::getTitle).collect(Collectors.toCollection(ArrayList::new));
 
-        // Get all project names to fill in menu
-        for (Map.Entry<UUID, Project> p : globals.getProjects().entrySet()) {
-            arrayList_project.add(p.getValue().getTitle());
-        }
-        act_projects.setAdapter(
-            Globals.isNightMode(this)
-                    ? new ArrayAdapter<>(getApplicationContext(), R.layout.custom_autocomplete_night, arrayList_project)
-                    : new ArrayAdapter<>(getApplicationContext(), R.layout.custom_autocomplete, arrayList_project)
-        );
-        act_projects.setThreshold(0); // characters required to load suggestion for spinner
+        initializeActProjects();
 
         // Activating listeners
         toolbar.setNavigationOnClickListener(view -> finish());
@@ -217,7 +218,10 @@ public class EditTaskActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) { }
+            public void afterTextChanged(Editable s) {
+                if (act_projects.getAdapter().getCount() == 0)
+                    parentInput.setError("No matched project.");
+            }
         });
 
         sizeChips.setOnCheckedChangeListener((group, checkedId) ->
@@ -268,9 +272,13 @@ public class EditTaskActivity extends AppCompatActivity {
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DELETE",
                     (dialog, which) -> {
                         globals.removeTask(task.getUUID());
-                        dialog.dismiss();
-                        finish();
-                        Toast.makeText(getApplicationContext(),"Deleted",Toast.LENGTH_SHORT).show();
+                        if (globals.save(this) == 0 && Globals.getInstance().getTask(task.getUUID()) == null) {
+                            finish();
+                            Toast.makeText(getApplicationContext(), R.string.deleted, Toast.LENGTH_SHORT).show();
+                        } else {
+                            dialog.dismiss();
+                            Toast.makeText(getApplicationContext(), R.string.try_again, Toast.LENGTH_SHORT).show();
+                        }
                     });
             alertDialog.show();
             Button b = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
@@ -289,6 +297,12 @@ public class EditTaskActivity extends AppCompatActivity {
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DISMISS",
                     (dialog, which) -> dialog.dismiss());
             alertDialog.show();
+        });
+
+        createProject.setOnClickListener(v -> {
+            Intent intent_project = new Intent(this, EditProjectActivity.class);
+            intent_project.putExtra(EDIT_TASK_ID, task.getUUID().toString());
+            startActivity(intent_project);
         });
     }
 
@@ -359,10 +373,10 @@ public class EditTaskActivity extends AppCompatActivity {
                         intent.putExtra(VIEW_TASK_ID, task.getUUID().toString());
                         startActivity(intent);
                     }
-                    Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.saved, Toast.LENGTH_SHORT).show();
                     globals.save(this);
                 } else {
-                    Toast.makeText(getApplicationContext(), "An error occurred, please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.try_again, Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -415,5 +429,24 @@ public class EditTaskActivity extends AppCompatActivity {
         else
             emptyBlockersText.setVisibility(View.INVISIBLE);
         blockersRecycler.setAdapter(new BlockerAdapter(this, blockers, task));
+    }
+
+    /**
+     * Get all project names to fill in menu
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void initializeActProjects() {
+        ArrayList<String> arrayList_project_new = Globals.getInstance().getProjects().values().stream().map(Project::getTitle).collect(Collectors.toCollection(ArrayList::new));
+        String newProjectTitle = arrayList_project_new.stream().filter(p -> !arrayList_project.contains(p)).findFirst().orElse(null);
+        arrayList_project = arrayList_project_new;
+        act_projects.setAdapter(
+                Globals.isNightMode(this)
+                        ? new ArrayAdapter<>(getApplicationContext(), R.layout.custom_autocomplete_night, arrayList_project)
+                        : new ArrayAdapter<>(getApplicationContext(), R.layout.custom_autocomplete, arrayList_project)
+        );
+        act_projects.setThreshold(0);
+        if (parentProject == null && newProjectTitle != null) {
+            act_projects.setText(newProjectTitle);
+        }
     }
 }

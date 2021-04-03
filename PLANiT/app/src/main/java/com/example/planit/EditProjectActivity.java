@@ -63,6 +63,7 @@ public class EditProjectActivity extends AppCompatActivity {
     String strTime;
 
     boolean newProject = false;
+    boolean editingTask = false;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -108,6 +109,9 @@ public class EditProjectActivity extends AppCompatActivity {
             delete.setVisibility(GONE);
             newProject = true;
             title.requestFocus();
+        }
+        if (intent.getStringExtra(EditTaskActivity.EDIT_TASK_ID) != null) {
+            editingTask = true;
         }
         setSupportActionBar(toolbar);
         Globals.updateToolbarColor(this, toolbar);
@@ -203,9 +207,15 @@ public class EditProjectActivity extends AppCompatActivity {
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DELETE",
                     (dialog, which) -> {
                         globals.removeProject(project.getUUID());
-                        dialog.dismiss();
-                        finish();
-                        Toast.makeText(getApplicationContext(),"Deleted",Toast.LENGTH_SHORT).show();
+                        globals.save(this);
+                        globals.read(this);
+                        if (globals.save(this) == 0 && Globals.getInstance().getProject(project.getUUID()) == null) {
+                            finish();
+                            Toast.makeText(getApplicationContext(), R.string.deleted, Toast.LENGTH_SHORT).show();
+                        } else {
+                            dialog.dismiss();
+                            Toast.makeText(getApplicationContext(), R.string.try_again, Toast.LENGTH_SHORT).show();
+                        }
                     });
             alertDialog.show();
             Button b = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
@@ -266,14 +276,14 @@ public class EditProjectActivity extends AppCompatActivity {
                 globals.addProject(project);
                 if (globals.save(this) == 0) {
                     finish();
-                    if (newProject) {
+                    if (newProject && !editingTask) {
                         Intent intent = new Intent(this, ViewProjectActivity.class);
                         intent.putExtra(VIEW_PROJECT_ID, project.getUUID().toString());
                         startActivity(intent);
                     }
-                    Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.saved, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "An error occurred, please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.try_again, Toast.LENGTH_SHORT).show();
                 }
             }
         }
