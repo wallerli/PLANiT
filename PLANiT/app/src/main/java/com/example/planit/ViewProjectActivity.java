@@ -58,6 +58,12 @@ public class ViewProjectActivity extends AppCompatActivity {
         populate();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        Globals.getInstance().save(this);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,6 +201,6 @@ public class ViewProjectActivity extends AppCompatActivity {
         if (project.getCompleteness() < 1)
             completenessText.setText(String.format(Locale.getDefault(), "%.1f%%", 100 * project.getCompleteness()));
         else
-            completenessText.setText(R.string.done);
+            completenessText.setText(R.string.done_period);
     }
 }

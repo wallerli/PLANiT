@@ -1,5 +1,6 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/settings_screen">
 
     <PreferenceCategory app:title="@string/notification_header"
                         app:iconSpaceReserved="false">
@@ -32,7 +33,6 @@
             app:summary="@string/tags_settings_summary"
             app:iconSpaceReserved="false"
             android:widgetLayout="@layout/activity_settings_icon_layout_tag">
-            
         </Preference>
 
     </PreferenceCategory>
@@ -55,10 +55,24 @@
             app:summary="@string/faq_settings_summary"
             app:title="@string/faq_settings_title"
             android:widgetLayout="@layout/activity_settings_icon_layout_help">
-
         </Preference>
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:title="@string/developer_header"
+        app:iconSpaceReserved="false"
+        app:key="developer"
+        app:isPreferenceVisible="false">
+
+        <SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
+            app:key="demoMode"
+            app:title="@string/demo_mode_title"
+            app:summaryOff="@string/demo_mode_description_off"
+            app:summaryOn="@string/demo_mode_description_on">
+        </SwitchPreferenceCompat>
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

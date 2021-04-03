@@ -30,6 +30,7 @@
     <string name="edit_activity_title">Edit</string>
     <string name="edit">Edit</string>
     <string name="done">Done</string>
+    <string name="done_period">Done.</string>
     <string name="settings">Settings</string>
     <string name="search">Search</string>
     <string name="select_due_date_button_text">Select Due Date</string>
@@ -64,29 +65,39 @@
     <string name="settings_text">Settings</string>
     <string name="notification_header">Notifications</string>
     <string name="due_date_alert">Receive due date alerts</string>
-    <string name="due_alert_on">Notifications for upcoming due dates is on (coming soon)</string>
-    <string name="due_alert_off">Notifications for upcoming due dates is off (coming soon)</string>
+    <string name="due_alert_on">Notifications for upcoming due dates is on. (coming soon)</string>
+    <string name="due_alert_off">Notifications for upcoming due dates is off. (coming soon)</string>
     <string name="concentrate_remind">Receive concentrate on task reminders</string>
-    <string name="concentrate_alert_on">Reminders to concentrate on tasks is on (coming soon)</string>
-    <string name="concentrate_alert_off">Reminders to concentrate on tasks is off (coming soon)</string>
+    <string name="concentrate_alert_on">Reminders to concentrate on tasks is on. (coming soon)</string>
+    <string name="concentrate_alert_off">Reminders to concentrate on tasks is off. (coming soon)</string>
 
     <string name="tags_header">Tags</string>
-    <string name="tags_settings_summary">Add \/ edit \/ delete tags (coming soon)</string>
+    <string name="tags_settings_summary">Add \/ edit \/ delete tags. (coming soon)</string>
     <string name="tags_settings_title">Manage Tags</string>
     <string name="help_header">Help</string>
-    <string name="email_developer_summary">Thanks for trying out 💖 (coming soon)</string>
+    <string name="developer_header">Developer</string>
+    <string name="email_developer_summary">Thanks for trying out! 💖 (coming soon)</string>
     <string name="email_developer_title">Email feedback to developers</string>
     <string name="faq_settings_summary">FAQ (coming soon)</string>
     <string name="faq_settings_title">Frequently Asked Questions</string>
-    <string name="empty_recycler">Nothing to show here 🎐</string>
-    <string name="empty_tasks_recycler">Create a task first 🎯</string>
+    <string name="demo_mode_title">Demonstration Mode</string>
+    <string name="demo_mode_description_on">After relaunch, mock data will be restored.</string>
+    <string name="demo_mode_description_off">After relaunch, user data will be displayed.</string>
+    <string name="empty_recycler_1">No project to show here 🎐</string>
+    <string name="empty_recycler_2">No task to show here 🎏</string>
+    <string name="empty_tasks_recycler">Create a task now 🎯</string>
     <string name="empty_blocker_recycler">This task has no blocker 🎊</string>
     <string name="empty_tags_edit">No tag has been selected.</string>
 
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="delete_task_button_text">DELETE TASK</string>
     <string name="delete_project_button_text">DELETE PROJECT</string>
+    <string name="saved">Saved.</string>
+    <string name="deleted">Deleted.</string>
+    <string name="try_again">An error occurred, please try again.</string>
 
     <string name="empty_blocker_list">No task can block this one 😎</string>
-    <string name="to_be_implemented">Coming soon</string>
+    <string name="to_be_implemented">Coming soon!</string>
+    <string name="developer_on">Hi developer!</string>
+    <string name="developer_off">Developer menu is disabled.</string>
+    <string name="turn_off_demo_mode_text">Please turn off demonstration mode from settings!</string>
 </resources>

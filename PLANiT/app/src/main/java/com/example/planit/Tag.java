@@ -8,11 +8,17 @@ public class Tag {
     private String name;
     private int hexColor = -1;   // The accent color feels confusing with custom tag colors
 //    private int hexColor = R.attr.colorAccent;
-    private final UUID uuid = UUID.randomUUID();
+    private UUID uuid = UUID.randomUUID();
 
     public Tag(String name, int hexColor) {
         this.setName(name);
         this.hexColor = hexColor;
+    }
+
+    public Tag(UUID uuid, String name, int hexColor) {
+        this.setName(name);
+        this.hexColor = hexColor;
+        this.uuid = uuid;
     }
 
     public Tag(String name) {

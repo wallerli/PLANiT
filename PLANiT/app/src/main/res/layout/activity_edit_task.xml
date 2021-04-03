@@ -55,13 +55,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/parent_project" />
-        </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/new_project_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_project"
+                android:layout_below="@id/til_project"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                app:icon="@drawable/ic_baseline_add_24"
+                />
 
             <TextView
                 android:id="@+id/size_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/til_project"
+                android:layout_below="@id/new_project_button"
                 android:layout_marginTop="@dimen/title_margin"
                 android:text="@string/size_label_text"
                 app:layout_constraintTop_toTopOf="parent" />

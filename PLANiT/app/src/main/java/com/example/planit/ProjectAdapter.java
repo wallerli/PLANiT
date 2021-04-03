@@ -72,7 +72,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<com.example.planit.Proj
         if (project.getCompleteness() < 1)
             holder.completeness_text.setText(String.format(Locale.getDefault(), "%.1f%%", 100 * project.getCompleteness()));
         else
-            holder.completeness_text.setText(R.string.done);
+            holder.completeness_text.setText(R.string.done_period);
         holder.projectUUID = project.getUUID();
         holder.completeness = (int) (100 * project.getCompleteness());
         holder.updateProgress();
