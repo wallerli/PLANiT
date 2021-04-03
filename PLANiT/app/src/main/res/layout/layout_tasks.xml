@@ -21,7 +21,6 @@
             android:layout_marginStart="@dimen/task_indicator_marginLeft"
             android:layout_marginLeft="@dimen/task_indicator_marginLeft"
             android:layout_marginTop="@dimen/task_indicator_marginTop"
-            app:showAnimationBehavior="inward"
             app:trackColor="?colorSecondaryVariant"
             app:indicatorSize="@dimen/task_indicator_size" />
 
