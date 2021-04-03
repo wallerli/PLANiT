@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -25,9 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import android.widget.Button;
 import android.widget.TextView;
@@ -221,6 +217,8 @@ public class EditTaskActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (act_projects.getAdapter().getCount() == 0)
                     parentInput.setError("No matched project.");
+                else
+                    parentInput.setError(null);
             }
         });
 
@@ -445,8 +443,9 @@ public class EditTaskActivity extends AppCompatActivity {
                         : new ArrayAdapter<>(getApplicationContext(), R.layout.custom_autocomplete, arrayList_project)
         );
         act_projects.setThreshold(0);
-        if (parentProject == null && newProjectTitle != null) {
+        if (newProjectTitle != null) {
             act_projects.setText(newProjectTitle);
+            globals.getProjects().values().stream().filter(p -> p.getTitle().equals(newProjectTitle)).findFirst().ifPresent(project -> parentProject = new Project(project));
         }
     }
 }
