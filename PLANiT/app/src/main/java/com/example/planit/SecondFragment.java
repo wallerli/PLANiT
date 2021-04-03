@@ -59,27 +59,12 @@ public class SecondFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onStart() {
-        super.onStart();
-        if (searchItem != null && !searchItem.isActionViewExpanded()) {
-            filter = "";
-            showAllTasks();
-            if (searchView != null)
-                searchView.clearFocus();
-        }
-        if (fab != null && fab.getVisibility() != View.VISIBLE) {
-            fab.show();
-        }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
     public void onPause() {
         super.onPause();
         if (searchView != null)
             searchView.clearFocus();
         if (((TabLayout)getActivity().findViewById(R.id.tabLayout)).getSelectedTabPosition() == 0)
-            new Handler().postDelayed(this::onResume, 500);
+            new Handler().postDelayed(this::onResume, 400);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

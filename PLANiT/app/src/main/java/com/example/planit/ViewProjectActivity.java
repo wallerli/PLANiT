@@ -46,13 +46,6 @@ public class ViewProjectActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onResume() {
-        super.onResume();
-        populate();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
     public void onStart() {
         super.onStart();
         populate();
@@ -91,7 +84,6 @@ public class ViewProjectActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNestedScrollingEnabled(false);
-        populate();
         indicator.setOnClickListener(v -> {
             populate();
             if (tasks.size() == 0) {
