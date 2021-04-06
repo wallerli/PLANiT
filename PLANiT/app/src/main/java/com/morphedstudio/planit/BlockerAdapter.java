@@ -1,4 +1,4 @@
-package com.example.planit;
+package com.morphedstudio.planit;
 
 import android.content.Context;
 import android.os.Build;
@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class BlockerAdapter extends RecyclerView.Adapter<com.example.planit.BlockerViewHolder> {
+public class BlockerAdapter extends RecyclerView.Adapter<com.morphedstudio.planit.BlockerViewHolder> {
 
     Globals globals = Globals.getInstance();
     private final Context mCtx;

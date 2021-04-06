@@ -1,4 +1,4 @@
-package com.example.planit;
+package com.morphedstudio.planit;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class ProjectAdapter extends RecyclerView.Adapter<com.example.planit.ProjectViewHolder> {
+public class ProjectAdapter extends RecyclerView.Adapter<com.morphedstudio.planit.ProjectViewHolder> {
 
     private final Context mCtx;
     private final List<UUID> projects;

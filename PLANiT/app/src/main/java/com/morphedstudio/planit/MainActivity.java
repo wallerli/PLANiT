@@ -1,4 +1,4 @@
-package com.example.planit;
+package com.morphedstudio.planit;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -16,7 +16,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.Handler;
 import android.view.View;
 
 import android.view.Menu;
@@ -29,8 +28,8 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String VIEW_PROJECT_ID = "com.example.planit.VIEW_PROJECT_ID";
-    public static String VIEW_TASK_ID = "com.example.planit.VIEW_TASK_ID";
+    public static String VIEW_PROJECT_ID = "com.morphedstudio.planit.VIEW_PROJECT_ID";
+    public static String VIEW_TASK_ID = "com.morphedstudio.planit.VIEW_TASK_ID";
     FloatingActionButton fab;
     boolean fab_expanded = false;
     FragmentPagerAdapter FragmentPagerAdapter;

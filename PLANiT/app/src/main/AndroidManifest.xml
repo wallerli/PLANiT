@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.planit">
+    package="com.morphedstudio.planit">
 
     <application
         android:allowBackup="true"
@@ -9,26 +9,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PLANiT">
-        <activity android:name=".Settings"
+        <activity android:name="com.morphedstudio.planit.Settings"
                   android:theme="@style/Theme.PLANiT.NoActionBar" />
         <activity
-            android:name=".EditTaskActivity"
+            android:name="com.morphedstudio.planit.EditTaskActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.PLANiT.NoActionBar" />
         <activity
-            android:name=".EditProjectActivity"
+            android:name="com.morphedstudio.planit.EditProjectActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.PLANiT.NoActionBar" />
         <activity
-            android:name=".ViewTaskActivity"
+            android:name="com.morphedstudio.planit.ViewTaskActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.PLANiT.NoActionBar" />
         <activity
-            android:name=".ViewProjectActivity"
+            android:name="com.morphedstudio.planit.ViewProjectActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.PLANiT.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.morphedstudio.planit.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.PLANiT.NoActionBar"
             android:windowSoftInputMode="adjustResize">
@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name="com.morphedstudio.planit.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

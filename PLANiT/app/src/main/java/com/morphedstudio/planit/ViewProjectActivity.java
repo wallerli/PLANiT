@@ -1,4 +1,4 @@
-package com.example.planit;
+package com.morphedstudio.planit;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
@@ -32,8 +32,8 @@ import java.util.UUID;
 
 public class ViewProjectActivity extends AppCompatActivity {
 
-    public static String EDIT_PROJECT_ID = "com.example.planit.EDIT_PROJECT_ID";
-    public static String PARENT_PROJECT_ID = "com.example.planit.PARENT_PROJECT_ID";
+    public static String EDIT_PROJECT_ID = "com.morphedstudio.planit.EDIT_PROJECT_ID";
+    public static String PARENT_PROJECT_ID = "com.morphedstudio.planit.PARENT_PROJECT_ID";
 
     Project project;
     TextView title, due, text, completenessText, emptyRecyclerText;

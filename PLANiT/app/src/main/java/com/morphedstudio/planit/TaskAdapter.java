@@ -1,4 +1,4 @@
-package com.example.planit;
+package com.morphedstudio.planit;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class TaskAdapter extends RecyclerView.Adapter<com.example.planit.TaskViewHolder> {
+public class TaskAdapter extends RecyclerView.Adapter<com.morphedstudio.planit.TaskViewHolder> {
 
     private final Context mCtx;
     private final List<UUID> tasks;

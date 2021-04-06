@@ -1,4 +1,4 @@
-package com.example.planit;
+package com.morphedstudio.planit;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
@@ -39,12 +39,12 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static android.view.View.GONE;
-import static com.example.planit.MainActivity.VIEW_TASK_ID;
+import static com.morphedstudio.planit.MainActivity.VIEW_TASK_ID;
 
 public class EditTaskActivity extends AppCompatActivity {
 
-    public static String EDIT_TASK_ID = "com.example.planit.EDIT_TASK_ID";
-    public static String PARENT_PROJECT_ID = "com.example.planit.PARENT_PROJECT_ID";
+    public static String EDIT_TASK_ID = "com.morphedstudio.planit.EDIT_TASK_ID";
+    public static String PARENT_PROJECT_ID = "com.morphedstudio.planit.PARENT_PROJECT_ID";
     Globals globals = Globals.getInstance();
 
     Task task;

@@ -1,4 +1,4 @@
-package com.example.planit;
+package com.morphedstudio.planit;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -26,11 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.example.planit.MainActivity.VIEW_PROJECT_ID;
+import static com.morphedstudio.planit.MainActivity.VIEW_PROJECT_ID;
 
 public class ViewTaskActivity extends AppCompatActivity {
 
-    public static String EDIT_TASK_ID = "com.example.planit.EDIT_TASK_ID";
+    public static String EDIT_TASK_ID = "com.morphedstudio.planit.EDIT_TASK_ID";
 
     UUID task_id;
     Task task;

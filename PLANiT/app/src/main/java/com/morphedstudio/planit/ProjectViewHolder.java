@@ -1,8 +1,7 @@
-package com.example.planit;
+package com.morphedstudio.planit;
 
 import android.content.Context;
 import android.content.Intent;
-import android.transition.CircularPropagation;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,7 +12,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.util.UUID;
 
-import static com.example.planit.MainActivity.VIEW_PROJECT_ID;
+import static com.morphedstudio.planit.MainActivity.VIEW_PROJECT_ID;
 
 public class ProjectViewHolder extends RecyclerView.ViewHolder {
 
