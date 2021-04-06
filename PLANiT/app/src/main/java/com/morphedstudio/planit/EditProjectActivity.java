@@ -1,4 +1,4 @@
-package com.example.planit;
+package com.morphedstudio.planit;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
@@ -39,11 +39,11 @@ import java.util.TimeZone;
 import java.util.UUID;
 
 import static android.view.View.GONE;
-import static com.example.planit.MainActivity.VIEW_PROJECT_ID;
+import static com.morphedstudio.planit.MainActivity.VIEW_PROJECT_ID;
 
 public class EditProjectActivity extends AppCompatActivity {
 
-    public static String EDIT_PROJECT_ID = "com.example.planit.EDIT_PROJECT_ID";
+    public static String EDIT_PROJECT_ID = "com.morphedstudio.planit.EDIT_PROJECT_ID";
     Globals globals = Globals.getInstance();
 
     Project project;

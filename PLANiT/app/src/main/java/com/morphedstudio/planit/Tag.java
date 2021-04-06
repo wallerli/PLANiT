@@ -1,6 +1,4 @@
-package com.example.planit;
-
-import android.graphics.Color;
+package com.morphedstudio.planit;
 
 import java.util.UUID;
 

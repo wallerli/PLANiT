@@ -1,4 +1,4 @@
-package com.example.planit;
+package com.morphedstudio.planit;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

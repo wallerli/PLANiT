@@ -1,4 +1,4 @@
-package com.example.planit;
+package com.morphedstudio.planit;
 
 import android.content.Context;
 import android.content.SharedPreferences;
