@@ -29,6 +29,15 @@ public class Task {
         this.setTitle(title);
     }
 
+    public Task(UUID uuid, String title, boolean completed, Size size, Priority priority, String text) {
+        this.uuid = uuid;
+        this.setTitle(title);
+        setCompleteStatus(completed);
+        this.size = size;
+        this.priority = priority;
+        setText(text);
+    }
+
     public Task(String title, Size size, Priority priority) {
         this.setTitle(title);
         this.size = size;

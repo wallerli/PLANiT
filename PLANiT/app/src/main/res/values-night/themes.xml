@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.PLANiT" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#60A2BD</item>
+        <item name="colorPrimary">#63A2C6</item>
         <item name="colorPrimaryVariant">@color/custom_primary_variant</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->

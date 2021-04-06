@@ -46,16 +46,15 @@ public class ViewProjectActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onResume() {
-        super.onResume();
-        populate();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
     public void onStart() {
         super.onStart();
         populate();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Globals.getInstance().save(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -85,7 +84,6 @@ public class ViewProjectActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNestedScrollingEnabled(false);
-        populate();
         indicator.setOnClickListener(v -> {
             populate();
             if (tasks.size() == 0) {
@@ -195,6 +193,6 @@ public class ViewProjectActivity extends AppCompatActivity {
         if (project.getCompleteness() < 1)
             completenessText.setText(String.format(Locale.ENGLISH, "%.1f%%", 100 * project.getCompleteness()));
         else
-            completenessText.setText(R.string.done);
+            completenessText.setText(R.string.done_period);
     }
 }

@@ -2,6 +2,7 @@ package com.example.planit;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.preference.Preference;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -31,6 +32,4 @@ public class Settings extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_toolbar_settings, menu);
         return true;
     }
-
-
 }

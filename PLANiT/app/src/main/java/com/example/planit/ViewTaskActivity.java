@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -48,16 +49,15 @@ public class ViewTaskActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onResume() {
-        super.onResume();
-        populate();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
     public void onStart() {
         super.onStart();
         populate();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Globals.getInstance().save(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -93,15 +93,21 @@ public class ViewTaskActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNestedScrollingEnabled(false);
-        populate();
 
         indicator.setOnClickListener(v -> {
             int ret;
+            Globals globals = Globals.getInstance();
             if (completed) {
-                ret = Globals.getInstance().setTaskCompleted(task_id, false);
+                ret = globals.setTaskCompleted(task_id, false);
+                globals.save(this);
+                globals.read(this);
                 if (ret == 0) {
-                    completed = false;
-                    setIncomplete();
+                    if (!globals.getTask(task_id).getCompleteStatus()) {
+                        completed = false;
+                        setIncomplete();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "An error occurred, please try again.", Toast.LENGTH_SHORT).show();
+                    }
                 } else if (ret == 3) {
                     completed = false;
                     unblocked = false;
@@ -109,9 +115,15 @@ public class ViewTaskActivity extends AppCompatActivity {
                 }
             } else {
                 ret = Globals.getInstance().setTaskCompleted(task_id, true);
+                globals.save(this);
+                globals.read(this);
                 if (ret == 0) {
-                    completed = true;
-                    setComplete();
+                    if (globals.getTask(task_id).getCompleteStatus()) {
+                        completed = true;
+                        setComplete();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "An error occurred, please try again.", Toast.LENGTH_SHORT).show();
+                    }
                 } else if (ret == 2) {
                     completed = false;
                     unblocked = false;
