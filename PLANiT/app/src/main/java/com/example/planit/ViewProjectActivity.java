@@ -131,7 +131,7 @@ public class ViewProjectActivity extends AppCompatActivity {
         tags = project.getTags();
         title.setText(project.getTitle());
         updateChips();
-        SimpleDateFormat df = new SimpleDateFormat("M/d/yyyy h:mm a", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat("M/d/yyyy h:mm a", Locale.ENGLISH);
         Date dd = project.getDueDate();
         if (dd != null) {
             this.due.setText(df.format(project.getDueDate()));
@@ -193,7 +193,7 @@ public class ViewProjectActivity extends AppCompatActivity {
         project = Globals.getInstance().getProject(projectUUID);
         indicator.setProgress((int) (100 * project.getCompleteness()));
         if (project.getCompleteness() < 1)
-            completenessText.setText(String.format(Locale.getDefault(), "%.1f%%", 100 * project.getCompleteness()));
+            completenessText.setText(String.format(Locale.ENGLISH, "%.1f%%", 100 * project.getCompleteness()));
         else
             completenessText.setText(R.string.done);
     }

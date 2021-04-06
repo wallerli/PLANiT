@@ -55,9 +55,9 @@ public class EditProjectActivity extends AppCompatActivity {
     ChipGroup tagChips;
     TextView emptyTagsText;
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yyyy", Locale.getDefault());
-    SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
-    SimpleDateFormat dateTimeFormat = new SimpleDateFormat("M/d/yyyy h:mm a", Locale.getDefault());
+    SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yyyy", Locale.ENGLISH);
+    SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.ENGLISH);
+    SimpleDateFormat dateTimeFormat = new SimpleDateFormat("M/d/yyyy h:mm a", Locale.ENGLISH);
     Date date = new Date(MaterialDatePicker.todayInUtcMilliseconds());
     String strDate;
     String strTime;
@@ -294,7 +294,7 @@ public class EditProjectActivity extends AppCompatActivity {
                 hour -= 12;
                 AMPM = "PM";
             }
-            strTime = String.format(Locale.getDefault(), "%d:%02d %s", hour, timePicker.getMinute(), AMPM);
+            strTime = String.format(Locale.ENGLISH, "%d:%02d %s", hour, timePicker.getMinute(), AMPM);
             dueTime.setText(strTime);
             updateDate();
         });

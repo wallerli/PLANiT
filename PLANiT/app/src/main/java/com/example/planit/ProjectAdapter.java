@@ -44,7 +44,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<com.example.planit.Proj
     public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
         Project project = Globals.getInstance().getProject(projects.get(position));
         holder.title.setText(project.getTitle());
-        SimpleDateFormat df = new SimpleDateFormat("M/d/yyyy h:mm a", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat("M/d/yyyy h:mm a", Locale.ENGLISH);
         Date due = project.getDueDate();
         if (due != null) {
             holder.due.setText(df.format(project.getDueDate()));
@@ -70,7 +70,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<com.example.planit.Proj
             holder.due.setTypeface(null);
         }
         if (project.getCompleteness() < 1)
-            holder.completeness_text.setText(String.format(Locale.getDefault(), "%.1f%%", 100 * project.getCompleteness()));
+            holder.completeness_text.setText(String.format(Locale.ENGLISH, "%.1f%%", 100 * project.getCompleteness()));
         else
             holder.completeness_text.setText(R.string.done);
         holder.projectUUID = project.getUUID();
