@@ -309,9 +309,6 @@ public class EditProjectActivity extends AppCompatActivity {
                     hour -= 12;
                 }
             }
-            if (hour > 12) {
-                hour -= 12;
-            }
             strTime = String.format(Locale.ENGLISH, "%d:%02d %s", hour, timePicker.getMinute(), AMPM);
             dueTime.setText(strTime);
             updateDate();
