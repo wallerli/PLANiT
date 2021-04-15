@@ -304,8 +304,13 @@ public class EditProjectActivity extends AppCompatActivity {
             int hour = timePicker.getHour();
             String AMPM = "AM";
             if (hour >= 12) {
-                hour -= 12;
                 AMPM = "PM";
+                if (hour > 12) {
+                    hour -= 12;
+                }
+            }
+            if (hour > 12) {
+                hour -= 12;
             }
             strTime = String.format(Locale.ENGLISH, "%d:%02d %s", hour, timePicker.getMinute(), AMPM);
             dueTime.setText(strTime);
