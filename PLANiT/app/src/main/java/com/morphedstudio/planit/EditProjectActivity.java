@@ -293,19 +293,35 @@ public class EditProjectActivity extends AppCompatActivity {
     }
 
     public void showTimePickerDialog(View v) {
-         timePicker = new MaterialTimePicker.Builder()
-                        .setTitleText("Select time")
-                        .setTimeFormat(TimeFormat.CLOCK_12H)
-                        .setHour(23)
-                        .setMinute(59)
-                        .build();
+        if (strTime != null && strTime.contains(":")) {
+            String[] time = strTime.split ( ":");
+            int hour = Integer.parseInt (time[0].trim());
+            int min = Integer.parseInt (time[1].split (" ")[0].trim());
+            String AMPM = time[1].split (" ")[1].trim();
+            if (AMPM.equals("PM") && hour < 12) hour += 12;
+            timePicker = new MaterialTimePicker.Builder()
+                    .setTitleText("Select time")
+                    .setTimeFormat(TimeFormat.CLOCK_12H)
+                    .setHour(hour)
+                    .setMinute(min)
+                    .build();
+        } else {
+            timePicker = new MaterialTimePicker.Builder()
+                    .setTitleText("Select time")
+                    .setTimeFormat(TimeFormat.CLOCK_12H)
+                    .setHour(23)
+                    .setMinute(59)
+                    .build();
+        }
         timePicker.show(getSupportFragmentManager(), timePicker.toString());
         timePicker.addOnPositiveButtonClickListener(t -> {
             int hour = timePicker.getHour();
             String AMPM = "AM";
             if (hour >= 12) {
-                hour -= 12;
                 AMPM = "PM";
+                if (hour > 12) {
+                    hour -= 12;
+                }
             }
             strTime = String.format(Locale.ENGLISH, "%d:%02d %s", hour, timePicker.getMinute(), AMPM);
             dueTime.setText(strTime);
