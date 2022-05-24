@@ -1,6 +1,6 @@
 <div align="center">
 
-<img alt="PLANiT Icon" src="PLANiT\app\src\main\res\drawable\ic_planit_round.png"/>
+![PLANiT Icon](PLANiT/app/src/main/res/drawable/ic_planit_round.png)
 
 # PLANiT
 
